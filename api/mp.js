@@ -24,21 +24,23 @@ export default async function handler(req, res) {
     let { name, party, email, constituency, person_id } = mp || {};
 
     // ---- Helper to normalize person/getMPs responses ----
-    const normalizePerson = (raw) => {
-      const p = Array.isArray(raw) ? (raw[0] || {}) : (raw || {});
-      const n =
-        p.name ||
-        p.full_name ||
-        [p.given_name, p.family_name].filter(Boolean).join(" ") ||
-        p.first_name && p.last_name ? `${p.first_name} ${p.last_name}` : null;
-      return {
-        name: n || null,
-        party: p.party || null,
-        email: p.email || null,
-        constituency: p.constituency || null,
-        person_id: p.person_id || p.id || null,
-      };
-    };
+   const normalizePerson = (raw) => {
+  const p = Array.isArray(raw) ? (raw[0] || {}) : (raw || {});
+  const n =
+    p.name ||
+    p.full_name ||
+    [p.given_name, p.family_name].filter(Boolean).join(" ") ||
+    [p.first_name, p.last_name].filter(Boolean).join(" ") ||
+    null;
+  return {
+    name: n || null,
+    party: p.party || null,
+    email: p.email || null,
+    constituency: p.constituency || null,
+    person_id: p.person_id || p.id || null,
+  };
+};
+
 
     // 2) Fallback A: if name/email missing but we have person_id → getPerson
     if ((name == null || email == null) && person_id) {
