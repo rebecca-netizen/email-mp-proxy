@@ -5,7 +5,7 @@ let EMAILS_CACHE = null;
 let EMAILS_CACHE_AT = 0;
 
 // 👇 This is your GitHub "raw" file link for MP email addresses
-const EMAIL_SOURCE_URL = "https://raw.githubusercontent.com/rebecca-netizen/email-mp-proxy/refs/heads/main/api/data/emails.json";
+const EMAIL_SOURCE_URL = "https://raw.githubusercontent.com/rebecca-netizen/email-mp-proxy/main/api/data/emails.json";
 
 // Reload from GitHub every 10 minutes
 async function loadEmails() {
