@@ -1,0 +1,44 @@
+[
+  {
+    "constituency":"Ipswich",
+    "mp_name":"Jack Abbott",
+    "party":"Labour",
+    "email":"jack.abbott.mp@parliament.uk"
+  },
+  {
+    "constituency":"Hackney North and Stoke Newington",
+    "mp_name":"Diane Abbott",
+    "party":"Labour",
+    "email":"diane.abbott.office@parliament.uk"
+  },
+  {
+    "constituency":"Oldham East and Saddleworth",
+    "mp_name":"Debbie Abrahams",
+    "party":"Labour",
+    "email":"abrahamsd@parliament.uk"
+  },
+  {
+    "constituency":"Leicester South ",
+    "mp_name":"Shockat Adam",
+    "party":"Independent",
+    "email":"shockat.adam.mp@parliament.uk"
+  },
+  {
+    "constituency":"Glasgow South West",
+    "mp_name":"Zubir Ahmed",
+    "party":"Labour",
+    "email":"zubir.ahmed.mp@parliament.uk"
+  },
+  {
+    "constituency":"North Durham ",
+    "mp_name":"Luke Akehurst",
+    "party":"Labour",
+    "email":"luke.akehurst.mp@parliament.uk"
+  },
+  {
+    "constituency":"Southend East and Rochford ",
+    "mp_name":"Bayo Alaba",
+    "party":"Labour ",
+    "email":"bayo.alaba.mp@parliament.uk"
+  }
+]
