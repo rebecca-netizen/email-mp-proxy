@@ -1,6 +1,40 @@
+// ===== Email Your MP API — Final Version =====
+
+// Cache email list in memory for speed
+let EMAILS_CACHE = null;
+let EMAILS_CACHE_AT = 0;
+
+// 👇 This is your GitHub "raw" file link for MP email addresses
+const EMAIL_SOURCE_URL = "https://raw.githubusercontent.com/rebecca-netizen/email-mp-proxy/refs/heads/main/api/data/emails.json";
+
+// Reload from GitHub every 10 minutes
+async function loadEmails() {
+  const now = Date.now();
+  if (EMAILS_CACHE && (now - EMAILS_CACHE_AT) < 10 * 60 * 1000) return EMAILS_CACHE;
+
+  const r = await fetch(EMAIL_SOURCE_URL, { cache: "no-store" });
+  if (!r.ok) throw new Error("Failed to load emails.json");
+  const list = await r.json();
+
+  // Build quick lookup by constituency (case-insensitive)
+  const mapByCon = Object.create(null);
+  const mapByName = Object.create(null);
+
+  for (const row of list) {
+    if (!row) continue;
+    if (row.constituency)
+      mapByCon[row.constituency.toLowerCase()] = row.email || null;
+    if (row.mp_name)
+      mapByName[row.mp_name.toLowerCase()] = row.email || null;
+  }
+
+  EMAILS_CACHE = { byCon: mapByCon, byName: mapByName };
+  EMAILS_CACHE_AT = now;
+  return EMAILS_CACHE;
+}
+
 export default async function handler(req, res) {
   try {
-    // CORS preflight
     if (req.method === "OPTIONS") {
       setCORS(res);
       return res.status(200).end();
@@ -12,91 +46,36 @@ export default async function handler(req, res) {
     const KEY = process.env.TWFY_API_KEY;
     if (!KEY) return send(res, 500, { error: "API key not configured" });
 
-    // 1) Primary lookup: getMP by postcode
-    const mpUrl = `https://www.theyworkforyou.com/api/getMP?postcode=${encodeURIComponent(
-      postcode
-    )}&output=js&key=${encodeURIComponent(KEY)}`;
-
+    // 1️⃣ Lookup MP by postcode
+    const mpUrl = `https://www.theyworkforyou.com/api/getMP?postcode=${encodeURIComponent(postcode)}&output=js&key=${encodeURIComponent(KEY)}`;
     const r = await fetch(mpUrl);
     if (!r.ok) return send(res, r.status, { error: `TWFY ${r.status}` });
+    const mp = await r.json();
 
-    const mp = await r.json(); // may have name/email null
     let { name, party, email, constituency, person_id } = mp || {};
 
-    // ---- Helper to normalize person/getMPs responses ----
-   const normalizePerson = (raw) => {
-  const p = Array.isArray(raw) ? (raw[0] || {}) : (raw || {});
-  const n =
-    p.name ||
-    p.full_name ||
-    [p.given_name, p.family_name].filter(Boolean).join(" ") ||
-    [p.first_name, p.last_name].filter(Boolean).join(" ") ||
-    null;
-  return {
-    name: n || null,
-    party: p.party || null,
-    email: p.email || null,
-    constituency: p.constituency || null,
-    person_id: p.person_id || p.id || null,
-  };
-};
+    // Normalise name
+    const fullName = name || null;
 
-
-    // 2) Fallback A: if name/email missing but we have person_id → getPerson
-    if ((name == null || email == null) && person_id) {
-      const personUrl = `https://www.theyworkforyou.com/api/getPerson?id=${encodeURIComponent(
-        person_id
-      )}&output=js&key=${encodeURIComponent(KEY)}`;
-      const pr = await fetch(personUrl);
-      if (pr.ok) {
-        const personRaw = await pr.json();
-        const p = normalizePerson(personRaw);
-        if (name == null) name = p.name;
-        if (email == null) email = p.email;
-        if (!party && p.party) party = p.party;
-        if (!constituency && p.constituency) constituency = p.constituency;
-      }
+    // 2️⃣ Fallback A: If email missing, load from your JSON file
+    try {
+      const emails = await loadEmails();
+      const emailByCon = constituency ? emails.byCon[constituency.toLowerCase()] : null;
+      const emailByName = fullName ? emails.byName[fullName.toLowerCase()] : null;
+      if (emailByCon) email = emailByCon;
+      else if (emailByName) email = emailByName;
+    } catch (e) {
+      console.warn("Email list load failed:", e.message);
     }
 
-    // 3) Fallback B: if we STILL don’t have a name, try getMPs (filters)
-    if (name == null && constituency) {
-      const mpsUrl = `https://www.theyworkforyou.com/api/getMPs?output=js&key=${encodeURIComponent(
-        KEY
-      )}&constituency=${encodeURIComponent(constituency)}`;
-      const mr = await fetch(mpsUrl);
-      if (mr.ok) {
-        const listRaw = await mr.json(); // often an array
-        const p = normalizePerson(listRaw);
-        if (!name && p.name) name = p.name;
-        if (!party && p.party) party = p.party;
-        if (!email && p.email) email = p.email;
-        if (!person_id && p.person_id) person_id = p.person_id;
-      }
-    }
-
+    // 3️⃣ Contact page URL fallback
     const contact_url = person_id
       ? `https://www.theyworkforyou.com/mp/?p=${encodeURIComponent(person_id)}`
       : null;
 
+    // 4️⃣ Return data to Squarespace
     return send(res, 200, {
-      name: name || null,
+      name: fullName || null,
       party: party || null,
       email: email || null,
-      constituency: constituency || null,
-      person_id: person_id || null,
-      contact_url,
-    });
-  } catch (e) {
-    return send(res, 500, { error: e.message || "server error" });
-  }
-}
-
-function setCORS(res) {
-  res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader("Access-Control-Allow-Methods", "GET, OPTIONS");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
-}
-function send(res, status, body) {
-  setCORS(res);
-  res.status(status).json(body);
-}
+      constituency: c
