@@ -1,27 +1,1443 @@
 [
   {
-    "constituency":"Ipswich",
-    "mp_name":"Jack Abbott",
+    "constituency":"Aberafan Maesteg",
+    "mp_name":"Stephen Kinnock",
     "party":"Labour",
-    "email":"jack.abbott.mp@parliament.uk"
+    "email":"stephen.kinnock.mp@parliament.uk"
   },
   {
-    "constituency":"Hackney North and Stoke Newington",
-    "mp_name":"Diane Abbott",
-    "party":"Labour",
-    "email":"diane.abbott.office@parliament.uk"
+    "constituency":"Aberdeen North",
+    "mp_name":"Kirsty Blackman",
+    "party":"Scottish National Party",
+    "email":"kirsty.blackman.mp@parliament.uk"
   },
   {
-    "constituency":"Oldham East and Saddleworth",
-    "mp_name":"Debbie Abrahams",
-    "party":"Labour",
-    "email":"abrahamsd@parliament.uk"
+    "constituency":"Aberdeen South",
+    "mp_name":"Stephen Flynn",
+    "party":"Scottish National Party",
+    "email":"stephen.flynn.mp@parliament.uk"
   },
   {
-    "constituency":"Leicester South ",
-    "mp_name":"Shockat Adam",
+    "constituency":"Aberdeenshire North and Moray East",
+    "mp_name":"Seamus Logan",
+    "party":"Scottish National Party",
+    "email":"seamus.logan.mp@parliament.uk"
+  },
+  {
+    "constituency":"Airdrie and Shotts",
+    "mp_name":"Kenneth Stevenson",
+    "party":"Labour",
+    "email":"kenneth.stevenson.mp@parliament.uk"
+  },
+  {
+    "constituency":"Aldershot",
+    "mp_name":"Alex Baker",
+    "party":"Labour",
+    "email":"alex.baker.mp@parliament.uk"
+  },
+  {
+    "constituency":"Aldridge-Brownhills",
+    "mp_name":"Wendy Morton",
+    "party":"Conservative",
+    "email":"wendy.morton.mp@parliament.uk"
+  },
+  {
+    "constituency":"Alloa and Grangemouth",
+    "mp_name":"Brian Leishman",
     "party":"Independent",
-    "email":"shockat.adam.mp@parliament.uk"
+    "email":"brian.leishman.mp@parliament.uk"
+  },
+  {
+    "constituency":"Altrincham and Sale West",
+    "mp_name":"Connor Rand",
+    "party":"Labour",
+    "email":"connor.rand.mp@parliament.uk"
+  },
+  {
+    "constituency":"Alyn and Deeside",
+    "mp_name":"Mark Tami",
+    "party":"Labour",
+    "email":"tamim@parliament.uk"
+  },
+  {
+    "constituency":"Amber Valley",
+    "mp_name":"Linsey Farnsworth",
+    "party":"Labour",
+    "email":"linsey.farnsworth.mp@parliament.uk"
+  },
+  {
+    "constituency":"Angus and Perthshire Glens",
+    "mp_name":"Dave Doogan",
+    "party":"Scottish National Party",
+    "email":"dave.doogan.mp@parliament.uk"
+  },
+  {
+    "constituency":"Arbroath and Broughty Ferry",
+    "mp_name":"Stephen Gethins",
+    "party":"Scottish National Party",
+    "email":"stephen.gethins.mp@parliament.uk"
+  },
+  {
+    "constituency":"Argyll, Bute and South Lochaber",
+    "mp_name":"Brendan O'Hara",
+    "party":"Scottish National Party",
+    "email":"brendan.ohara.mp@parliament.uk"
+  },
+  {
+    "constituency":"Arundel and South Downs",
+    "mp_name":"Andrew Griffith",
+    "party":"Conservative",
+    "email":"andrew.griffith.mp@parliament.uk"
+  },
+  {
+    "constituency":"Ashfield",
+    "mp_name":"Lee Anderson",
+    "party":"Reform UK",
+    "email":"lee.anderson.mp@parliament.uk"
+  },
+  {
+    "constituency":"Ashford",
+    "mp_name":"Sojan Joseph",
+    "party":"Labour",
+    "email":"sojan.joseph.mp@parliament.uk"
+  },
+  {
+    "constituency":"Ashton-under-Lyne",
+    "mp_name":"Angela Rayner",
+    "party":"Labour",
+    "email":"angela.rayner.mp@parliament.uk"
+  },
+  {
+    "constituency":"Aylesbury",
+    "mp_name":"Laura Kyrke-Smith",
+    "party":"Labour",
+    "email":"laura.kyrkesmith.mp@parliament.uk"
+  },
+  {
+    "constituency":"Ayr, Carrick and Cumnock",
+    "mp_name":"Elaine Stewart",
+    "party":"Labour",
+    "email":"elaine.stewart.mp@parliament.uk"
+  },
+  {
+    "constituency":"Banbury",
+    "mp_name":"Sean Woodcock",
+    "party":"Labour",
+    "email":"sean.woodcock.mp@parliament.uk"
+  },
+  {
+    "constituency":"Bangor Aberconwy",
+    "mp_name":"Claire Hughes",
+    "party":"Labour",
+    "email":"claire.hughes.mp@parliament.uk"
+  },
+  {
+    "constituency":"Barking",
+    "mp_name":"Nesil Caliskan",
+    "party":"Labour",
+    "email":"nesil.caliskan.mp@parliament.uk"
+  },
+  {
+    "constituency":"Barnsley North",
+    "mp_name":"Dan Jarvis",
+    "party":"Labour",
+    "email":"dan.jarvis.mp@parliament.uk"
+  },
+  {
+    "constituency":"Barnsley South",
+    "mp_name":"Stephanie Peacock",
+    "party":"Labour",
+    "email":"stephanie.peacock.mp@parliament.uk"
+  },
+  {
+    "constituency":"Barrow and Furness",
+    "mp_name":"Michelle Scrogham",
+    "party":"Labour",
+    "email":"michelle.scrogham.mp@parliament.uk"
+  },
+  {
+    "constituency":"Basildon and Billericay",
+    "mp_name":"Richard Holden",
+    "party":"Conservative",
+    "email":"richard.holden.mp@parliament.uk"
+  },
+  {
+    "constituency":"Basingstoke",
+    "mp_name":"Luke Murphy",
+    "party":"Labour",
+    "email":"luke.murphy.mp@parliament.uk"
+  },
+  {
+    "constituency":"Bassetlaw",
+    "mp_name":"Jo White",
+    "party":"Labour",
+    "email":"jo.white.mp@parliament.uk"
+  },
+  {
+    "constituency":"Bath",
+    "mp_name":"Wera Hobhouse",
+    "party":"Liberal Democrat",
+    "email":"wera.hobhouse.mp@parliament.uk"
+  },
+  {
+    "constituency":"Bathgate and Linlithgow",
+    "mp_name":"Kirsteen Sullivan",
+    "party":"Labour",
+    "email":"kirsteen.sullivan.mp@parliament.uk"
+  },
+  {
+    "constituency":"Battersea",
+    "mp_name":"Marsha de Cordova",
+    "party":"Labour",
+    "email":"marsha.decordova.mp@parliament.uk"
+  },
+  {
+    "constituency":"Beaconsfield",
+    "mp_name":"Joy Morrissey",
+    "party":"Conservative",
+    "email":"joy.morrissey.mp@parliament.uk"
+  },
+  {
+    "constituency":"Beckenham and Penge",
+    "mp_name":"Liam Conlon",
+    "party":"Labour",
+    "email":"liam.conlon.mp@parliament.uk"
+  },
+  {
+    "constituency":"Bedford",
+    "mp_name":"Mohammad Yasin",
+    "party":"Labour",
+    "email":"mohammad.yasin.mp@parliament.uk"
+  },
+  {
+    "constituency":"Belfast East",
+    "mp_name":"Gavin Robinson",
+    "party":"Democratic Unionist Party",
+    "email":"gavin.robinson.mp@parliament.uk"
+  },
+  {
+    "constituency":"Belfast North",
+    "mp_name":"John Finucane",
+    "party":"Sinn Féin",
+    "email":"john.finucane.mp@parliament.uk"
+  },
+  {
+    "constituency":"Belfast South and Mid Down",
+    "mp_name":"Claire Hanna",
+    "party":"Social Democratic & Labour Party",
+    "email":"claire.hanna.mp@parliament.uk"
+  },
+  {
+    "constituency":"Belfast West",
+    "mp_name":"Paul Maskey",
+    "party":"Sinn Féin",
+    "email":"paul.maskey.mp@parliament.uk"
+  },
+  {
+    "constituency":"Bermondsey and Old Southwark",
+    "mp_name":"Neil Coyle",
+    "party":"Labour",
+    "email":"neil.coyle.mp@parliament.uk"
+  },
+  {
+    "constituency":"Berwickshire, Roxburgh and Selkirk",
+    "mp_name":"John Lamont",
+    "party":"Conservative",
+    "email":"john.lamont.mp@parliament.uk"
+  },
+  {
+    "constituency":"Bethnal Green and Stepney",
+    "mp_name":"Rushanara Ali",
+    "party":"Labour",
+    "email":"rushanara.ali.mp@parliament.uk"
+  },
+  {
+    "constituency":"Beverley and Holderness",
+    "mp_name":"Graham Stuart",
+    "party":"Conservative",
+    "email":"grahamstuartmp@parliament.uk"
+  },
+  {
+    "constituency":"Bexhill and Battle",
+    "mp_name":"Kieran Mullan",
+    "party":"Conservative",
+    "email":"kieran.mullan.mp@parliament.uk"
+  },
+  {
+    "constituency":"Bexleyheath and Crayford",
+    "mp_name":"Daniel Francis",
+    "party":"Labour",
+    "email":"daniel.francis.mp@parliament.uk"
+  },
+  {
+    "constituency":"Bicester and Woodstock",
+    "mp_name":"Calum Miller",
+    "party":"Liberal Democrat",
+    "email":"calum.miller.mp@parliament.uk"
+  },
+  {
+    "constituency":"Birkenhead",
+    "mp_name":"Alison McGovern",
+    "party":"Labour",
+    "email":"alison.mcgovern.mp@parliament.uk"
+  },
+  {
+    "constituency":"Birmingham Edgbaston",
+    "mp_name":"Preet Kaur Gill",
+    "party":"Labour",
+    "email":"preet.gill.mp@parliament.uk"
+  },
+  {
+    "constituency":"Birmingham Erdington",
+    "mp_name":"Paulette Hamilton",
+    "party":"Labour",
+    "email":"paulette.hamilton.mp@parliament.uk"
+  },
+  {
+    "constituency":"Birmingham Hall Green and Moseley",
+    "mp_name":"Tahir Ali",
+    "party":"Labour",
+    "email":"tahir.ali.mp@parliament.uk"
+  },
+  {
+    "constituency":"Birmingham Hodge Hill and Solihull North",
+    "mp_name":"Liam Byrne",
+    "party":"Labour",
+    "email":"liam.byrne.mp@parliament.uk"
+  },
+  {
+    "constituency":"Birmingham Ladywood",
+    "mp_name":"Shabana Mahmood",
+    "party":"Labour",
+    "email":"shabana.mahmood.mp@parliament.uk"
+  },
+  {
+    "constituency":"Birmingham Northfield",
+    "mp_name":"Laurence Turner",
+    "party":"Labour",
+    "email":"laurence.turner.mp@parliament.uk"
+  },
+  {
+    "constituency":"Birmingham Perry Barr",
+    "mp_name":"Ayoub Khan",
+    "party":"Independent",
+    "email":"ayoub.khan.mp@parliament.uk"
+  },
+  {
+    "constituency":"Birmingham Selly Oak",
+    "mp_name":"Al Carns",
+    "party":"Labour",
+    "email":"al.carns.mp@parliament.uk"
+  },
+  {
+    "constituency":"Birmingham Yardley",
+    "mp_name":"Jess Phillips",
+    "party":"Labour",
+    "email":"jess.phillips.mp@parliament.uk"
+  },
+  {
+    "constituency":"Bishop Auckland",
+    "mp_name":"Sam Rushworth",
+    "party":"Labour",
+    "email":"sam.rushworth.mp@parliament.uk"
+  },
+  {
+    "constituency":"Blackburn",
+    "mp_name":"Adnan Hussain",
+    "party":"Independent",
+    "email":"adnan.hussain.mp@parliament.uk"
+  },
+  {
+    "constituency":"Blackley and Middleton South",
+    "mp_name":"Graham Stringer",
+    "party":"Labour",
+    "email":"graham.stringer.mp@parliament.uk"
+  },
+  {
+    "constituency":"Blackpool North and Fleetwood",
+    "mp_name":"Lorraine Beavers",
+    "party":"Labour",
+    "email":"lorraine.beavers.mp@parliament.uk"
+  },
+  {
+    "constituency":"Blackpool South",
+    "mp_name":"Chris Webb",
+    "party":"Labour",
+    "email":"chris.webb.mp@parliament.uk"
+  },
+  {
+    "constituency":"Blaenau Gwent and Rhymney",
+    "mp_name":"Nick Smith",
+    "party":"Labour",
+    "email":"nick.smith.mp@parliament.uk"
+  },
+  {
+    "constituency":"Blaydon and Consett",
+    "mp_name":"Liz Twist",
+    "party":"Labour",
+    "email":"liz.twist.mp@parliament.uk"
+  },
+  {
+    "constituency":"Blyth and Ashington",
+    "mp_name":"Ian Lavery",
+    "party":"Labour",
+    "email":"ian.lavery.mp@parliament.uk"
+  },
+  {
+    "constituency":"Bognor Regis and Littlehampton",
+    "mp_name":"Alison Griffiths",
+    "party":"Conservative",
+    "email":"alison.griffiths.mp@parliament.uk"
+  },
+  {
+    "constituency":"Bolsover",
+    "mp_name":"Natalie Fleet",
+    "party":"Labour",
+    "email":"natalie.fleet.mp@parliament.uk"
+  },
+  {
+    "constituency":"Bolton North East",
+    "mp_name":"Kirith Entwistle",
+    "party":"Labour",
+    "email":"kirith.entwistle.mp@parliament.uk"
+  },
+  {
+    "constituency":"Bolton South and Walkden",
+    "mp_name":"Yasmin Qureshi",
+    "party":"Labour",
+    "email":"yasmin.qureshi.mp@parliament.uk"
+  },
+  {
+    "constituency":"Bolton West",
+    "mp_name":"Phil Brickell",
+    "party":"Labour",
+    "email":"phil.brickell.mp@parliament.uk"
+  },
+  {
+    "constituency":"Bootle",
+    "mp_name":"Peter Dowd",
+    "party":"Labour",
+    "email":"peter.dowd.mp@parliament.uk"
+  },
+  {
+    "constituency":"Boston and Skegness",
+    "mp_name":"Richard Tice",
+    "party":"Reform UK",
+    "email":"richard.tice.mp@parliament.uk"
+  },
+  {
+    "constituency":"Bournemouth East",
+    "mp_name":"Tom Hayes",
+    "party":"Labour",
+    "email":"tom.hayes.mp@parliament.uk"
+  },
+  {
+    "constituency":"Bournemouth West",
+    "mp_name":"Jessica Toale",
+    "party":"Labour",
+    "email":"jessica.toale.mp@parliament.uk"
+  },
+  {
+    "constituency":"Bracknell",
+    "mp_name":"Peter Swallow",
+    "party":"Labour",
+    "email":"peter.swallow.mp@parliament.uk"
+  },
+  {
+    "constituency":"Bradford East",
+    "mp_name":"Imran Hussain",
+    "party":"Labour",
+    "email":"imran.hussain.mp@parliament.uk"
+  },
+  {
+    "constituency":"Bradford South",
+    "mp_name":"Judith Cummins",
+    "party":"Labour",
+    "email":"judith.cummins.mp@parliament.uk"
+  },
+  {
+    "constituency":"Bradford West",
+    "mp_name":"Naz Shah",
+    "party":"Labour",
+    "email":"naz.shah.mp@parliament.uk"
+  },
+  {
+    "constituency":"Braintree",
+    "mp_name":"James Cleverly",
+    "party":"Conservative",
+    "email":"james.cleverly.mp@parliament.uk"
+  },
+  {
+    "constituency":"Brecon, Radnor and Cwm Tawe",
+    "mp_name":"David Chadwick",
+    "party":"Liberal Democrat",
+    "email":"david.chadwick.mp@parliament.uk"
+  },
+  {
+    "constituency":"Brent East",
+    "mp_name":"Dawn Butler",
+    "party":"Labour",
+    "email":"dawn.butler.mp@parliament.uk"
+  },
+  {
+    "constituency":"Brent West",
+    "mp_name":"Barry Gardiner",
+    "party":"Labour",
+    "email":"barry.gardiner.mp@parliament.uk"
+  },
+  {
+    "constituency":"Brentford and Isleworth",
+    "mp_name":"Ruth Cadbury",
+    "party":"Labour",
+    "email":"ruthcadburymp@parliament.uk"
+  },
+  {
+    "constituency":"Brentwood and Ongar",
+    "mp_name":"Alex Burghart",
+    "party":"Conservative",
+    "email":"alex.burghart.mp@parliament.uk"
+  },
+  {
+    "constituency":"Bridgend",
+    "mp_name":"Chris Elmore",
+    "party":"Labour",
+    "email":"chris.elmore.mp@parliament.uk"
+  },
+  {
+    "constituency":"Bridgwater",
+    "mp_name":"Ashley Fox",
+    "party":"Conservative",
+    "email":"ashley.fox.mp@parliament.uk"
+  },
+  {
+    "constituency":"Bridlington and The Wolds",
+    "mp_name":"Charlie Dewhirst",
+    "party":"Conservative",
+    "email":"charlie.dewhirst.mp@parliament.uk"
+  },
+  {
+    "constituency":"Brigg and Immingham",
+    "mp_name":"Martin Vickers",
+    "party":"Conservative",
+    "email":"martin.vickers.mp@parliament.uk"
+  },
+  {
+    "constituency":"Brighton Kemptown and Peacehaven",
+    "mp_name":"Chris Ward",
+    "party":"Labour",
+    "email":"chris.ward.mp@parliament.uk"
+  },
+  {
+    "constituency":"Brighton Pavilion",
+    "mp_name":"Siân Berry",
+    "party":"Green Party",
+    "email":"sian.berry.mp@parliament.uk"
+  },
+  {
+    "constituency":"Bristol Central",
+    "mp_name":"Carla Denyer",
+    "party":"Green Party",
+    "email":"carla.denyer.mp@parliament.uk"
+  },
+  {
+    "constituency":"Bristol East",
+    "mp_name":"Kerry McCarthy",
+    "party":"Labour",
+    "email":"kerry.mccarthy.mp@parliament.uk"
+  },
+  {
+    "constituency":"Bristol North East",
+    "mp_name":"Damien Egan",
+    "party":"Labour",
+    "email":"damien.egan.mp@parliament.uk"
+  },
+  {
+    "constituency":"Bristol North West",
+    "mp_name":"Darren Jones",
+    "party":"Labour",
+    "email":"darren.jones.mp@parliament.uk"
+  },
+  {
+    "constituency":"Bristol South",
+    "mp_name":"Karin Smyth",
+    "party":"Labour",
+    "email":"karin.smyth.mp@parliament.uk"
+  },
+  {
+    "constituency":"Broadland and Fakenham",
+    "mp_name":"Jerome Mayhew",
+    "party":"Conservative",
+    "email":"jerome.mayhew.mp@parliament.uk"
+  },
+  {
+    "constituency":"Bromley and Biggin Hill",
+    "mp_name":"Peter Fortune",
+    "party":"Conservative",
+    "email":"peter.fortune.mp@parliament.uk"
+  },
+  {
+    "constituency":"Bromsgrove",
+    "mp_name":"Bradley Thomas",
+    "party":"Conservative",
+    "email":"bradley.thomas.mp@parliament.uk"
+  },
+  {
+    "constituency":"Broxbourne",
+    "mp_name":"Lewis Cocking",
+    "party":"Conservative",
+    "email":"lewis.cocking.mp@parliament.uk"
+  },
+  {
+    "constituency":"Broxtowe",
+    "mp_name":"Juliet Campbell",
+    "party":"Labour",
+    "email":"juliet.campbell.mp@parliament.uk"
+  },
+  {
+    "constituency":"Buckingham and Bletchley",
+    "mp_name":"Callum Anderson",
+    "party":"Labour",
+    "email":"callum.anderson.mp@parliament.uk"
+  },
+  {
+    "constituency":"Burnley",
+    "mp_name":"Oliver Ryan",
+    "party":"Independent",
+    "email":"oliver.ryan.mp@parliament.uk"
+  },
+  {
+    "constituency":"Burton and Uttoxeter",
+    "mp_name":"Jacob Collier",
+    "party":"Labour",
+    "email":"jacob.collier.mp@parliament.uk"
+  },
+  {
+    "constituency":"Bury North",
+    "mp_name":"James Frith",
+    "party":"Labour",
+    "email":"james.frith.mp@parliament.uk"
+  },
+  {
+    "constituency":"Bury South",
+    "mp_name":"Christian Wakeford",
+    "party":"Labour",
+    "email":"christian.wakeford.mp@parliament.uk"
+  },
+  {
+    "constituency":"Bury St Edmunds and Stowmarket",
+    "mp_name":"Peter Prinsley",
+    "party":"Labour",
+    "email":"peter.prinsley.mp@parliament.uk"
+  },
+  {
+    "constituency":"Caerfyrddin",
+    "mp_name":"Ann Davies",
+    "party":"Plaid Cymru",
+    "email":"ann.davies.mp@parliament.uk"
+  },
+  {
+    "constituency":"Caerphilly",
+    "mp_name":"Chris Evans",
+    "party":"Labour",
+    "email":"chris.evans.mp@parliament.uk"
+  },
+  {
+    "constituency":"Caithness, Sutherland and Easter Ross",
+    "mp_name":"Jamie Stone",
+    "party":"Liberal Democrat",
+    "email":"jamie.stone.mp@parliament.uk"
+  },
+  {
+    "constituency":"Calder Valley",
+    "mp_name":"Josh Fenton-Glynn",
+    "party":"Labour",
+    "email":"josh.fentonglynn.mp@parliament.uk"
+  },
+  {
+    "constituency":"Camborne and Redruth",
+    "mp_name":"Perran Moon",
+    "party":"Labour",
+    "email":"perran.moon.mp@parliament.uk"
+  },
+  {
+    "constituency":"Cambridge",
+    "mp_name":"Daniel Zeichner",
+    "party":"Labour",
+    "email":null
+  },
+  {
+    "constituency":"Cannock Chase",
+    "mp_name":"Josh Newbury",
+    "party":"Labour",
+    "email":"josh.newbury.mp@parliament.uk"
+  },
+  {
+    "constituency":"Canterbury",
+    "mp_name":"Rosie Duffield",
+    "party":"Independent",
+    "email":"rosie.duffield.mp@parliament.uk"
+  },
+  {
+    "constituency":"Cardiff East",
+    "mp_name":"Jo Stevens",
+    "party":"Labour",
+    "email":"jo.stevens.mp@parliament.uk"
+  },
+  {
+    "constituency":"Cardiff North",
+    "mp_name":"Anna McMorrin",
+    "party":"Labour",
+    "email":"anna.mcmorrin.mp@parliament.uk"
+  },
+  {
+    "constituency":"Cardiff South and Penarth",
+    "mp_name":"Stephen Doughty",
+    "party":"Labour",
+    "email":"stephen.doughty.mp@parliament.uk"
+  },
+  {
+    "constituency":"Cardiff West",
+    "mp_name":"Alex Barros-Curtis",
+    "party":"Labour",
+    "email":"alex.barroscurtis.mp@parliament.uk"
+  },
+  {
+    "constituency":"Carlisle",
+    "mp_name":"Julie Minns",
+    "party":"Labour",
+    "email":"julie.minns.mp@parliament.uk"
+  },
+  {
+    "constituency":"Carshalton and Wallington",
+    "mp_name":"Bobby Dean",
+    "party":"Liberal Democrat",
+    "email":"bobby.dean.mp@parliament.uk"
+  },
+  {
+    "constituency":"Castle Point",
+    "mp_name":"Rebecca Harris",
+    "party":"Conservative",
+    "email":"rebecca.harris.mp@parliament.uk"
+  },
+  {
+    "constituency":"Central Ayrshire",
+    "mp_name":"Alan Gemmell",
+    "party":"Labour",
+    "email":"alan.gemmell.mp@parliament.uk"
+  },
+  {
+    "constituency":"Central Devon",
+    "mp_name":"Mel Stride",
+    "party":"Conservative",
+    "email":"mel.stride.mp@parliament.uk"
+  },
+  {
+    "constituency":"Central Suffolk and North Ipswich",
+    "mp_name":"Patrick Spencer",
+    "party":"Independent",
+    "email":"patrick.spencer.mp@parliament.uk"
+  },
+  {
+    "constituency":"Ceredigion Preseli",
+    "mp_name":"Ben Lake",
+    "party":"Plaid Cymru",
+    "email":"ben.lake.mp@parliament.uk"
+  },
+  {
+    "constituency":"Chatham and Aylesford",
+    "mp_name":"Tristan Osborne",
+    "party":"Labour",
+    "email":"tristan.osborne.mp@parliament.uk"
+  },
+  {
+    "constituency":"Cheadle",
+    "mp_name":"Tom Morrison",
+    "party":"Liberal Democrat",
+    "email":"tom.morrison.mp@parliament.uk"
+  },
+  {
+    "constituency":"Chelmsford",
+    "mp_name":"Marie Goldman",
+    "party":"Liberal Democrat",
+    "email":"marie.goldman.mp@parliament.uk"
+  },
+  {
+    "constituency":"Chelsea and Fulham",
+    "mp_name":"Ben Coleman",
+    "party":"Labour",
+    "email":"ben.coleman.mp@parliament.uk"
+  },
+  {
+    "constituency":"Cheltenham",
+    "mp_name":"Max Wilkinson",
+    "party":"Liberal Democrat",
+    "email":"max.wilkinson.mp@parliament.uk"
+  },
+  {
+    "constituency":"Chesham and Amersham",
+    "mp_name":"Sarah Green",
+    "party":"Liberal Democrat",
+    "email":"sarah.green.mp@parliament.uk"
+  },
+  {
+    "constituency":"Chester North and Neston",
+    "mp_name":"Samantha Dixon",
+    "party":"Labour",
+    "email":"samantha.dixon.mp@parliament.uk"
+  },
+  {
+    "constituency":"Chester South and Eddisbury",
+    "mp_name":"Aphra Brandreth",
+    "party":"Conservative",
+    "email":"aphra.brandreth.mp@parliament.uk"
+  },
+  {
+    "constituency":"Chesterfield",
+    "mp_name":"Toby Perkins",
+    "party":"Labour",
+    "email":"toby.perkins.mp@parliament.uk"
+  },
+  {
+    "constituency":"Chichester",
+    "mp_name":"Jess Brown-Fuller",
+    "party":"Liberal Democrat",
+    "email":"jess.brownfuller.mp@parliament.uk"
+  },
+  {
+    "constituency":"Chingford and Woodford Green",
+    "mp_name":"Iain Duncan Smith",
+    "party":"Conservative",
+    "email":"iain.duncansmith.mp@parliament.uk"
+  },
+  {
+    "constituency":"Chippenham",
+    "mp_name":"Sarah Gibson",
+    "party":"Liberal Democrat",
+    "email":"sarah.gibson.mp@parliament.uk"
+  },
+  {
+    "constituency":"Chipping Barnet",
+    "mp_name":"Dan Tomlinson",
+    "party":"Labour",
+    "email":"dan.tomlinson.mp@parliament.uk"
+  },
+  {
+    "constituency":"Chorley",
+    "mp_name":"Lindsay Hoyle",
+    "party":"Speaker",
+    "email":"lindsay.hoyle.mp@parliament.uk"
+  },
+  {
+    "constituency":"Christchurch",
+    "mp_name":"Christopher Chope",
+    "party":"Conservative",
+    "email":"chopec@parliament.uk"
+  },
+  {
+    "constituency":"Cities of London and Westminster",
+    "mp_name":"Rachel Blake",
+    "party":"Labour",
+    "email":"rachel.blake.mp@parliament.uk"
+  },
+  {
+    "constituency":"City of Durham",
+    "mp_name":"Mary Kelly Foy",
+    "party":"Labour",
+    "email":"mary.foy.mp@parliament.uk"
+  },
+  {
+    "constituency":"Clacton",
+    "mp_name":"Nigel Farage",
+    "party":"Reform UK",
+    "email":"nigel.farage.mp@parliament.uk"
+  },
+  {
+    "constituency":"Clapham and Brixton Hill",
+    "mp_name":"Bell Ribeiro-Addy",
+    "party":"Labour",
+    "email":"bell.ribeiroaddy.mp@parliament.uk"
+  },
+  {
+    "constituency":"Clwyd East",
+    "mp_name":"Becky Gittins",
+    "party":"Labour",
+    "email":"becky.gittins.mp@parliament.uk"
+  },
+  {
+    "constituency":"Clwyd North",
+    "mp_name":"Gill German",
+    "party":"Labour",
+    "email":"gill.german.mp@parliament.uk"
+  },
+  {
+    "constituency":"Coatbridge and Bellshill",
+    "mp_name":"Frank McNally",
+    "party":"Labour",
+    "email":"frank.mcnally.mp@parliament.uk"
+  },
+  {
+    "constituency":"Colchester",
+    "mp_name":"Pam Cox",
+    "party":"Labour",
+    "email":"pam.cox.mp@parliament.uk"
+  },
+  {
+    "constituency":"Colne Valley",
+    "mp_name":"Paul Davies",
+    "party":"Labour",
+    "email":"paul.davies.mp@parliament.uk"
+  },
+  {
+    "constituency":"Congleton",
+    "mp_name":"Sarah Russell",
+    "party":"Labour",
+    "email":"sarah.russell.mp@parliament.uk"
+  },
+  {
+    "constituency":"Corby and East Northamptonshire",
+    "mp_name":"Lee Barron",
+    "party":"Labour",
+    "email":"lee.barron.mp@parliament.uk"
+  },
+  {
+    "constituency":"Coventry East",
+    "mp_name":"Mary Creagh",
+    "party":"Labour",
+    "email":"mary.creagh.mp@parliament.uk"
+  },
+  {
+    "constituency":"Coventry North West",
+    "mp_name":"Taiwo Owatemi",
+    "party":"Labour",
+    "email":"taiwo.owatemi.mp@parliament.uk"
+  },
+  {
+    "constituency":"Coventry South",
+    "mp_name":"Zarah Sultana",
+    "party":"Independent",
+    "email":"zarah.sultana.mp@parliament.uk"
+  },
+  {
+    "constituency":"Cowdenbeath and Kirkcaldy",
+    "mp_name":"Melanie Ward",
+    "party":"Labour",
+    "email":"melanie.ward.mp@parliament.uk"
+  },
+  {
+    "constituency":"Cramlington and Killingworth",
+    "mp_name":"Emma Foody",
+    "party":"Labour",
+    "email":"emma.foody.mp@parliament.uk"
+  },
+  {
+    "constituency":"Crawley",
+    "mp_name":"Peter Lamb",
+    "party":"Labour",
+    "email":"peter.lamb.mp@parliament.uk"
+  },
+  {
+    "constituency":"Crewe and Nantwich",
+    "mp_name":"Connor Naismith",
+    "party":"Labour",
+    "email":"connor.naismith.mp@parliament.uk"
+  },
+  {
+    "constituency":"Croydon East",
+    "mp_name":"Natasha Irons",
+    "party":"Labour",
+    "email":"natasha.irons.mp@parliament.uk"
+  },
+  {
+    "constituency":"Croydon South",
+    "mp_name":"Chris Philp",
+    "party":"Conservative",
+    "email":"chris.philp.mp@parliament.uk"
+  },
+  {
+    "constituency":"Croydon West",
+    "mp_name":"Sarah Jones",
+    "party":"Labour",
+    "email":"sarah.jones.mp@parliament.uk"
+  },
+  {
+    "constituency":"Cumbernauld and Kirkintilloch",
+    "mp_name":"Katrina Murray",
+    "party":"Labour",
+    "email":"katrina.murray.mp@parliament.uk"
+  },
+  {
+    "constituency":"Dagenham and Rainham",
+    "mp_name":"Margaret Mullane",
+    "party":"Labour",
+    "email":"margaret.mullane.mp@parliament.uk"
+  },
+  {
+    "constituency":"Darlington",
+    "mp_name":"Lola McEvoy",
+    "party":"Labour",
+    "email":"lola.mcevoy.mp@parliament.uk"
+  },
+  {
+    "constituency":"Dartford",
+    "mp_name":"Jim Dickson",
+    "party":"Labour",
+    "email":"jim.dickson.mp@parliament.uk"
+  },
+  {
+    "constituency":"Daventry",
+    "mp_name":"Stuart Andrew",
+    "party":"Conservative",
+    "email":"stuart.andrew.mp@parliament.uk"
+  },
+  {
+    "constituency":"Derby North",
+    "mp_name":"Catherine Atkinson",
+    "party":"Labour",
+    "email":"catherine.atkinson.mp@parliament.uk"
+  },
+  {
+    "constituency":"Derby South",
+    "mp_name":"Baggy Shanker",
+    "party":"Labour",
+    "email":"baggy.shanker.mp@parliament.uk"
+  },
+  {
+    "constituency":"Derbyshire Dales",
+    "mp_name":"John Whitby",
+    "party":"Labour",
+    "email":"john.whitby.mp@parliament.uk"
+  },
+  {
+    "constituency":"Dewsbury and Batley",
+    "mp_name":"Iqbal Mohamed",
+    "party":"Independent",
+    "email":"iqbal.mohamed.mp@parliament.uk"
+  },
+  {
+    "constituency":"Didcot and Wantage",
+    "mp_name":"Olly Glover",
+    "party":"Liberal Democrat",
+    "email":"olly.glover.mp@parliament.uk"
+  },
+  {
+    "constituency":"Doncaster Central",
+    "mp_name":"Sally Jameson",
+    "party":"Labour",
+    "email":"sally.jameson.mp@parliament.uk"
+  },
+  {
+    "constituency":"Doncaster East and the Isle of Axholme",
+    "mp_name":"Lee Pitcher",
+    "party":"Labour",
+    "email":"lee.pitcher.mp@parliament.uk"
+  },
+  {
+    "constituency":"Doncaster North",
+    "mp_name":"Ed Miliband",
+    "party":"Labour",
+    "email":"ed.miliband.mp@parliament.uk"
+  },
+  {
+    "constituency":"Dorking and Horley",
+    "mp_name":"Chris Coghlan",
+    "party":"Liberal Democrat",
+    "email":"chris.coghlan.mp@parliament.uk"
+  },
+  {
+    "constituency":"Dover and Deal",
+    "mp_name":"Mike Tapp",
+    "party":"Labour",
+    "email":"mike.tapp.mp@parliament.uk"
+  },
+  {
+    "constituency":"Droitwich and Evesham",
+    "mp_name":"Nigel Huddleston",
+    "party":"Conservative",
+    "email":"nigel.huddleston.mp@parliament.uk"
+  },
+  {
+    "constituency":"Dudley",
+    "mp_name":"Sonia Kumar",
+    "party":"Labour",
+    "email":"sonia.kumar.mp@parliament.uk"
+  },
+  {
+    "constituency":"Dulwich and West Norwood",
+    "mp_name":"Helen Hayes",
+    "party":"Labour",
+    "email":"helen.hayes.mp@parliament.uk"
+  },
+  {
+    "constituency":"Dumfries and Galloway",
+    "mp_name":"John Cooper",
+    "party":"Conservative",
+    "email":"john.cooper.mp@parliament.uk"
+  },
+  {
+    "constituency":"Dumfriesshire, Clydesdale and Tweeddale",
+    "mp_name":"David Mundell",
+    "party":"Conservative",
+    "email":"david.mundell.mp@parliament.uk"
+  },
+  {
+    "constituency":"Dundee Central",
+    "mp_name":"Chris Law",
+    "party":"Scottish National Party",
+    "email":"chris.law.mp@parliament.uk"
+  },
+  {
+    "constituency":"Dunfermline and Dollar",
+    "mp_name":"Graeme Downie",
+    "party":"Labour",
+    "email":"graeme.downie.mp@parliament.uk"
+  },
+  {
+    "constituency":"Dunstable and Leighton Buzzard",
+    "mp_name":"Alex Mayer",
+    "party":"Labour",
+    "email":"alex.mayer.mp@parliament.uk"
+  },
+  {
+    "constituency":"Dwyfor Meirionnydd",
+    "mp_name":"Liz Saville Roberts",
+    "party":"Plaid Cymru",
+    "email":"liz.savilleroberts.mp@parliament.uk"
+  },
+  {
+    "constituency":"Ealing Central and Acton",
+    "mp_name":"Rupa Huq",
+    "party":"Labour",
+    "email":"rupa.huq.mp@parliament.uk"
+  },
+  {
+    "constituency":"Ealing North",
+    "mp_name":"James Murray",
+    "party":"Labour",
+    "email":"james.murray.mp@parliament.uk"
+  },
+  {
+    "constituency":"Ealing Southall",
+    "mp_name":"Deirdre Costigan",
+    "party":"Labour",
+    "email":"deirdre.costigan.mp@parliament.uk"
+  },
+  {
+    "constituency":"Earley and Woodley",
+    "mp_name":"Yuan Yang",
+    "party":"Labour",
+    "email":"yuan.yang.mp@parliament.uk"
+  },
+  {
+    "constituency":"Easington",
+    "mp_name":"Grahame Morris",
+    "party":"Labour",
+    "email":"grahame.morris.mp@parliament.uk"
+  },
+  {
+    "constituency":"East Antrim",
+    "mp_name":"Sammy Wilson",
+    "party":"Democratic Unionist Party",
+    "email":"barronj@parliament.uk"
+  },
+  {
+    "constituency":"East Grinstead and Uckfield",
+    "mp_name":"Mims Davies",
+    "party":"Conservative",
+    "email":"mims.davies.mp@parliament.uk"
+  },
+  {
+    "constituency":"East Ham",
+    "mp_name":"Stephen Timms",
+    "party":"Labour",
+    "email":"timmss@parliament.uk"
+  },
+  {
+    "constituency":"East Hampshire",
+    "mp_name":"Damian Hinds",
+    "party":"Conservative",
+    "email":"damian.hinds.mp@parliament.uk"
+  },
+  {
+    "constituency":"East Kilbride and Strathaven",
+    "mp_name":"Joani Reid",
+    "party":"Labour",
+    "email":"joani.reid.mp@parliament.uk"
+  },
+  {
+    "constituency":"East Londonderry",
+    "mp_name":"Gregory Campbell",
+    "party":"Democratic Unionist Party",
+    "email":"aaron.callan@parliament.uk"
+  },
+  {
+    "constituency":"East Renfrewshire",
+    "mp_name":"Blair McDougall",
+    "party":"Labour",
+    "email":"blair.mcdougall.mp@parliament.uk"
+  },
+  {
+    "constituency":"East Surrey",
+    "mp_name":"Claire Coutinho",
+    "party":"Conservative",
+    "email":"claire.coutinho.mp@parliament.uk"
+  },
+  {
+    "constituency":"East Thanet",
+    "mp_name":"Polly Billington",
+    "party":"Labour",
+    "email":"polly.billington.mp@parliament.uk"
+  },
+  {
+    "constituency":"East Wiltshire",
+    "mp_name":"Danny Kruger",
+    "party":"Conservative",
+    "email":"danny.kruger.mp@parliament.uk"
+  },
+  {
+    "constituency":"East Worthing and Shoreham",
+    "mp_name":"Tom Rutland",
+    "party":"Labour",
+    "email":"tom.rutland.mp@parliament.uk"
+  },
+  {
+    "constituency":"Eastbourne",
+    "mp_name":"Josh Babarinde",
+    "party":"Liberal Democrat",
+    "email":"josh.babarinde.mp@parliament.uk"
+  },
+  {
+    "constituency":"Eastleigh",
+    "mp_name":"Liz Jarvis",
+    "party":"Liberal Democrat",
+    "email":"liz.jarvis.mp@parliament.uk"
+  },
+  {
+    "constituency":"Edinburgh East and Musselburgh",
+    "mp_name":"Chris Murray",
+    "party":"Labour",
+    "email":"chris.murray.mp@parliament.uk"
+  },
+  {
+    "constituency":"Edinburgh North and Leith",
+    "mp_name":"Tracy Gilbert",
+    "party":"Labour",
+    "email":"tracy.gilbert.mp@parliament.uk"
+  },
+  {
+    "constituency":"Edinburgh South",
+    "mp_name":"Ian Murray",
+    "party":"Labour",
+    "email":"ian.murray.mp@parliament.uk"
+  },
+  {
+    "constituency":"Edinburgh South West",
+    "mp_name":"Scott Arthur",
+    "party":"Labour",
+    "email":"scott.arthur.mp@parliament.uk"
+  },
+  {
+    "constituency":"Edinburgh West",
+    "mp_name":"Christine Jardine",
+    "party":"Liberal Democrat",
+    "email":"christine.jardine.mp@parliament.uk"
+  },
+  {
+    "constituency":"Edmonton and Winchmore Hill",
+    "mp_name":"Kate Osamor",
+    "party":"Labour",
+    "email":"kate.osamor.mp@parliament.uk"
+  },
+  {
+    "constituency":"Ellesmere Port and Bromborough",
+    "mp_name":"Justin Madders",
+    "party":"Labour",
+    "email":"justin.madders.mp@parliament.uk"
+  },
+  {
+    "constituency":"Eltham and Chislehurst",
+    "mp_name":"Clive Efford",
+    "party":"Labour",
+    "email":"clive.efford.mp@parliament.uk"
+  },
+  {
+    "constituency":"Ely and East Cambridgeshire",
+    "mp_name":"Charlotte Cane",
+    "party":"Liberal Democrat",
+    "email":"charlotte.cane.mp@parliament.uk"
+  },
+  {
+    "constituency":"Enfield North",
+    "mp_name":"Feryal Clark",
+    "party":"Labour",
+    "email":"feryal.clark.mp@parliament.uk"
+  },
+  {
+    "constituency":"Epping Forest",
+    "mp_name":"Neil Hudson",
+    "party":"Conservative",
+    "email":"neil.hudson.mp@parliament.uk"
+  },
+  {
+    "constituency":"Epsom and Ewell",
+    "mp_name":"Helen Maguire",
+    "party":"Liberal Democrat",
+    "email":"helen.maguire.mp@parliament.uk"
+  },
+  {
+    "constituency":"Erewash",
+    "mp_name":"Adam Thompson",
+    "party":"Labour",
+    "email":"adam.thompson.mp@parliament.uk"
+  },
+  {
+    "constituency":"Erith and Thamesmead",
+    "mp_name":"Abena Oppong-Asare",
+    "party":"Labour",
+    "email":"abena.oppongasare.mp@parliament.uk"
+  },
+  {
+    "constituency":"Esher and Walton",
+    "mp_name":"Monica Harding",
+    "party":"Liberal Democrat",
+    "email":"monica.harding.mp@parliament.uk"
+  },
+  {
+    "constituency":"Exeter",
+    "mp_name":"Steve Race",
+    "party":"Labour",
+    "email":"steve.race.mp@parliament.uk"
+  },
+  {
+    "constituency":"Exmouth and Exeter East",
+    "mp_name":"David Reed",
+    "party":"Conservative",
+    "email":"david.reed.mp@parliament.uk"
+  },
+  {
+    "constituency":"Falkirk",
+    "mp_name":"Euan Stainbank",
+    "party":"Labour",
+    "email":"euan.stainbank.mp@parliament.uk"
+  },
+  {
+    "constituency":"Fareham and Waterlooville",
+    "mp_name":"Suella Braverman",
+    "party":"Conservative",
+    "email":"suella.braverman.mp@parliament.uk"
+  },
+  {
+    "constituency":"Farnham and Bordon",
+    "mp_name":"Gregory Stafford",
+    "party":"Conservative",
+    "email":"greg.stafford.mp@parliament.uk"
+  },
+  {
+    "constituency":"Faversham and Mid Kent",
+    "mp_name":"Helen Whately",
+    "party":"Conservative",
+    "email":"helen.whately.mp@parliament.uk"
+  },
+  {
+    "constituency":"Feltham and Heston",
+    "mp_name":"Seema Malhotra",
+    "party":"Labour",
+    "email":"seema.malhotra.mp@parliament.uk"
+  },
+  {
+    "constituency":"Fermanagh and South Tyrone",
+    "mp_name":"Pat Cullen",
+    "party":"Sinn Féin",
+    "email":"pat.cullen.mp@parliament.uk"
+  },
+  {
+    "constituency":"Filton and Bradley Stoke",
+    "mp_name":"Claire Hazelgrove",
+    "party":"Labour",
+    "email":"claire.hazelgrove.mp@parliament.uk"
+  },
+  {
+    "constituency":"Finchley and Golders Green",
+    "mp_name":"Sarah Sackman",
+    "party":"Labour",
+    "email":"sarah.sackman.mp@parliament.uk"
+  },
+  {
+    "constituency":"Folkestone and Hythe",
+    "mp_name":"Tony Vaughan",
+    "party":"Labour",
+    "email":"tony.vaughan.mp@parliament.uk"
+  },
+  {
+    "constituency":"Forest of Dean",
+    "mp_name":"Matt Bishop",
+    "party":"Labour",
+    "email":"matt.bishop.mp@parliament.uk"
+  },
+  {
+    "constituency":"Foyle",
+    "mp_name":"Colum Eastwood",
+    "party":"Social Democratic & Labour Party",
+    "email":"colum.eastwood.mp@parliament.uk"
+  },
+  {
+    "constituency":"Frome and East Somerset",
+    "mp_name":"Anna Sabine",
+    "party":"Liberal Democrat",
+    "email":"anna.sabine.mp@parliament.uk"
+  },
+  {
+    "constituency":"Fylde",
+    "mp_name":"Andrew Snowden",
+    "party":"Conservative",
+    "email":"andrew.snowden.mp@parliament.uk"
+  },
+  {
+    "constituency":"Gainsborough",
+    "mp_name":"Edward Leigh",
+    "party":"Conservative",
+    "email":"edward.leigh.mp@parliament.uk"
+  },
+  {
+    "constituency":"Gateshead Central and Whickham",
+    "mp_name":"Mark Ferguson",
+    "party":"Labour",
+    "email":"mark.ferguson.mp@parliament.uk"
+  },
+  {
+    "constituency":"Gedling",
+    "mp_name":"Michael Payne",
+    "party":"Labour",
+    "email":"michael.payne.mp@parliament.uk"
+  },
+  {
+    "constituency":"Gillingham and Rainham",
+    "mp_name":"Naushabah Khan",
+    "party":"Labour",
+    "email":"naushabah.khan.mp@parliament.uk"
+  },
+  {
+    "constituency":"Glasgow East",
+    "mp_name":"John Grady",
+    "party":"Labour",
+    "email":"john.grady.mp@parliament.uk"
+  },
+  {
+    "constituency":"Glasgow North",
+    "mp_name":"Martin Rhodes",
+    "party":"Labour",
+    "email":"martin.rhodes.mp@parliament.uk"
+  },
+  {
+    "constituency":"Glasgow North East",
+    "mp_name":"Maureen Burke",
+    "party":"Labour",
+    "email":"maureen.burke.mp@parliament.uk"
+  },
+  {
+    "constituency":"Glasgow South",
+    "mp_name":"Gordon McKee",
+    "party":"Labour",
+    "email":"gordon.mckee.mp@parliament.uk"
   },
   {
     "constituency":"Glasgow South West",
@@ -30,15 +1446,2457 @@
     "email":"zubir.ahmed.mp@parliament.uk"
   },
   {
-    "constituency":"North Durham ",
+    "constituency":"Glasgow West",
+    "mp_name":"Patricia Ferguson",
+    "party":"Labour",
+    "email":"patricia.ferguson.mp@parliament.uk"
+  },
+  {
+    "constituency":"Glastonbury and Somerton",
+    "mp_name":"Sarah Dyke",
+    "party":"Liberal Democrat",
+    "email":"sarah.dyke.mp@parliament.uk"
+  },
+  {
+    "constituency":"Glenrothes and Mid Fife",
+    "mp_name":"Richard Baker",
+    "party":"Labour",
+    "email":"richard.baker.mp@parliament.uk"
+  },
+  {
+    "constituency":"Gloucester",
+    "mp_name":"Alex McIntyre",
+    "party":"Labour",
+    "email":"alex.mcintyre.mp@parliament.uk"
+  },
+  {
+    "constituency":"Godalming and Ash",
+    "mp_name":"Jeremy Hunt",
+    "party":"Conservative",
+    "email":"huntj@parliament.uk"
+  },
+  {
+    "constituency":"Goole and Pocklington",
+    "mp_name":"David Davis",
+    "party":"Conservative",
+    "email":"david.davis.mp@parliament.uk"
+  },
+  {
+    "constituency":"Gordon and Buchan",
+    "mp_name":"Harriet Cross",
+    "party":"Conservative",
+    "email":"harriet.cross.mp@parliament.uk"
+  },
+  {
+    "constituency":"Gorton and Denton",
+    "mp_name":"Andrew Gwynne",
+    "party":"Independent",
+    "email":"gwynnea@parliament.uk"
+  },
+  {
+    "constituency":"Gosport",
+    "mp_name":"Caroline Dinenage",
+    "party":"Conservative",
+    "email":"caroline.dinenage.mp@parliament.uk"
+  },
+  {
+    "constituency":"Gower",
+    "mp_name":"Tonia Antoniazzi",
+    "party":"Labour",
+    "email":"tonia.antoniazzi.mp@parliament.uk"
+  },
+  {
+    "constituency":"Grantham and Bourne",
+    "mp_name":"Gareth Davies",
+    "party":"Conservative",
+    "email":"gareth.davies.mp@parliament.uk"
+  },
+  {
+    "constituency":"Gravesham",
+    "mp_name":"Lauren Sullivan",
+    "party":"Labour",
+    "email":"lauren.sullivan.mp@parliament.uk"
+  },
+  {
+    "constituency":"Great Grimsby and Cleethorpes",
+    "mp_name":"Melanie Onn",
+    "party":"Labour",
+    "email":"melanie.onn.mp@parliament.uk"
+  },
+  {
+    "constituency":"Great Yarmouth",
+    "mp_name":"Rupert Lowe",
+    "party":"Independent",
+    "email":"rupert.lowe.mp@parliament.uk"
+  },
+  {
+    "constituency":"Greenwich and Woolwich",
+    "mp_name":"Matthew Pennycook",
+    "party":"Labour",
+    "email":"matthew.pennycook.mp@parliament.uk"
+  },
+  {
+    "constituency":"Guildford",
+    "mp_name":"Zöe Franklin",
+    "party":"Liberal Democrat",
+    "email":"zoe.franklin.mp@parliament.uk"
+  },
+  {
+    "constituency":"Hackney North and Stoke Newington",
+    "mp_name":"Diane Abbott",
+    "party":"Independent",
+    "email":"diane.abbott.office@parliament.uk"
+  },
+  {
+    "constituency":"Hackney South and Shoreditch",
+    "mp_name":"Meg Hillier",
+    "party":"Labour",
+    "email":"meghilliermp@parliament.uk"
+  },
+  {
+    "constituency":"Halesowen",
+    "mp_name":"Alex Ballinger",
+    "party":"Labour",
+    "email":"alex.ballinger.mp@parliament.uk"
+  },
+  {
+    "constituency":"Halifax",
+    "mp_name":"Kate Dearden",
+    "party":"Labour",
+    "email":"kate.dearden.mp@parliament.uk"
+  },
+  {
+    "constituency":"Hamble Valley",
+    "mp_name":"Paul Holmes",
+    "party":"Conservative",
+    "email":"paul.holmes.mp@parliament.uk"
+  },
+  {
+    "constituency":"Hamilton and Clyde Valley",
+    "mp_name":"Imogen Walker",
+    "party":"Labour",
+    "email":"imogen.walker.mp@parliament.uk"
+  },
+  {
+    "constituency":"Hammersmith and Chiswick",
+    "mp_name":"Andy Slaughter",
+    "party":"Labour",
+    "email":"slaughtera@parliament.uk"
+  },
+  {
+    "constituency":"Hampstead and Highgate",
+    "mp_name":"Tulip Siddiq",
+    "party":"Labour",
+    "email":"tulip.siddiq.mp@parliament.uk"
+  },
+  {
+    "constituency":"Harborough, Oadby and Wigston",
+    "mp_name":"Neil O'Brien",
+    "party":"Conservative",
+    "email":"neil.obrien.mp@parliament.uk"
+  },
+  {
+    "constituency":"Harlow",
+    "mp_name":"Chris Vince",
+    "party":"Labour",
+    "email":"chris.vince.mp@parliament.uk"
+  },
+  {
+    "constituency":"Harpenden and Berkhamsted",
+    "mp_name":"Victoria Collins",
+    "party":"Liberal Democrat",
+    "email":"victoria.collins.mp@parliament.uk"
+  },
+  {
+    "constituency":"Harrogate and Knaresborough",
+    "mp_name":"Tom Gordon",
+    "party":"Liberal Democrat",
+    "email":"tom.gordon.mp@parliament.uk"
+  },
+  {
+    "constituency":"Harrow East",
+    "mp_name":"Bob Blackman",
+    "party":"Conservative",
+    "email":"bob.blackman.mp@parliament.uk"
+  },
+  {
+    "constituency":"Harrow West",
+    "mp_name":"Gareth Thomas",
+    "party":"Labour",
+    "email":"gareth.thomas.mp@parliament.uk"
+  },
+  {
+    "constituency":"Hartlepool",
+    "mp_name":"Jonathan Brash",
+    "party":"Labour",
+    "email":"jonathan.brash.mp@parliament.uk"
+  },
+  {
+    "constituency":"Harwich and North Essex",
+    "mp_name":"Bernard Jenkin",
+    "party":"Conservative",
+    "email":"bernard.jenkin.mp@parliament.uk"
+  },
+  {
+    "constituency":"Hastings and Rye",
+    "mp_name":"Helena Dollimore",
+    "party":"Labour",
+    "email":"helena.dollimore.mp@parliament.uk"
+  },
+  {
+    "constituency":"Havant",
+    "mp_name":"Alan Mak",
+    "party":"Conservative",
+    "email":"alan.mak.mp@parliament.uk"
+  },
+  {
+    "constituency":"Hayes and Harlington",
+    "mp_name":"John McDonnell",
+    "party":"Independent",
+    "email":"mcdonnellj@parliament.uk"
+  },
+  {
+    "constituency":"Hazel Grove",
+    "mp_name":"Lisa Smart",
+    "party":"Liberal Democrat",
+    "email":"lisa.smart.mp@parliament.uk"
+  },
+  {
+    "constituency":"Hemel Hempstead",
+    "mp_name":"David Taylor",
+    "party":"Labour",
+    "email":"david.taylor.mp@parliament.uk"
+  },
+  {
+    "constituency":"Hendon",
+    "mp_name":"David Pinto-Duschinsky",
+    "party":"Labour",
+    "email":"david.pintoduschinsky.mp@parliament.uk"
+  },
+  {
+    "constituency":"Henley and Thame",
+    "mp_name":"Freddie van Mierlo",
+    "party":"Liberal Democrat",
+    "email":"freddie.vanmierlo.mp@parliament.uk"
+  },
+  {
+    "constituency":"Hereford and South Herefordshire",
+    "mp_name":"Jesse Norman",
+    "party":"Conservative",
+    "email":"jesse.norman.mp@parliament.uk"
+  },
+  {
+    "constituency":"Herne Bay and Sandwich",
+    "mp_name":"Roger Gale",
+    "party":"Conservative",
+    "email":"galerj@parliament.uk"
+  },
+  {
+    "constituency":"Hertford and Stortford",
+    "mp_name":"Josh Dean",
+    "party":"Labour",
+    "email":"josh.dean.mp@parliament.uk"
+  },
+  {
+    "constituency":"Hertsmere",
+    "mp_name":"Oliver Dowden",
+    "party":"Conservative",
+    "email":"oliver.dowden.mp@parliament.uk"
+  },
+  {
+    "constituency":"Hexham",
+    "mp_name":"Joe Morris",
+    "party":"Labour",
+    "email":"joe.morris.mp@parliament.uk"
+  },
+  {
+    "constituency":"Heywood and Middleton North",
+    "mp_name":"Elsie Blundell",
+    "party":"Labour",
+    "email":"elsie.blundell.mp@parliament.uk"
+  },
+  {
+    "constituency":"High Peak",
+    "mp_name":"Jon Pearce",
+    "party":"Labour",
+    "email":"jon.pearce.mp@parliament.uk"
+  },
+  {
+    "constituency":"Hinckley and Bosworth",
+    "mp_name":"Luke Evans",
+    "party":"Conservative",
+    "email":"luke.evans.mp@parliament.uk"
+  },
+  {
+    "constituency":"Hitchin",
+    "mp_name":"Alistair Strathern",
+    "party":"Labour",
+    "email":"alistair.strathern.mp@parliament.uk"
+  },
+  {
+    "constituency":"Holborn and St Pancras",
+    "mp_name":"Keir Starmer",
+    "party":"Labour",
+    "email":"keir.starmer.mp@parliament.uk"
+  },
+  {
+    "constituency":"Honiton and Sidmouth",
+    "mp_name":"Richard Foord",
+    "party":"Liberal Democrat",
+    "email":"richard.foord.mp@parliament.uk"
+  },
+  {
+    "constituency":"Hornchurch and Upminster",
+    "mp_name":"Julia Lopez",
+    "party":"Conservative",
+    "email":"julia.lopez.mp@parliament.uk"
+  },
+  {
+    "constituency":"Hornsey and Friern Barnet",
+    "mp_name":"Catherine West",
+    "party":"Labour",
+    "email":"catherine.west.mp@parliament.uk"
+  },
+  {
+    "constituency":"Horsham",
+    "mp_name":"John Milne",
+    "party":"Liberal Democrat",
+    "email":"john.milne.mp@parliament.uk"
+  },
+  {
+    "constituency":"Houghton and Sunderland South",
+    "mp_name":"Bridget Phillipson",
+    "party":"Labour",
+    "email":"bridget.phillipson.mp@parliament.uk"
+  },
+  {
+    "constituency":"Hove and Portslade",
+    "mp_name":"Peter Kyle",
+    "party":"Labour",
+    "email":"peter.kyle.mp@parliament.uk"
+  },
+  {
+    "constituency":"Huddersfield",
+    "mp_name":"Harpreet Uppal",
+    "party":"Labour",
+    "email":"harpreet.uppal.mp@parliament.uk"
+  },
+  {
+    "constituency":"Huntingdon",
+    "mp_name":"Ben Obese-Jecty",
+    "party":"Conservative",
+    "email":"ben.obesejecty.mp@parliament.uk"
+  },
+  {
+    "constituency":"Hyndburn",
+    "mp_name":"Sarah Smith",
+    "party":"Labour",
+    "email":"sarah.smith.mp@parliament.uk"
+  },
+  {
+    "constituency":"Ilford North",
+    "mp_name":"Wes Streeting",
+    "party":"Labour",
+    "email":"wes.streeting.mp@parliament.uk"
+  },
+  {
+    "constituency":"Ilford South",
+    "mp_name":"Jas Athwal",
+    "party":"Labour",
+    "email":"jas.athwal.mp@parliament.uk"
+  },
+  {
+    "constituency":"Inverclyde and Renfrewshire West",
+    "mp_name":"Martin McCluskey",
+    "party":"Labour",
+    "email":"martin.mccluskey.mp@parliament.uk"
+  },
+  {
+    "constituency":"Inverness, Skye and West Ross-shire",
+    "mp_name":"Angus MacDonald",
+    "party":"Liberal Democrat",
+    "email":"angus.macdonald.mp@parliament.uk"
+  },
+  {
+    "constituency":"Ipswich",
+    "mp_name":"Jack Abbott",
+    "party":"Labour",
+    "email":"jack.abbott.mp@parliament.uk"
+  },
+  {
+    "constituency":"Isle of Wight East",
+    "mp_name":"Joe Robertson",
+    "party":"Conservative",
+    "email":"joe.robertson.mp@parliament.uk"
+  },
+  {
+    "constituency":"Isle of Wight West",
+    "mp_name":"Richard Quigley",
+    "party":"Labour",
+    "email":"richard.quigley.mp@parliament.uk"
+  },
+  {
+    "constituency":"Islington North",
+    "mp_name":"Jeremy Corbyn",
+    "party":"Independent",
+    "email":"jeremy.corbyn.mp@parliament.uk"
+  },
+  {
+    "constituency":"Islington South and Finsbury",
+    "mp_name":"Emily Thornberry",
+    "party":"Labour",
+    "email":"thornberrye@parliament.uk"
+  },
+  {
+    "constituency":"Jarrow and Gateshead East",
+    "mp_name":"Kate Osborne",
+    "party":"Labour",
+    "email":"kate.osborne.mp@parliament.uk"
+  },
+  {
+    "constituency":"Keighley and Ilkley",
+    "mp_name":"Robbie Moore",
+    "party":"Conservative",
+    "email":"robbie.moore.mp@parliament.uk"
+  },
+  {
+    "constituency":"Kenilworth and Southam",
+    "mp_name":"Jeremy Wright",
+    "party":"Conservative",
+    "email":"jeremy.wright.mp@parliament.uk"
+  },
+  {
+    "constituency":"Kensington and Bayswater",
+    "mp_name":"Joe Powell",
+    "party":"Labour",
+    "email":"joe.powell.mp@parliament.uk"
+  },
+  {
+    "constituency":"Kettering",
+    "mp_name":"Rosie Wrighting",
+    "party":"Labour",
+    "email":"rosie.wrighting.mp@parliament.uk"
+  },
+  {
+    "constituency":"Kilmarnock and Loudoun",
+    "mp_name":"Lillian Jones",
+    "party":"Labour",
+    "email":"lillian.jones.mp@parliament.uk"
+  },
+  {
+    "constituency":"Kingston and Surbiton",
+    "mp_name":"Ed Davey",
+    "party":"Liberal Democrat",
+    "email":"edward.davey.mp@parliament.uk"
+  },
+  {
+    "constituency":"Kingston upon Hull East",
+    "mp_name":"Karl Turner",
+    "party":"Labour",
+    "email":"karl.turner.mp@parliament.uk"
+  },
+  {
+    "constituency":"Kingston upon Hull North and Cottingham",
+    "mp_name":"Diana Johnson",
+    "party":"Labour",
+    "email":"johnsond@parliament.uk"
+  },
+  {
+    "constituency":"Kingston upon Hull West and Haltemprice",
+    "mp_name":"Emma Hardy",
+    "party":"Labour",
+    "email":"emma.hardy.mp@parliament.uk"
+  },
+  {
+    "constituency":"Kingswinford and South Staffordshire",
+    "mp_name":"Mike Wood",
+    "party":"Conservative",
+    "email":"mike.wood.mp@parliament.uk"
+  },
+  {
+    "constituency":"Knowsley",
+    "mp_name":"Anneliese Midgley",
+    "party":"Labour",
+    "email":"anneliese.midgley.mp@parliament.uk"
+  },
+  {
+    "constituency":"Lagan Valley",
+    "mp_name":"Sorcha Eastwood",
+    "party":"Alliance",
+    "email":"sorcha.eastwood.mp@parliament.uk"
+  },
+  {
+    "constituency":"Lancaster and Wyre",
+    "mp_name":"Cat Smith",
+    "party":"Labour",
+    "email":"cat.smith.mp@parliament.uk"
+  },
+  {
+    "constituency":"Leeds Central and Headingley",
+    "mp_name":"Alex Sobel",
+    "party":"Labour",
+    "email":"alex.sobel.mp@parliament.uk"
+  },
+  {
+    "constituency":"Leeds East",
+    "mp_name":"Richard Burgon",
+    "party":"Labour",
+    "email":null
+  },
+  {
+    "constituency":"Leeds North East",
+    "mp_name":"Fabian Hamilton",
+    "party":"Labour",
+    "email":"fabian.hamilton.mp@parliament.uk"
+  },
+  {
+    "constituency":"Leeds North West",
+    "mp_name":"Katie White",
+    "party":"Labour",
+    "email":"katie.white.mp@parliament.uk"
+  },
+  {
+    "constituency":"Leeds South",
+    "mp_name":"Hilary Benn",
+    "party":"Labour",
+    "email":"bennh@parliament.uk"
+  },
+  {
+    "constituency":"Leeds South West and Morley",
+    "mp_name":"Mark Sewards",
+    "party":"Labour",
+    "email":"mark.sewards.mp@parliament.uk"
+  },
+  {
+    "constituency":"Leeds West and Pudsey",
+    "mp_name":"Rachel Reeves",
+    "party":"Labour",
+    "email":"rachel.reeves.mp@parliament.uk"
+  },
+  {
+    "constituency":"Leicester East",
+    "mp_name":"Shivani Raja",
+    "party":"Conservative",
+    "email":"shivani.raja.mp@parliament.uk"
+  },
+  {
+    "constituency":"Leicester South",
+    "mp_name":"Shockat Adam",
+    "party":"Independent",
+    "email":"shockat.adam.mp@parliament.uk"
+  },
+  {
+    "constituency":"Leicester West",
+    "mp_name":"Liz Kendall",
+    "party":"Labour",
+    "email":"liz.kendall.mp@parliament.uk"
+  },
+  {
+    "constituency":"Leigh and Atherton",
+    "mp_name":"Jo Platt",
+    "party":"Labour",
+    "email":"jo.platt.mp@parliament.uk"
+  },
+  {
+    "constituency":"Lewes",
+    "mp_name":"James MacCleary",
+    "party":"Liberal Democrat",
+    "email":"james.maccleary.mp@parliament.uk"
+  },
+  {
+    "constituency":"Lewisham East",
+    "mp_name":"Janet Daby",
+    "party":"Labour",
+    "email":"janet.daby.mp@parliament.uk"
+  },
+  {
+    "constituency":"Lewisham North",
+    "mp_name":"Vicky Foxcroft",
+    "party":"Labour",
+    "email":"vicky.foxcroft.mp@parliament.uk"
+  },
+  {
+    "constituency":"Lewisham West and East Dulwich",
+    "mp_name":"Ellie Reeves",
+    "party":"Labour",
+    "email":"ellie.reeves.mp@parliament.uk"
+  },
+  {
+    "constituency":"Leyton and Wanstead",
+    "mp_name":"Calvin Bailey",
+    "party":"Labour",
+    "email":"calvin.bailey.mp@parliament.uk"
+  },
+  {
+    "constituency":"Lichfield",
+    "mp_name":"Dave Robertson",
+    "party":"Labour",
+    "email":"dave.robertson.mp@parliament.uk"
+  },
+  {
+    "constituency":"Lincoln",
+    "mp_name":"Hamish Falconer",
+    "party":"Labour",
+    "email":"hamish.falconer.mp@parliament.uk"
+  },
+  {
+    "constituency":"Liverpool Garston",
+    "mp_name":"Maria Eagle",
+    "party":"Labour",
+    "email":"maria.eagle.mp@parliament.uk"
+  },
+  {
+    "constituency":"Liverpool Riverside",
+    "mp_name":"Kim Johnson",
+    "party":"Labour",
+    "email":"kim.johnson.mp@parliament.uk"
+  },
+  {
+    "constituency":"Liverpool Walton",
+    "mp_name":"Dan Carden",
+    "party":"Labour",
+    "email":"dan.carden.mp@parliament.uk"
+  },
+  {
+    "constituency":"Liverpool Wavertree",
+    "mp_name":"Paula Barker",
+    "party":"Labour",
+    "email":"paula.barker.mp@parliament.uk"
+  },
+  {
+    "constituency":"Liverpool West Derby",
+    "mp_name":"Ian Byrne",
+    "party":"Labour",
+    "email":"ian.byrne.mp@parliament.uk"
+  },
+  {
+    "constituency":"Livingston",
+    "mp_name":"Gregor Poynton",
+    "party":"Labour",
+    "email":"gregor.poynton.mp@parliament.uk"
+  },
+  {
+    "constituency":"Llanelli",
+    "mp_name":"Nia Griffith",
+    "party":"Labour",
+    "email":"nia.griffith.mp@parliament.uk"
+  },
+  {
+    "constituency":"Lothian East",
+    "mp_name":"Douglas Alexander",
+    "party":"Labour",
+    "email":"douglas.alexander.mp@parliament.uk"
+  },
+  {
+    "constituency":"Loughborough",
+    "mp_name":"Jeevun Sandher",
+    "party":"Labour",
+    "email":"jeevun.sandher.mp@parliament.uk"
+  },
+  {
+    "constituency":"Louth and Horncastle",
+    "mp_name":"Victoria Atkins",
+    "party":"Conservative",
+    "email":null
+  },
+  {
+    "constituency":"Lowestoft",
+    "mp_name":"Jess Asato",
+    "party":"Labour",
+    "email":"jess.asato.mp@parliament.uk"
+  },
+  {
+    "constituency":"Luton North",
+    "mp_name":"Sarah Owen",
+    "party":"Labour",
+    "email":"sarah.owen.mp@parliament.uk"
+  },
+  {
+    "constituency":"Luton South and South Bedfordshire",
+    "mp_name":"Rachel Hopkins",
+    "party":"Labour",
+    "email":"rachel.hopkins.mp@parliament.uk"
+  },
+  {
+    "constituency":"Macclesfield",
+    "mp_name":"Tim Roca",
+    "party":"Labour",
+    "email":"tim.roca.mp@parliament.uk"
+  },
+  {
+    "constituency":"Maidenhead",
+    "mp_name":"Joshua Reynolds",
+    "party":"Liberal Democrat",
+    "email":"joshua.reynolds.mp@parliament.uk"
+  },
+  {
+    "constituency":"Maidstone and Malling",
+    "mp_name":"Helen Grant",
+    "party":"Conservative",
+    "email":"helen.grant.mp@parliament.uk"
+  },
+  {
+    "constituency":"Makerfield",
+    "mp_name":"Josh Simons",
+    "party":"Labour",
+    "email":"josh.simons.mp@parliament.uk"
+  },
+  {
+    "constituency":"Maldon",
+    "mp_name":"John Whittingdale",
+    "party":"Conservative",
+    "email":"john.whittingdale.mp@parliament.uk"
+  },
+  {
+    "constituency":"Manchester Central",
+    "mp_name":"Lucy Powell",
+    "party":"Labour",
+    "email":null
+  },
+  {
+    "constituency":"Manchester Rusholme",
+    "mp_name":"Afzal Khan",
+    "party":"Labour",
+    "email":"afzal.khan.mp@parliament.uk"
+  },
+  {
+    "constituency":"Manchester Withington",
+    "mp_name":"Jeff Smith",
+    "party":"Labour",
+    "email":"jeff.smith.mp@parliament.uk"
+  },
+  {
+    "constituency":"Mansfield",
+    "mp_name":"Steve Yemm",
+    "party":"Labour",
+    "email":"steve.yemm.mp@parliament.uk"
+  },
+  {
+    "constituency":"Melksham and Devizes",
+    "mp_name":"Brian Mathew",
+    "party":"Liberal Democrat",
+    "email":"brian.mathew.mp@parliament.uk"
+  },
+  {
+    "constituency":"Melton and Syston",
+    "mp_name":"Edward Argar",
+    "party":"Conservative",
+    "email":"edward.argar.mp@parliament.uk"
+  },
+  {
+    "constituency":"Meriden and Solihull East",
+    "mp_name":"Saqib Bhatti",
+    "party":"Conservative",
+    "email":"saqib.bhatti@parliament.uk"
+  },
+  {
+    "constituency":"Merthyr Tydfil and Aberdare",
+    "mp_name":"Gerald Jones",
+    "party":"Labour",
+    "email":"gerald.jones.mp@parliament.uk"
+  },
+  {
+    "constituency":"Mid Bedfordshire",
+    "mp_name":"Blake Stephenson",
+    "party":"Conservative",
+    "email":"blake.stephenson.mp@parliament.uk"
+  },
+  {
+    "constituency":"Mid Buckinghamshire",
+    "mp_name":"Greg Smith",
+    "party":"Conservative",
+    "email":"greg.smith.mp@parliament.uk"
+  },
+  {
+    "constituency":"Mid Cheshire",
+    "mp_name":"Andrew Cooper",
+    "party":"Labour",
+    "email":"andrew.cooper.mp@parliament.uk"
+  },
+  {
+    "constituency":"Mid Derbyshire",
+    "mp_name":"Jonathan Davies",
+    "party":"Labour",
+    "email":"jonathan.davies.mp@parliament.uk"
+  },
+  {
+    "constituency":"Mid Dorset and North Poole",
+    "mp_name":"Vikki Slade",
+    "party":"Liberal Democrat",
+    "email":"vikki.slade.mp@parliament.uk"
+  },
+  {
+    "constituency":"Mid Dunbartonshire",
+    "mp_name":"Susan Murray",
+    "party":"Liberal Democrat",
+    "email":"susan.murray.mp@parliament.uk"
+  },
+  {
+    "constituency":"Mid Leicestershire",
+    "mp_name":"Peter Bedford",
+    "party":"Conservative",
+    "email":"peter.bedford.mp@parliament.uk"
+  },
+  {
+    "constituency":"Mid Norfolk",
+    "mp_name":"George Freeman",
+    "party":"Conservative",
+    "email":"george.freeman.mp@parliament.uk"
+  },
+  {
+    "constituency":"Mid Sussex",
+    "mp_name":"Alison Bennett",
+    "party":"Liberal Democrat",
+    "email":"alison.bennett.mp@parliament.uk"
+  },
+  {
+    "constituency":"Mid Ulster",
+    "mp_name":"Cathal Mallaghan",
+    "party":"Sinn Féin",
+    "email":"cathal.mallaghan.mp@parliament.uk"
+  },
+  {
+    "constituency":"Mid and South Pembrokeshire",
+    "mp_name":"Henry Tufnell",
+    "party":"Labour",
+    "email":"henry.tufnell.mp@parliament.uk"
+  },
+  {
+    "constituency":"Middlesbrough South and East Cleveland",
+    "mp_name":"Luke Myer",
+    "party":"Labour",
+    "email":"luke.myer.mp@parliament.uk"
+  },
+  {
+    "constituency":"Middlesbrough and Thornaby East",
+    "mp_name":"Andy McDonald",
+    "party":"Labour",
+    "email":"andy.mcdonald.2nd@parliament.uk"
+  },
+  {
+    "constituency":"Midlothian",
+    "mp_name":"Kirsty McNeill",
+    "party":"Labour",
+    "email":"kirsty.mcneill.mp@parliament.uk"
+  },
+  {
+    "constituency":"Milton Keynes Central",
+    "mp_name":"Emily Darlington",
+    "party":"Labour",
+    "email":"emily.darlington.mp@parliament.uk"
+  },
+  {
+    "constituency":"Milton Keynes North",
+    "mp_name":"Chris Curtis",
+    "party":"Labour",
+    "email":"chris.curtis.mp@parliament.uk"
+  },
+  {
+    "constituency":"Mitcham and Morden",
+    "mp_name":"Siobhain McDonagh",
+    "party":"Labour",
+    "email":"mcdonaghs@parliament.uk"
+  },
+  {
+    "constituency":"Monmouthshire",
+    "mp_name":"Catherine Fookes",
+    "party":"Labour",
+    "email":"catherine.fookes.mp@parliament.uk"
+  },
+  {
+    "constituency":"Montgomeryshire and Glyndŵr",
+    "mp_name":"Steve Witherden",
+    "party":"Labour",
+    "email":"steve.witherden.mp@parliament.uk"
+  },
+  {
+    "constituency":"Moray West, Nairn and Strathspey",
+    "mp_name":"Graham Leadbitter",
+    "party":"Scottish National Party",
+    "email":"graham.leadbitter.mp@parliament.uk"
+  },
+  {
+    "constituency":"Morecambe and Lunesdale",
+    "mp_name":"Lizzi Collinge",
+    "party":"Labour",
+    "email":"lizzi.collinge.mp@parliament.uk"
+  },
+  {
+    "constituency":"Motherwell, Wishaw and Carluke",
+    "mp_name":"Pamela Nash",
+    "party":"Labour",
+    "email":"pamela.nash.mp@parliament.uk"
+  },
+  {
+    "constituency":"Na h-Eileanan an Iar",
+    "mp_name":"Torcuil Crichton",
+    "party":"Labour",
+    "email":"torcuil.crichton.mp@parliament.uk"
+  },
+  {
+    "constituency":"Neath and Swansea East",
+    "mp_name":"Carolyn Harris",
+    "party":"Labour",
+    "email":"carolyn.harris.mp@parliament.uk"
+  },
+  {
+    "constituency":"New Forest East",
+    "mp_name":"Julian Lewis",
+    "party":"Conservative",
+    "email":null
+  },
+  {
+    "constituency":"New Forest West",
+    "mp_name":"Desmond Swayne",
+    "party":"Conservative",
+    "email":"swayned@parliament.uk"
+  },
+  {
+    "constituency":"Newark",
+    "mp_name":"Robert Jenrick",
+    "party":"Conservative",
+    "email":"robert.jenrick.mp@parliament.uk"
+  },
+  {
+    "constituency":"Newbury",
+    "mp_name":"Lee Dillon",
+    "party":"Liberal Democrat",
+    "email":"lee.dillon.mp@parliament.uk"
+  },
+  {
+    "constituency":"Newcastle upon Tyne Central and West",
+    "mp_name":"Chi Onwurah",
+    "party":"Labour",
+    "email":"chi.onwurah.mp@parliament.uk"
+  },
+  {
+    "constituency":"Newcastle upon Tyne East and Wallsend",
+    "mp_name":"Mary Glindon",
+    "party":"Labour",
+    "email":"mary.glindon.mp@parliament.uk"
+  },
+  {
+    "constituency":"Newcastle upon Tyne North",
+    "mp_name":"Catherine McKinnell",
+    "party":"Labour",
+    "email":"catherine.mckinnell.mp@parliament.uk"
+  },
+  {
+    "constituency":"Newcastle-under-Lyme",
+    "mp_name":"Adam Jogee",
+    "party":"Labour",
+    "email":"adam.jogee.mp@parliament.uk"
+  },
+  {
+    "constituency":"Newport East",
+    "mp_name":"Jessica Morden",
+    "party":"Labour",
+    "email":"mordenj@parliament.uk"
+  },
+  {
+    "constituency":"Newport West and Islwyn",
+    "mp_name":"Ruth Jones",
+    "party":"Labour",
+    "email":"ruth.jones.mp@parliament.uk"
+  },
+  {
+    "constituency":"Newry and Armagh",
+    "mp_name":"Dáire Hughes",
+    "party":"Sinn Féin",
+    "email":"daire.hughes.mp@parliament.uk"
+  },
+  {
+    "constituency":"Newton Abbot",
+    "mp_name":"Martin Wrigley",
+    "party":"Liberal Democrat",
+    "email":"martin.wrigley.mp@parliament.uk"
+  },
+  {
+    "constituency":"Newton Aycliffe and Spennymoor",
+    "mp_name":"Alan Strickland",
+    "party":"Labour",
+    "email":"alan.strickland.mp@parliament.uk"
+  },
+  {
+    "constituency":"Normanton and Hemsworth",
+    "mp_name":"Jon Trickett",
+    "party":"Labour",
+    "email":"trickettj@parliament.uk"
+  },
+  {
+    "constituency":"North Antrim",
+    "mp_name":"Jim Allister",
+    "party":"Traditional Unionist Voice",
+    "email":"jim.allister.mp@parliament.uk"
+  },
+  {
+    "constituency":"North Ayrshire and Arran",
+    "mp_name":"Irene Campbell",
+    "party":"Labour",
+    "email":"irene.campbell.mp@parliament.uk"
+  },
+  {
+    "constituency":"North Bedfordshire",
+    "mp_name":"Richard Fuller",
+    "party":"Conservative",
+    "email":"richard.fuller.mp@parliament.uk"
+  },
+  {
+    "constituency":"North Cornwall",
+    "mp_name":"Ben Maguire",
+    "party":"Liberal Democrat",
+    "email":"ben.maguire.mp@parliament.uk"
+  },
+  {
+    "constituency":"North Cotswolds",
+    "mp_name":"Geoffrey Clifton-Brown",
+    "party":"Conservative",
+    "email":"cliftonbrowng@parliament.uk"
+  },
+  {
+    "constituency":"North Devon",
+    "mp_name":"Ian Roome",
+    "party":"Liberal Democrat",
+    "email":"ian.roome.mp@parliament.uk"
+  },
+  {
+    "constituency":"North Dorset",
+    "mp_name":"Simon Hoare",
+    "party":"Conservative",
+    "email":"simon.hoare.mp@parliament.uk"
+  },
+  {
+    "constituency":"North Down",
+    "mp_name":"Alex Easton",
+    "party":"Independent",
+    "email":"alex.easton.mp@parliament.uk"
+  },
+  {
+    "constituency":"North Durham",
     "mp_name":"Luke Akehurst",
     "party":"Labour",
     "email":"luke.akehurst.mp@parliament.uk"
   },
   {
-    "constituency":"Southend East and Rochford ",
+    "constituency":"North East Cambridgeshire",
+    "mp_name":"Steve Barclay",
+    "party":"Conservative",
+    "email":"stephen.barclay.mp@parliament.uk"
+  },
+  {
+    "constituency":"North East Derbyshire",
+    "mp_name":"Louise Jones",
+    "party":"Labour",
+    "email":"louise.jones.mp@parliament.uk"
+  },
+  {
+    "constituency":"North East Fife",
+    "mp_name":"Wendy Chamberlain",
+    "party":"Liberal Democrat",
+    "email":"wendy.chamberlain.mp@parliament.uk"
+  },
+  {
+    "constituency":"North East Hampshire",
+    "mp_name":"Alex Brewer",
+    "party":"Liberal Democrat",
+    "email":"alex.brewer.mp@parliament.uk"
+  },
+  {
+    "constituency":"North East Hertfordshire",
+    "mp_name":"Chris Hinchliff",
+    "party":"Independent",
+    "email":"chris.hinchliff.mp@parliament.uk"
+  },
+  {
+    "constituency":"North East Somerset and Hanham",
+    "mp_name":"Dan Norris",
+    "party":"Independent",
+    "email":"dan.norris.mp@parliament.uk"
+  },
+  {
+    "constituency":"North Herefordshire",
+    "mp_name":"Ellie Chowns",
+    "party":"Green Party",
+    "email":"ellie.chowns.mp@parliament.uk"
+  },
+  {
+    "constituency":"North Norfolk",
+    "mp_name":"Steff Aquarone",
+    "party":"Liberal Democrat",
+    "email":"steff.aquarone.mp@parliament.uk"
+  },
+  {
+    "constituency":"North Northumberland",
+    "mp_name":"David Smith",
+    "party":"Labour",
+    "email":"david.smith.mp@parliament.uk"
+  },
+  {
+    "constituency":"North Shropshire",
+    "mp_name":"Helen Morgan",
+    "party":"Liberal Democrat",
+    "email":"helen.morgan.mp@parliament.uk"
+  },
+  {
+    "constituency":"North Somerset",
+    "mp_name":"Sadik Al-Hassan",
+    "party":"Labour",
+    "email":"sadik.alhassan.mp@parliament.uk"
+  },
+  {
+    "constituency":"North Warwickshire and Bedworth",
+    "mp_name":"Rachel Taylor",
+    "party":"Labour",
+    "email":"rachel.taylor.mp@parliament.uk"
+  },
+  {
+    "constituency":"North West Cambridgeshire",
+    "mp_name":"Sam Carling",
+    "party":"Labour",
+    "email":"sam.carling.mp@parliament.uk"
+  },
+  {
+    "constituency":"North West Essex",
+    "mp_name":"Kemi Badenoch",
+    "party":"Conservative",
+    "email":"kemi.badenoch.mp@parliament.uk"
+  },
+  {
+    "constituency":"North West Hampshire",
+    "mp_name":"Kit Malthouse",
+    "party":"Conservative",
+    "email":"kit.malthouse.mp@parliament.uk"
+  },
+  {
+    "constituency":"North West Leicestershire",
+    "mp_name":"Amanda Hack",
+    "party":"Labour",
+    "email":"amanda.hack.mp@parliament.uk"
+  },
+  {
+    "constituency":"North West Norfolk",
+    "mp_name":"James Wild",
+    "party":"Conservative",
+    "email":"james.wild.mp@parliament.uk"
+  },
+  {
+    "constituency":"Northampton North",
+    "mp_name":"Lucy Rigby",
+    "party":"Labour",
+    "email":"lucy.rigby.mp@parliament.uk"
+  },
+  {
+    "constituency":"Northampton South",
+    "mp_name":"Mike Reader",
+    "party":"Labour",
+    "email":"mike.reader.mp@parliament.uk"
+  },
+  {
+    "constituency":"Norwich North",
+    "mp_name":"Alice Macdonald",
+    "party":"Labour",
+    "email":"alice.macdonald.mp@parliament.uk"
+  },
+  {
+    "constituency":"Norwich South",
+    "mp_name":"Clive Lewis",
+    "party":"Labour",
+    "email":"clive.lewis.mp@parliament.uk"
+  },
+  {
+    "constituency":"Nottingham East",
+    "mp_name":"Nadia Whittome",
+    "party":"Labour",
+    "email":"nadia.whittome.mp@parliament.uk"
+  },
+  {
+    "constituency":"Nottingham North and Kimberley",
+    "mp_name":"Alex Norris",
+    "party":"Labour",
+    "email":"alex.norris.mp@parliament.uk"
+  },
+  {
+    "constituency":"Nottingham South",
+    "mp_name":"Lilian Greenwood",
+    "party":"Labour",
+    "email":"lilian.greenwood.mp@parliament.uk"
+  },
+  {
+    "constituency":"Nuneaton",
+    "mp_name":"Jodie Gosling",
+    "party":"Labour",
+    "email":"jodie.gosling.mp@parliament.uk"
+  },
+  {
+    "constituency":"Old Bexley and Sidcup",
+    "mp_name":"Louie French",
+    "party":"Conservative",
+    "email":"louie.french.mp@parliament.uk"
+  },
+  {
+    "constituency":"Oldham East and Saddleworth",
+    "mp_name":"Debbie Abrahams",
+    "party":"Labour",
+    "email":"abrahamsd@parliament.uk"
+  },
+  {
+    "constituency":"Oldham West, Chadderton and Royton",
+    "mp_name":"Jim McMahon",
+    "party":"Labour",
+    "email":"jim.mcmahon.mp@parliament.uk"
+  },
+  {
+    "constituency":"Orkney and Shetland",
+    "mp_name":"Alistair Carmichael",
+    "party":"Liberal Democrat",
+    "email":"carmichaela@parliament.uk"
+  },
+  {
+    "constituency":"Orpington",
+    "mp_name":"Gareth Bacon",
+    "party":"Conservative",
+    "email":"gareth.bacon.mp@parliament.uk"
+  },
+  {
+    "constituency":"Ossett and Denby Dale",
+    "mp_name":"Jade Botterill",
+    "party":"Labour",
+    "email":"jade.botterill.mp@parliament.uk"
+  },
+  {
+    "constituency":"Oxford East",
+    "mp_name":"Anneliese Dodds",
+    "party":"Labour",
+    "email":"anneliese.dodds.mp@parliament.uk"
+  },
+  {
+    "constituency":"Oxford West and Abingdon",
+    "mp_name":"Layla Moran",
+    "party":"Liberal Democrat",
+    "email":"layla.moran.mp@parliament.uk"
+  },
+  {
+    "constituency":"Paisley and Renfrewshire North",
+    "mp_name":"Alison Taylor",
+    "party":"Labour",
+    "email":"alison.taylor.mp@parliament.uk"
+  },
+  {
+    "constituency":"Paisley and Renfrewshire South",
+    "mp_name":"Johanna Baxter",
+    "party":"Labour",
+    "email":"johanna.baxter.mp@parliament.uk"
+  },
+  {
+    "constituency":"Peckham",
+    "mp_name":"Miatta Fahnbulleh",
+    "party":"Labour",
+    "email":"miatta.fahnbulleh.mp@parliament.uk"
+  },
+  {
+    "constituency":"Pendle and Clitheroe",
+    "mp_name":"Jonathan Hinder",
+    "party":"Labour",
+    "email":"jonathan.hinder.mp@parliament.uk"
+  },
+  {
+    "constituency":"Penistone and Stocksbridge",
+    "mp_name":"Marie Tidball",
+    "party":"Labour",
+    "email":"marie.tidball.mp@parliament.uk"
+  },
+  {
+    "constituency":"Penrith and Solway",
+    "mp_name":"Markus Campbell-Savours",
+    "party":"Labour",
+    "email":"markus.campbellsavours.mp@parliament.uk"
+  },
+  {
+    "constituency":"Perth and Kinross-shire",
+    "mp_name":"Pete Wishart",
+    "party":"Scottish National Party",
+    "email":"pete.wishart.mp@parliament.uk"
+  },
+  {
+    "constituency":"Peterborough",
+    "mp_name":"Andrew Pakes",
+    "party":"Labour",
+    "email":"andrew.pakes.mp@parliament.uk"
+  },
+  {
+    "constituency":"Plymouth Moor View",
+    "mp_name":"Fred Thomas",
+    "party":"Labour",
+    "email":"fred.thomas.mp@parliament.uk"
+  },
+  {
+    "constituency":"Plymouth Sutton and Devonport",
+    "mp_name":"Luke Pollard",
+    "party":"Labour",
+    "email":"luke.pollard.mp@parliament.uk"
+  },
+  {
+    "constituency":"Pontefract, Castleford and Knottingley",
+    "mp_name":"Yvette Cooper",
+    "party":"Labour",
+    "email":"coopery@parliament.uk"
+  },
+  {
+    "constituency":"Pontypridd",
+    "mp_name":"Alex Davies-Jones",
+    "party":"Labour",
+    "email":"alex.daviesjones.mp@parliament.uk"
+  },
+  {
+    "constituency":"Poole",
+    "mp_name":"Neil Duncan-Jordan",
+    "party":"Independent",
+    "email":"neil.duncanjordan.mp@parliament.uk"
+  },
+  {
+    "constituency":"Poplar and Limehouse",
+    "mp_name":"Apsana Begum",
+    "party":"Independent",
+    "email":"apsana.begum.mp@parliament.uk"
+  },
+  {
+    "constituency":"Portsmouth North",
+    "mp_name":"Amanda Martin",
+    "party":"Labour",
+    "email":"amanda.martin.mp@parliament.uk"
+  },
+  {
+    "constituency":"Portsmouth South",
+    "mp_name":"Stephen Morgan",
+    "party":"Labour",
+    "email":"stephen.morgan.mp@parliament.uk"
+  },
+  {
+    "constituency":"Preston",
+    "mp_name":"Mark Hendrick",
+    "party":"Labour",
+    "email":"mark.hendrick.mp@parliament.uk"
+  },
+  {
+    "constituency":"Putney",
+    "mp_name":"Fleur Anderson",
+    "party":"Labour",
+    "email":"fleur.anderson.mp@parliament.uk"
+  },
+  {
+    "constituency":"Queen's Park and Maida Vale",
+    "mp_name":"Georgia Gould",
+    "party":"Labour",
+    "email":"georgia.gould.mp@parliament.uk"
+  },
+  {
+    "constituency":"Rawmarsh and Conisbrough",
+    "mp_name":"John Healey",
+    "party":"Labour",
+    "email":"john.healey.mp@parliament.uk"
+  },
+  {
+    "constituency":"Rayleigh and Wickford",
+    "mp_name":"Mark Francois",
+    "party":"Conservative",
+    "email":"mark.francois.mp@parliament.uk"
+  },
+  {
+    "constituency":"Reading Central",
+    "mp_name":"Matt Rodda",
+    "party":"Labour",
+    "email":"matt.rodda.mp@parliament.uk"
+  },
+  {
+    "constituency":"Reading West and Mid Berkshire",
+    "mp_name":"Olivia Bailey",
+    "party":"Labour",
+    "email":"olivia.bailey.mp@parliament.uk"
+  },
+  {
+    "constituency":"Redcar",
+    "mp_name":"Anna Turley",
+    "party":"Labour",
+    "email":"anna.turley.mp@parliament.uk"
+  },
+  {
+    "constituency":"Redditch",
+    "mp_name":"Chris Bloore",
+    "party":"Labour",
+    "email":"chris.bloore.mp@parliament.uk"
+  },
+  {
+    "constituency":"Reigate",
+    "mp_name":"Rebecca Paul",
+    "party":"Conservative",
+    "email":"rebecca.paul.mp@parliament.uk"
+  },
+  {
+    "constituency":"Rhondda and Ogmore",
+    "mp_name":"Chris Bryant",
+    "party":"Labour",
+    "email":"chris.bryant.mp@parliament.uk"
+  },
+  {
+    "constituency":"Ribble Valley",
+    "mp_name":"Maya Ellis",
+    "party":"Labour",
+    "email":"maya.ellis.mp@parliament.uk"
+  },
+  {
+    "constituency":"Richmond Park",
+    "mp_name":"Sarah Olney",
+    "party":"Liberal Democrat",
+    "email":"sarah.olney.mp@parliament.uk"
+  },
+  {
+    "constituency":"Richmond and Northallerton",
+    "mp_name":"Rishi Sunak",
+    "party":"Conservative",
+    "email":"rishi.sunak.mp@parliament.uk"
+  },
+  {
+    "constituency":"Rochdale",
+    "mp_name":"Paul Waugh",
+    "party":"Labour",
+    "email":"paul.waugh.mp@parliament.uk"
+  },
+  {
+    "constituency":"Rochester and Strood",
+    "mp_name":"Lauren Edwards",
+    "party":"Labour",
+    "email":"lauren.edwards.mp@parliament.uk"
+  },
+  {
+    "constituency":"Romford",
+    "mp_name":"Andrew Rosindell",
+    "party":"Conservative",
+    "email":"andrew.rosindell.mp@parliament.uk"
+  },
+  {
+    "constituency":"Romsey and Southampton North",
+    "mp_name":"Caroline Nokes",
+    "party":"Conservative",
+    "email":"caroline.nokes.mp@parliament.uk"
+  },
+  {
+    "constituency":"Rossendale and Darwen",
+    "mp_name":"Andy MacNae",
+    "party":"Labour",
+    "email":"andy.macnae.mp@parliament.uk"
+  },
+  {
+    "constituency":"Rother Valley",
+    "mp_name":"Jake Richards",
+    "party":"Labour",
+    "email":"jake.richards.mp@parliament.uk"
+  },
+  {
+    "constituency":"Rotherham",
+    "mp_name":"Sarah Champion",
+    "party":"Labour",
+    "email":"sarah.champion.mp@parliament.uk"
+  },
+  {
+    "constituency":"Rugby",
+    "mp_name":"John Slinger",
+    "party":"Labour",
+    "email":"john.slinger.mp@parliament.uk"
+  },
+  {
+    "constituency":"Ruislip, Northwood and Pinner",
+    "mp_name":"David Simmonds",
+    "party":"Conservative",
+    "email":"david.simmonds.mp@parliament.uk"
+  },
+  {
+    "constituency":"Runcorn and Helsby",
+    "mp_name":"Sarah Pochin",
+    "party":"Reform UK",
+    "email":"sarah.pochin.mp@parliament.uk"
+  },
+  {
+    "constituency":"Runnymede and Weybridge",
+    "mp_name":"Ben Spencer",
+    "party":"Conservative",
+    "email":"ben.spencer.mp@parliament.uk"
+  },
+  {
+    "constituency":"Rushcliffe",
+    "mp_name":"James Naish",
+    "party":"Labour",
+    "email":"james.naish.mp@parliament.uk"
+  },
+  {
+    "constituency":"Rutherglen",
+    "mp_name":"Michael Shanks",
+    "party":"Labour",
+    "email":"michael.shanks.mp@parliament.uk"
+  },
+  {
+    "constituency":"Rutland and Stamford",
+    "mp_name":"Alicia Kearns",
+    "party":"Conservative",
+    "email":"alicia.kearns.mp@parliament.uk"
+  },
+  {
+    "constituency":"Salford",
+    "mp_name":"Rebecca Long Bailey",
+    "party":"Labour",
+    "email":"rebecca.longbailey.mp@parliament.uk"
+  },
+  {
+    "constituency":"Salisbury",
+    "mp_name":"John Glen",
+    "party":"Conservative",
+    "email":"john.glen.mp@parliament.uk"
+  },
+  {
+    "constituency":"Scarborough and Whitby",
+    "mp_name":"Alison Hume",
+    "party":"Labour",
+    "email":"alison.hume.mp@parliament.uk"
+  },
+  {
+    "constituency":"Scunthorpe",
+    "mp_name":"Nicholas Dakin",
+    "party":"Labour",
+    "email":"nic.dakin.mp@parliament.uk"
+  },
+  {
+    "constituency":"Sefton Central",
+    "mp_name":"Bill Esterson",
+    "party":"Labour",
+    "email":"bill.esterson.mp@parliament.uk"
+  },
+  {
+    "constituency":"Selby",
+    "mp_name":"Keir Mather",
+    "party":"Labour",
+    "email":"keir.mather.mp@parliament.uk"
+  },
+  {
+    "constituency":"Sevenoaks",
+    "mp_name":"Laura Trott",
+    "party":"Conservative",
+    "email":"laura.trott.mp@parliament.uk"
+  },
+  {
+    "constituency":"Sheffield Brightside and Hillsborough",
+    "mp_name":"Gill Furniss",
+    "party":"Labour",
+    "email":"gill.furniss.mp@parliament.uk"
+  },
+  {
+    "constituency":"Sheffield Central",
+    "mp_name":"Abtisam Mohamed",
+    "party":"Labour",
+    "email":"abtisam.mohamed.mp@parliament.uk"
+  },
+  {
+    "constituency":"Sheffield Hallam",
+    "mp_name":"Olivia Blake",
+    "party":"Labour",
+    "email":"olivia.blake.mp@parliament.uk"
+  },
+  {
+    "constituency":"Sheffield Heeley",
+    "mp_name":"Louise Haigh",
+    "party":"Labour",
+    "email":"louise.haigh.mp@parliament.uk"
+  },
+  {
+    "constituency":"Sheffield South East",
+    "mp_name":"Clive Betts",
+    "party":"Labour",
+    "email":"officeofclivebettsmp@parliament.uk"
+  },
+  {
+    "constituency":"Sherwood Forest",
+    "mp_name":"Michelle Welsh",
+    "party":"Labour",
+    "email":"michelle.welsh.mp@parliament.uk"
+  },
+  {
+    "constituency":"Shipley",
+    "mp_name":"Anna Dixon",
+    "party":"Labour",
+    "email":"anna.dixon.mp@parliament.uk"
+  },
+  {
+    "constituency":"Shrewsbury",
+    "mp_name":"Julia Buckley",
+    "party":"Labour",
+    "email":"julia.buckley.mp@parliament.uk"
+  },
+  {
+    "constituency":"Sittingbourne and Sheppey",
+    "mp_name":"Kevin McKenna",
+    "party":"Labour",
+    "email":"kevin.mckenna.mp@parliament.uk"
+  },
+  {
+    "constituency":"Skipton and Ripon",
+    "mp_name":"Julian Smith",
+    "party":"Conservative",
+    "email":"julian.smith.mp@parliament.uk"
+  },
+  {
+    "constituency":"Sleaford and North Hykeham",
+    "mp_name":"Caroline Johnson",
+    "party":"Conservative",
+    "email":"caroline.johnson.mp@parliament.uk"
+  },
+  {
+    "constituency":"Slough",
+    "mp_name":"Tanmanjeet Singh Dhesi",
+    "party":"Labour",
+    "email":"tan.dhesi.mp@parliament.uk"
+  },
+  {
+    "constituency":"Smethwick",
+    "mp_name":"Gurinder Singh Josan",
+    "party":"Labour",
+    "email":"gurinder.josan.mp@parliament.uk"
+  },
+  {
+    "constituency":"Solihull West and Shirley",
+    "mp_name":"Neil Shastri-Hurst",
+    "party":"Conservative",
+    "email":"neil.shastrihurst.mp@parliament.uk"
+  },
+  {
+    "constituency":"South Antrim",
+    "mp_name":"Robin Swann",
+    "party":"Ulster Unionist Party",
+    "email":"robin.swann.mp@parliament.uk"
+  },
+  {
+    "constituency":"South Basildon and East Thurrock",
+    "mp_name":"James McMurdock",
+    "party":"Independent",
+    "email":"james.mcmurdock.mp@parliament.uk"
+  },
+  {
+    "constituency":"South Cambridgeshire",
+    "mp_name":"Pippa Heylings",
+    "party":"Liberal Democrat",
+    "email":"pippa.heylings.mp@parliament.uk"
+  },
+  {
+    "constituency":"South Cotswolds",
+    "mp_name":"Roz Savage",
+    "party":"Liberal Democrat",
+    "email":"roz.savage.mp@parliament.uk"
+  },
+  {
+    "constituency":"South Derbyshire",
+    "mp_name":"Samantha Niblett",
+    "party":"Labour",
+    "email":"samantha.niblett.mp@parliament.uk"
+  },
+  {
+    "constituency":"South Devon",
+    "mp_name":"Caroline Voaden",
+    "party":"Liberal Democrat",
+    "email":"caroline.voaden.mp@parliament.uk"
+  },
+  {
+    "constituency":"South Dorset",
+    "mp_name":"Lloyd Hatton",
+    "party":"Labour",
+    "email":"lloyd.hatton.mp@parliament.uk"
+  },
+  {
+    "constituency":"South Down",
+    "mp_name":"Chris Hazzard",
+    "party":"Sinn Féin",
+    "email":"chris.hazzard.mp@parliament.uk"
+  },
+  {
+    "constituency":"South East Cornwall",
+    "mp_name":"Anna Gelderd",
+    "party":"Labour",
+    "email":"anna.gelderd.mp@parliament.uk"
+  },
+  {
+    "constituency":"South Holland and The Deepings",
+    "mp_name":"John Hayes",
+    "party":"Conservative",
+    "email":"hayesj@parliament.uk"
+  },
+  {
+    "constituency":"South Leicestershire",
+    "mp_name":"Alberto Costa",
+    "party":"Conservative",
+    "email":"alberto.costa.mp@parliament.uk"
+  },
+  {
+    "constituency":"South Norfolk",
+    "mp_name":"Ben Goldsborough",
+    "party":"Labour",
+    "email":"ben.goldsborough.mp@parliament.uk"
+  },
+  {
+    "constituency":"South Northamptonshire",
+    "mp_name":"Sarah Bool",
+    "party":"Conservative",
+    "email":"sarah.bool.mp@parliament.uk"
+  },
+  {
+    "constituency":"South Ribble",
+    "mp_name":"Paul Foster",
+    "party":"Labour",
+    "email":"paul.foster.mp@parliament.uk"
+  },
+  {
+    "constituency":"South Shields",
+    "mp_name":"Emma Lewell",
+    "party":"Labour",
+    "email":"emma.lewell.mp@parliament.uk"
+  },
+  {
+    "constituency":"South Shropshire",
+    "mp_name":"Stuart Anderson",
+    "party":"Conservative",
+    "email":"stuart.anderson.mp@parliament.uk"
+  },
+  {
+    "constituency":"South Suffolk",
+    "mp_name":"James Cartlidge",
+    "party":"Conservative",
+    "email":"james.cartlidge.mp@parliament.uk"
+  },
+  {
+    "constituency":"South West Devon",
+    "mp_name":"Rebecca Smith",
+    "party":"Conservative",
+    "email":"rebecca.smith.mp@parliament.uk"
+  },
+  {
+    "constituency":"South West Hertfordshire",
+    "mp_name":"Gagan Mohindra",
+    "party":"Conservative",
+    "email":"gagan.mohindra.mp@parliament.uk"
+  },
+  {
+    "constituency":"South West Norfolk",
+    "mp_name":"Terry Jermy",
+    "party":"Labour",
+    "email":"terry.jermy.mp@parliament.uk"
+  },
+  {
+    "constituency":"South West Wiltshire",
+    "mp_name":"Andrew Murrison",
+    "party":"Conservative",
+    "email":"murrisona@parliament.uk"
+  },
+  {
+    "constituency":"Southampton Itchen",
+    "mp_name":"Darren Paffey",
+    "party":"Labour",
+    "email":"darren.paffey.mp@parliament.uk"
+  },
+  {
+    "constituency":"Southampton Test",
+    "mp_name":"Satvir Kaur",
+    "party":"Labour",
+    "email":"satvir.kaur.mp@parliament.uk"
+  },
+  {
+    "constituency":"Southend East and Rochford",
     "mp_name":"Bayo Alaba",
-    "party":"Labour ",
+    "party":"Labour",
     "email":"bayo.alaba.mp@parliament.uk"
+  },
+  {
+    "constituency":"Southend West and Leigh",
+    "mp_name":"David Burton-Sampson",
+    "party":"Labour",
+    "email":"david.burtonsampson.mp@parliament.uk"
+  },
+  {
+    "constituency":"Southgate and Wood Green",
+    "mp_name":"Bambos Charalambous",
+    "party":"Labour",
+    "email":"bambos.charalambous.mp@parliament.uk"
+  },
+  {
+    "constituency":"Southport",
+    "mp_name":"Patrick Hurley",
+    "party":"Labour",
+    "email":"patrick.hurley.mp@parliament.uk"
+  },
+  {
+    "constituency":"Spelthorne",
+    "mp_name":"Lincoln Jopp",
+    "party":"Conservative",
+    "email":"lincoln.jopp.mp@parliament.uk"
+  },
+  {
+    "constituency":"Spen Valley",
+    "mp_name":"Kim Leadbeater",
+    "party":"Labour",
+    "email":"kim.leadbeater.mp@parliament.uk"
+  },
+  {
+    "constituency":"St Albans",
+    "mp_name":"Daisy Cooper",
+    "party":"Liberal Democrat",
+    "email":"daisy.cooper.mp@parliament.uk"
+  },
+  {
+    "constituency":"St Austell and Newquay",
+    "mp_name":"Noah Law",
+    "party":"Labour",
+    "email":"noah.law.mp@parliament.uk"
+  },
+  {
+    "constituency":"St Helens North",
+    "mp_name":"David Baines",
+    "party":"Labour",
+    "email":"david.baines.mp@parliament.uk"
+  },
+  {
+    "constituency":"St Helens South and Whiston",
+    "mp_name":"Marie Rimmer",
+    "party":"Labour",
+    "email":"marie.rimmer.mp@parliament.uk"
+  },
+  {
+    "constituency":"St Ives",
+    "mp_name":"Andrew George",
+    "party":"Liberal Democrat",
+    "email":"andrew.george.mp@parliament.uk"
+  },
+  {
+    "constituency":"St Neots and Mid Cambridgeshire",
+    "mp_name":"Ian Sollom",
+    "party":"Liberal Democrat",
+    "email":"ian.sollom.mp@parliament.uk"
+  },
+  {
+    "constituency":"Stafford",
+    "mp_name":"Leigh Ingham",
+    "party":"Labour",
+    "email":"leigh.ingham.mp@parliament.uk"
+  },
+  {
+    "constituency":"Staffordshire Moorlands",
+    "mp_name":"Karen Bradley",
+    "party":"Conservative",
+    "email":"karen.bradley.mp@parliament.uk"
+  },
+  {
+    "constituency":"Stalybridge and Hyde",
+    "mp_name":"Jonathan Reynolds",
+    "party":"Labour",
+    "email":"jonathan.reynolds.mp@parliament.uk"
+  },
+  {
+    "constituency":"Stevenage",
+    "mp_name":"Kevin Bonavia",
+    "party":"Labour",
+    "email":"kevin.bonavia.mp@parliament.uk"
+  },
+  {
+    "constituency":"Stirling and Strathallan",
+    "mp_name":"Chris Kane",
+    "party":"Labour",
+    "email":"chris.kane.mp@parliament.uk"
+  },
+  {
+    "constituency":"Stockport",
+    "mp_name":"Navendu Mishra",
+    "party":"Labour",
+    "email":"navendu.mishra.mp@parliament.uk"
+  },
+  {
+    "constituency":"Stockton North",
+    "mp_name":"Chris McDonald",
+    "party":"Labour",
+    "email":"chris.mcdonald.mp@parliament.uk"
+  },
+  {
+    "constituency":"Stockton West",
+    "mp_name":"Matt Vickers",
+    "party":"Conservative",
+    "email":"matt.vickers.mp@parliament.uk"
+  },
+  {
+    "constituency":"Stoke-on-Trent Central",
+    "mp_name":"Gareth Snell",
+    "party":"Labour",
+    "email":"gareth.snell.mp@parliament.uk"
+  },
+  {
+    "constituency":"Stoke-on-Trent North",
+    "mp_name":"David Williams",
+    "party":"Labour",
+    "email":"david.williams.mp@parliament.uk"
+  },
+  {
+    "constituency":"Stoke-on-Trent South",
+    "mp_name":"Allison Gardner",
+    "party":"Labour",
+    "email":"allison.gardner.mp@parliament.uk"
+  },
+  {
+    "constituency":"Stone, Great Wyrley and Penkridge",
+    "mp_name":"Gavin Williamson",
+    "party":"Conservative",
+    "email":"gavin.williamson.mp@parliament.uk"
+  },
+  {
+    "constituency":"Stourbridge",
+    "mp_name":"Cat Eccles",
+    "party":"Labour",
+    "email":"cat.eccles.mp@parliament.uk"
+  },
+  {
+    "constituency":"Strangford",
+    "mp_name":"Jim Shannon",
+    "party":"Democratic Unionist Party",
+    "email":"jim.shannon.mp@parliament.uk"
+  },
+  {
+    "constituency":"Stratford and Bow",
+    "mp_name":"Uma Kumaran",
+    "party":"Labour",
+    "email":"uma.kumaran.mp@parliament.uk"
+  },
+  {
+    "constituency":"Stratford-on-Avon",
+    "mp_name":"Manuela Perteghella",
+    "party":"Liberal Democrat",
+    "email":"manuela.perteghella.mp@parliament.uk"
+  },
+  {
+    "constituency":"Streatham and Croydon North",
+    "mp_name":"Steve Reed",
+    "party":"Labour",
+    "email":"steve.reed.mp@parliament.uk"
+  },
+  {
+    "constituency":"Stretford and Urmston",
+    "mp_name":"Andrew Western",
+    "party":"Labour",
+    "email":"andrew.western.mp@parliament.uk"
+  },
+  {
+    "constituency":"Stroud",
+    "mp_name":"Simon Opher",
+    "party":"Labour",
+    "email":"simon.opher.mp@parliament.uk"
+  },
+  {
+    "constituency":"Suffolk Coastal",
+    "mp_name":"Jenny Riddell-Carpenter",
+    "party":"Labour",
+    "email":"jenny.riddellcarpenter.mp@parliament.uk"
+  },
+  {
+    "constituency":"Sunderland Central",
+    "mp_name":"Lewis Atkinson",
+    "party":"Labour",
+    "email":"lewis.atkinson.mp@parliament.uk"
+  },
+  {
+    "constituency":"Surrey Heath",
+    "mp_name":"Al Pinkerton",
+    "party":"Liberal Democrat",
+    "email":"al.pinkerton.mp@parliament.uk"
+  },
+  {
+    "constituency":"Sussex Weald",
+    "mp_name":"Nusrat Ghani",
+    "party":"Conservative",
+    "email":"nusrat.ghani.mp@parliament.uk"
+  },
+  {
+    "constituency":"Sutton Coldfield",
+    "mp_name":"Andrew Mitchell",
+    "party":"Conservative",
+    "email":"andrew.mitchell.mp@parliament.uk"
+  },
+  {
+    "constituency":"Sutton and Cheam",
+    "mp_name":"Luke Taylor",
+    "party":"Liberal Democrat",
+    "email":"luke.taylor.mp@parliament.uk"
+  },
+  {
+    "constituency":"Swansea West",
+    "mp_name":"Torsten Bell",
+    "party":"Labour",
+    "email":"torsten.bell.mp@parliament.uk"
+  },
+  {
+    "constituency":"Swindon North",
+    "mp_name":"Will Stone",
+    "party":"Labour",
+    "email":"will.stone.mp@parliament.uk"
+  },
+  {
+    "constituency":"Swindon South",
+    "mp_name":"Heidi Alexander",
+    "party":"Labour",
+    "email":"heidi.alexander.mp@parliament.uk"
+  },
+  {
+    "constituency":"Tamworth",
+    "mp_name":"Sarah Edwards",
+    "party":"Labour",
+    "email":"sarah.edwards.mp@parliament.uk"
+  },
+  {
+    "constituency":"Tatton",
+    "mp_name":"Esther McVey",
+    "party":"Conservative",
+    "email":"esther.mcvey.mp@parliament.uk"
+  },
+  {
+    "constituency":"Taunton and Wellington",
+    "mp_name":"Gideon Amos",
+    "party":"Liberal Democrat",
+    "email":"gideon.amos.mp@parliament.uk"
+  },
+  {
+    "constituency":"Telford",
+    "mp_name":"Shaun Davies",
+    "party":"Labour",
+    "email":"shaun.davies.mp@parliament.uk"
+  },
+  {
+    "constituency":"Tewkesbury",
+    "mp_name":"Cameron Thomas",
+    "party":"Liberal Democrat",
+    "email":"cameron.thomas.mp@parliament.uk"
+  },
+  {
+    "constituency":"The Wrekin",
+    "mp_name":"Mark Pritchard",
+    "party":"Conservative",
+    "email":"mark.pritchard.mp@parliament.uk"
+  },
+  {
+    "constituency":"Thirsk and Malton",
+    "mp_name":"Kevin Hollinrake",
+    "party":"Conservative",
+    "email":"kevin.hollinrake.mp@parliament.uk"
+  },
+  {
+    "constituency":"Thornbury and Yate",
+    "mp_name":"Claire Young",
+    "party":"Liberal Democrat",
+    "email":"claire.young.mp@parliament.uk"
+  },
+  {
+    "constituency":"Thurrock",
+    "mp_name":"Jen Craft",
+    "party":"Labour",
+    "email":"jen.craft.mp@parliament.uk"
+  },
+  {
+    "constituency":"Tipton and Wednesbury",
+    "mp_name":"Antonia Bance",
+    "party":"Labour",
+    "email":"antonia.bance.mp@parliament.uk"
+  },
+  {
+    "constituency":"Tiverton and Minehead",
+    "mp_name":"Rachel Gilmour",
+    "party":"Liberal Democrat",
+    "email":"rachel.gilmour.mp@parliament.uk"
+  },
+  {
+    "constituency":"Tonbridge",
+    "mp_name":"Tom Tugendhat",
+    "party":"Conservative",
+    "email":"tom.tugendhat.mp@parliament.uk"
+  },
+  {
+    "constituency":"Tooting",
+    "mp_name":"Rosena Allin-Khan",
+    "party":"Labour",
+    "email":"rosena.allinkhan.mp@parliament.uk"
+  },
+  {
+    "constituency":"Torbay",
+    "mp_name":"Steve Darling",
+    "party":"Liberal Democrat",
+    "email":"steve.darling.mp@parliament.uk"
+  },
+  {
+    "constituency":"Torfaen",
+    "mp_name":"Nick Thomas-Symonds",
+    "party":"Labour",
+    "email":"nick.thomassymonds.mp@parliament.uk"
+  },
+  {
+    "constituency":"Torridge and Tavistock",
+    "mp_name":"Geoffrey Cox",
+    "party":"Conservative",
+    "email":"coxg@parliament.uk"
+  },
+  {
+    "constituency":"Tottenham",
+    "mp_name":"David Lammy",
+    "party":"Labour",
+    "email":"david.lammy.mp@parliament.uk"
+  },
+  {
+    "constituency":"Truro and Falmouth",
+    "mp_name":"Jayne Kirkham",
+    "party":"Labour",
+    "email":"jayne.kirkham.mp@parliament.uk"
+  },
+  {
+    "constituency":"Tunbridge Wells",
+    "mp_name":"Mike Martin",
+    "party":"Liberal Democrat",
+    "email":"mike.martin.mp@parliament.uk"
+  },
+  {
+    "constituency":"Twickenham",
+    "mp_name":"Munira Wilson",
+    "party":"Liberal Democrat",
+    "email":"munira.wilson.mp@parliament.uk"
+  },
+  {
+    "constituency":"Tynemouth",
+    "mp_name":"Alan Campbell",
+    "party":"Labour",
+    "email":"alan.campbell.mp@parliament.uk"
+  },
+  {
+    "constituency":"Upper Bann",
+    "mp_name":"Carla Lockhart",
+    "party":"Democratic Unionist Party",
+    "email":"carla.lockhart.mp@parliament.uk"
+  },
+  {
+    "constituency":"Uxbridge and South Ruislip",
+    "mp_name":"Danny Beales",
+    "party":"Labour",
+    "email":"danny.beales.mp@parliament.uk"
+  },
+  {
+    "constituency":"Vale of Glamorgan",
+    "mp_name":"Kanishka Narayan",
+    "party":"Labour",
+    "email":"kanishka.narayan.mp@parliament.uk"
+  },
+  {
+    "constituency":"Vauxhall and Camberwell Green",
+    "mp_name":"Florence Eshalomi",
+    "party":"Labour",
+    "email":"florence.eshalomi.mp@parliament.uk"
+  },
+  {
+    "constituency":"Wakefield and Rothwell",
+    "mp_name":"Simon Lightwood",
+    "party":"Labour",
+    "email":"simon.lightwood.mp@parliament.uk"
+  },
+  {
+    "constituency":"Wallasey",
+    "mp_name":"Angela Eagle",
+    "party":"Labour",
+    "email":"eaglea@parliament.uk"
+  },
+  {
+    "constituency":"Walsall and Bloxwich",
+    "mp_name":"Valerie Vaz",
+    "party":"Labour",
+    "email":"valerie.vaz.mp@parliament.uk"
+  },
+  {
+    "constituency":"Walthamstow",
+    "mp_name":"Stella Creasy",
+    "party":"Labour",
+    "email":"stella.creasy.mp@parliament.uk"
+  },
+  {
+    "constituency":"Warrington North",
+    "mp_name":"Charlotte Nichols",
+    "party":"Labour",
+    "email":"charlotte.nichols.mp@parliament.uk"
+  },
+  {
+    "constituency":"Warrington South",
+    "mp_name":"Sarah Hall",
+    "party":"Labour",
+    "email":"sarah.hall.mp@parliament.uk"
+  },
+  {
+    "constituency":"Warwick and Leamington",
+    "mp_name":"Matt Western",
+    "party":"Labour",
+    "email":"matt.western.mp@parliament.uk"
+  },
+  {
+    "constituency":"Washington and Gateshead South",
+    "mp_name":"Sharon Hodgson",
+    "party":"Labour",
+    "email":"sharon.hodgson.mp@parliament.uk"
+  },
+  {
+    "constituency":"Watford",
+    "mp_name":"Matt Turmaine",
+    "party":"Labour",
+    "email":"matt.turmaine.mp@parliament.uk"
+  },
+  {
+    "constituency":"Waveney Valley",
+    "mp_name":"Adrian Ramsay",
+    "party":"Green Party",
+    "email":"adrian.ramsay.mp@parliament.uk"
+  },
+  {
+    "constituency":"Weald of Kent",
+    "mp_name":"Katie Lam",
+    "party":"Conservative",
+    "email":"katie.lam.mp@parliament.uk"
+  },
+  {
+    "constituency":"Wellingborough and Rushden",
+    "mp_name":"Gen Kitchen",
+    "party":"Labour",
+    "email":"gen.kitchen.mp@parliament.uk"
+  },
+  {
+    "constituency":"Wells and Mendip Hills",
+    "mp_name":"Tessa Munt",
+    "party":"Liberal Democrat",
+    "email":"tessa.munt.mp@parliament.uk"
+  },
+  {
+    "constituency":"Welwyn Hatfield",
+    "mp_name":"Andrew Lewin",
+    "party":"Labour",
+    "email":"andrew.lewin.mp@parliament.uk"
+  },
+  {
+    "constituency":"West Aberdeenshire and Kincardine",
+    "mp_name":"Andrew Bowie",
+    "party":"Conservative",
+    "email":"andrew.bowie.mp@parliament.uk"
+  },
+  {
+    "constituency":"West Bromwich",
+    "mp_name":"Sarah Coombes",
+    "party":"Labour",
+    "email":"sarah.coombes.mp@parliament.uk"
+  },
+  {
+    "constituency":"West Dorset",
+    "mp_name":"Edward Morello",
+    "party":"Liberal Democrat",
+    "email":"edward.morello.mp@parliament.uk"
+  },
+  {
+    "constituency":"West Dunbartonshire",
+    "mp_name":"Douglas McAllister",
+    "party":"Labour",
+    "email":"douglas.mcallister.mp@parliament.uk"
+  },
+  {
+    "constituency":"West Ham and Beckton",
+    "mp_name":"James Asser",
+    "party":"Labour",
+    "email":"james.asser.mp@parliament.uk"
+  },
+  {
+    "constituency":"West Lancashire",
+    "mp_name":"Ashley Dalton",
+    "party":"Labour",
+    "email":"ashley.dalton.mp@parliament.uk"
+  },
+  {
+    "constituency":"West Suffolk",
+    "mp_name":"Nick Timothy",
+    "party":"Conservative",
+    "email":"nick.timothy.mp@parliament.uk"
+  },
+  {
+    "constituency":"West Tyrone",
+    "mp_name":"Órfhlaith Begley",
+    "party":"Sinn Féin",
+    "email":null
+  },
+  {
+    "constituency":"West Worcestershire",
+    "mp_name":"Harriett Baldwin",
+    "party":"Conservative",
+    "email":"harriett.baldwin.mp@parliament.uk"
+  },
+  {
+    "constituency":"Westmorland and Lonsdale",
+    "mp_name":"Tim Farron",
+    "party":"Liberal Democrat",
+    "email":"tim.farron.mp@parliament.uk"
+  },
+  {
+    "constituency":"Weston-super-Mare",
+    "mp_name":"Dan Aldridge",
+    "party":"Labour",
+    "email":"daniel.aldridge.mp@parliament.uk"
+  },
+  {
+    "constituency":"Wetherby and Easingwold",
+    "mp_name":"Alec Shelbrooke",
+    "party":"Conservative",
+    "email":"alec.shelbrooke.mp@parliament.uk"
+  },
+  {
+    "constituency":"Whitehaven and Workington",
+    "mp_name":"Josh MacAlister",
+    "party":"Labour",
+    "email":"josh.macalister.mp@parliament.uk"
+  },
+  {
+    "constituency":"Widnes and Halewood",
+    "mp_name":"Derek Twigg",
+    "party":"Labour",
+    "email":"derek.twigg.mp@parliament.uk"
+  },
+  {
+    "constituency":"Wigan",
+    "mp_name":"Lisa Nandy",
+    "party":"Labour",
+    "email":"lisa.nandy.mp@parliament.uk"
+  },
+  {
+    "constituency":"Wimbledon",
+    "mp_name":"Paul Kohler",
+    "party":"Liberal Democrat",
+    "email":"paul.kohler.mp@parliament.uk"
+  },
+  {
+    "constituency":"Winchester",
+    "mp_name":"Danny Chambers",
+    "party":"Liberal Democrat",
+    "email":"danny.chambers.mp@parliament.uk"
+  },
+  {
+    "constituency":"Windsor",
+    "mp_name":"Jack Rankin",
+    "party":"Conservative",
+    "email":"jack.rankin.mp@parliament.uk"
+  },
+  {
+    "constituency":"Wirral West",
+    "mp_name":"Matthew Patrick",
+    "party":"Labour",
+    "email":"matthew.patrick.mp@parliament.uk"
+  },
+  {
+    "constituency":"Witham",
+    "mp_name":"Priti Patel",
+    "party":"Conservative",
+    "email":"withammp@parliament.uk"
+  },
+  {
+    "constituency":"Witney",
+    "mp_name":"Charlie Maynard",
+    "party":"Liberal Democrat",
+    "email":"charlie.maynard.mp@parliament.uk"
+  },
+  {
+    "constituency":"Woking",
+    "mp_name":"Will Forster",
+    "party":"Liberal Democrat",
+    "email":"will.forster.mp@parliament.uk"
+  },
+  {
+    "constituency":"Wokingham",
+    "mp_name":"Clive Jones",
+    "party":"Liberal Democrat",
+    "email":"clive.jones.mp@parliament.uk"
+  },
+  {
+    "constituency":"Wolverhampton North East",
+    "mp_name":"Sureena Brackenridge",
+    "party":"Labour",
+    "email":"sureena.brackenridge.mp@parliament.uk"
+  },
+  {
+    "constituency":"Wolverhampton South East",
+    "mp_name":"Pat McFadden",
+    "party":"Labour",
+    "email":"mcfaddenp@parliament.uk"
+  },
+  {
+    "constituency":"Wolverhampton West",
+    "mp_name":"Warinder Juss",
+    "party":"Labour",
+    "email":"warinder.juss.mp@parliament.uk"
+  },
+  {
+    "constituency":"Worcester",
+    "mp_name":"Tom Collins",
+    "party":"Labour",
+    "email":"tom.collins.mp@parliament.uk"
+  },
+  {
+    "constituency":"Worsley and Eccles",
+    "mp_name":"Michael Wheeler",
+    "party":"Labour",
+    "email":"michael.wheeler.mp@parliament.uk"
+  },
+  {
+    "constituency":"Worthing West",
+    "mp_name":"Beccy Cooper",
+    "party":"Labour",
+    "email":"beccy.cooper.mp@parliament.uk"
+  },
+  {
+    "constituency":"Wrexham",
+    "mp_name":"Andrew Ranger",
+    "party":"Labour",
+    "email":"andrew.ranger.mp@parliament.uk"
+  },
+  {
+    "constituency":"Wycombe",
+    "mp_name":"Emma Reynolds",
+    "party":"Labour",
+    "email":"emma.reynolds.mp@parliament.uk"
+  },
+  {
+    "constituency":"Wyre Forest",
+    "mp_name":"Mark Garnier",
+    "party":"Conservative",
+    "email":"mark.garnier.mp@parliament.uk"
+  },
+  {
+    "constituency":"Wythenshawe and Sale East",
+    "mp_name":"Mike Kane",
+    "party":"Labour",
+    "email":"mike.kane.mp@parliament.uk"
+  },
+  {
+    "constituency":"Yeovil",
+    "mp_name":"Adam Dance",
+    "party":"Liberal Democrat",
+    "email":"adam.dance.mp@parliament.uk"
+  },
+  {
+    "constituency":"Ynys Môn",
+    "mp_name":"Llinos Medi",
+    "party":"Plaid Cymru",
+    "email":"llinos.medi.mp@parliament.uk"
+  },
+  {
+    "constituency":"York Central",
+    "mp_name":"Rachael Maskell",
+    "party":"Independent",
+    "email":"rachael.maskell.mp@parliament.uk"
+  },
+  {
+    "constituency":"York Outer",
+    "mp_name":"Luke Charters",
+    "party":"Labour",
+    "email":"luke.charters.mp@parliament.uk"
   }
 ]
