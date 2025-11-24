@@ -1,34 +1,45 @@
-// api/mp.js — CommonJS + robust fallbacks + curated email override + CLIENT AUTH via ENV
+// api/mp.js — CommonJS + robust fallbacks + curated email override + CLIENT AUTH (via ENV)
 
-// ----- Client allow-list built from ENV (with sane defaults) -----
+// ----- Client allow-list (per-client ID + token + on/off switch) -----
+// We read from environment variables so you can configure this in Vercel:
+//
+// CLIENT_1_ID, CLIENT_1_TOKEN
+// CLIENT_2_ID, CLIENT_2_TOKEN
+//
+// Example values:
+// CLIENT_1_ID    = "client_1"
+// CLIENT_1_TOKEN = "client1_2473981238514b15b59889f0c16163f1"
+// CLIENT_2_ID    = "client_2"
+// CLIENT_2_TOKEN = "client2_3aa211db5a4048ffa1bd6521e984b719"
 
-// These give you both:
-// - ENV-based configuration on Vercel, and
-// - Working defaults for local/dev if env vars aren't set.
-const CLIENTS = (() => {
-  const clients = {};
+function buildClientsFromEnv() {
+  const CLIENTS = {};
 
-  const c1Id    = process.env.CLIENT_1_ID    || "client_1";
-  const c1Token = process.env.CLIENT_1_TOKEN || "client1_2473981238514b15b59889f0c16163f1";
+  const pairs = [
+    { id: process.env.CLIENT_1_ID, token: process.env.CLIENT_1_TOKEN },
+    { id: process.env.CLIENT_2_ID, token: process.env.CLIENT_2_TOKEN },
+  ];
 
-  const c2Id    = process.env.CLIENT_2_ID    || "client_2";
-  const c2Token = process.env.CLIENT_2_TOKEN || "client2_3aa211db5a4048ffa1bd6521e984b719";
-
-  if (c1Id && c1Token) {
-    clients[c1Id] = { token: c1Token, active: true };
+  for (const cfg of pairs) {
+    if (!cfg.id || !cfg.token) continue;
+    CLIENTS[cfg.id] = {
+      token: cfg.token,
+      active: true,
+    };
   }
-  if (c2Id && c2Token) {
-    clients[c2Id] = { token: c2Token, active: true };
-  }
 
-  return clients;
-})();
+  return CLIENTS;
+}
+
+const CLIENTS = buildClientsFromEnv();
+
+// Optional: if nothing is configured, you can uncomment this to have a clear error
+// if (Object.keys(CLIENTS).length === 0) {
+//   console.warn("No CLIENT_* env vars configured; all requests will be rejected.");
+// }
 
 // ----- Your curated email list (RAW GitHub URL) -----
-// You can also move this into an env var if you want:
-const EMAIL_SOURCE_URL =
-  process.env.EMAIL_SOURCE_URL ||
-  "https://raw.githubusercontent.com/rebecca-netizen/email-mp-proxy/main/api/data/emails.json";
+const EMAIL_SOURCE_URL = "https://raw.githubusercontent.com/rebecca-netizen/email-mp-proxy/main/api/data/emails.json";
 // Make sure the URL above loads JSON in your browser (no 404)
 
 // ----- Lightweight in-memory cache for the email list -----
@@ -97,7 +108,7 @@ module.exports = async function (req, res) {
       return res.status(200).end();
     }
 
-    // ===== CLIENT AUTH (must match env or defaults above) =====
+    // ===== CLIENT AUTH =====
     const clientId =
       req.headers["x-client-id"] ||
       req.query.client_id ||
@@ -113,6 +124,7 @@ module.exports = async function (req, res) {
     }
 
     const client = CLIENTS[clientId];
+
     if (!client || !client.active || client.token !== clientToken) {
       return send(res, 403, { error: "Invalid or inactive client" });
     }
@@ -130,14 +142,9 @@ module.exports = async function (req, res) {
     )}&output=js&key=${encodeURIComponent(KEY)}`;
     const r = await fetch(mpUrl);
     if (!r.ok) return send(res, r.status, { error: `TWFY ${r.status}` });
-
     const mp = await r.json();
-    let { name, party, email, constituency, person_id, error: twfyError } = mp || {};
 
-    // If TWFY explicitly says "No data", treat as not found
-    if (twfyError || (!name && !person_id)) {
-      return send(res, 404, { error: "No MP found for that postcode" });
-    }
+    let { name, party, email, constituency, person_id } = mp || {};
 
     // 2) Fallback A — getPerson if MP data was incomplete
     if ((name == null || email == null) && person_id) {
@@ -202,5 +209,9 @@ module.exports = async function (req, res) {
       person_id: person_id || null,
       contact_url,
     });
+
   } catch (e) {
-    return send(res, 500, { error: e.message || "
+    console.error("mp.js crashed:", e);
+    return send(res, 500, { error: e.message || "server error" });
+  }
+};
