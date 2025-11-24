@@ -1,10 +1,35 @@
-// api/track.js — CommonJS tracking redirect with optional webhook logging
+// api/track.js — CommonJS tracking redirect + per-client auth
 
-const WEBHOOK = process.env.LOG_WEBHOOK_URL || ""; // optional: set in Vercel → Settings → Environment Variables
+const WEBHOOK = process.env.LOG_WEBHOOK_URL || ""; 
+
+// ----- Per-client token config -----
+const CLIENTS = {
+  client1: process.env.CLIENT1_TOKEN || "",
+  client2: process.env.CLIENT2_TOKEN || "",
+  // add more clients here later (client3, client4, etc)
+};
+
+function isAuthorised(client_id, client_token) {
+  if (!client_id || !client_token) return false;
+  const expected = CLIENTS[client_id];
+  if (!expected) return false;
+  return expected === client_token;
+}
 
 module.exports = async function (req, res) {
   try {
     const q = req.query || {};
+
+    // ----- NEW: client auth gate -----
+    const client_id = (q.client_id || "").toString();
+    const client_token = (q.client_token || "").toString();
+
+    if (!isAuthorised(client_id, client_token)) {
+      res.statusCode = 403;
+      return res.end("unauthorised client");
+    }
+    // ----- END auth gate -----
+
     const email = (q.email || "").trim();
     const subject = q.subject || "";
     const body = q.body || "";
@@ -37,7 +62,8 @@ module.exports = async function (req, res) {
             postcode,
             page,
             ua,
-            ip
+            ip,
+            client_id
           })
         });
       } catch (e) {
@@ -48,6 +74,7 @@ module.exports = async function (req, res) {
     res.statusCode = 302;
     res.setHeader("Location", mailto);
     return res.end();
+
   } catch (e) {
     res.statusCode = 500;
     res.end("Tracking error");
