@@ -1,46 +1,30 @@
-// api/mp.js — CommonJS + robust fallbacks + curated email override + CLIENT AUTH (via ENV)
+// api/mp.js — CommonJS + curated email override + CLIENT AUTH via env vars
 
-// ----- Client allow-list (per-client ID + token + on/off switch) -----
-// We read from environment variables so you can configure this in Vercel:
-//
-// CLIENT_1_ID, CLIENT_1_TOKEN
-// CLIENT_2_ID, CLIENT_2_TOKEN
-//
-// Example values:
-// CLIENT_1_ID    = "client_1"
-// CLIENT_1_TOKEN = "client1_2473981238514b15b59889f0c16163f1"
-// CLIENT_2_ID    = "client_2"
-// CLIENT_2_TOKEN = "client2_3aa211db5a4048ffa1bd6521e984b719"
+// ----- Load client allow-list from environment variables -----
+function loadClients() {
+  const map = {};
 
-function buildClientsFromEnv() {
-  const CLIENTS = {};
-
-  const pairs = [
-    { id: process.env.CLIENT_1_ID, token: process.env.CLIENT_1_TOKEN },
-    { id: process.env.CLIENT_2_ID, token: process.env.CLIENT_2_TOKEN },
-  ];
-
-  for (const cfg of pairs) {
-    if (!cfg.id || !cfg.token) continue;
-    CLIENTS[cfg.id] = {
-      token: cfg.token,
-      active: true,
-    };
+  const c1Id = process.env.CLIENT_1_ID;
+  const c1Token = process.env.CLIENT_1_TOKEN;
+  if (c1Id && c1Token) {
+    map[c1Id] = { token: c1Token, active: true };
   }
 
-  return CLIENTS;
+  const c2Id = process.env.CLIENT_2_ID;
+  const c2Token = process.env.CLIENT_2_TOKEN;
+  if (c2Id && c2Token) {
+    map[c2Id] = { token: c2Token, active: true };
+  }
+
+  return map;
 }
 
-const CLIENTS = buildClientsFromEnv();
-
-// Optional: if nothing is configured, you can uncomment this to have a clear error
-// if (Object.keys(CLIENTS).length === 0) {
-//   console.warn("No CLIENT_* env vars configured; all requests will be rejected.");
-// }
+const CLIENTS = loadClients();
 
 // ----- Your curated email list (RAW GitHub URL) -----
-const EMAIL_SOURCE_URL = "https://raw.githubusercontent.com/rebecca-netizen/email-mp-proxy/main/api/data/emails.json";
-// Make sure the URL above loads JSON in your browser (no 404)
+const EMAIL_SOURCE_URL =
+  "https://raw.githubusercontent.com/rebecca-netizen/email-mp-proxy/main/api/data/emails.json";
+// Make sure this URL loads JSON in your browser (no 404)
 
 // ----- Lightweight in-memory cache for the email list -----
 let EMAILS_CACHE = null;
@@ -49,19 +33,25 @@ let EMAILS_CACHE_AT = 0;
 async function loadEmails() {
   const now = Date.now();
   // refresh every 10 minutes
-  if (EMAILS_CACHE && (now - EMAILS_CACHE_AT) < 10 * 60 * 1000) return EMAILS_CACHE;
+  if (EMAILS_CACHE && now - EMAILS_CACHE_AT < 10 * 60 * 1000) {
+    return EMAILS_CACHE;
+  }
 
   const r = await fetch(EMAIL_SOURCE_URL, { cache: "no-store" });
   if (!r.ok) throw new Error(`Failed to load emails.json (${r.status})`);
   const list = await r.json();
 
-  // Build lookups (case-insensitive)
   const byCon = Object.create(null);
   const byName = Object.create(null);
+
   for (const row of list) {
     if (!row) continue;
-    if (row.constituency) byCon[row.constituency.toLowerCase()] = row.email ?? null;
-    if (row.mp_name)     byName[row.mp_name.toLowerCase()]       = row.email ?? null;
+    if (row.constituency) {
+      byCon[row.constituency.toLowerCase()] = row.email ?? null;
+    }
+    if (row.mp_name) {
+      byName[row.mp_name.toLowerCase()] = row.email ?? null;
+    }
   }
 
   EMAILS_CACHE = { byCon, byName };
@@ -73,8 +63,12 @@ async function loadEmails() {
 function setCORS(res) {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Methods", "GET, OPTIONS");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type, X-Client-Id, X-Client-Token");
+  res.setHeader(
+    "Access-Control-Allow-Headers",
+    "Content-Type, X-Client-Id, X-Client-Token"
+  );
 }
+
 function send(res, status, body) {
   setCORS(res);
   res.status(status).json(body);
@@ -82,7 +76,7 @@ function send(res, status, body) {
 
 // Normalize a TWFY person/MP object or single-item array to a consistent shape
 function normalizePerson(raw) {
-  const p = Array.isArray(raw) ? (raw[0] || {}) : (raw || {});
+  const p = Array.isArray(raw) ? (raw[0] || {}) : raw || {};
   const name =
     p.name ||
     p.full_name ||
@@ -108,6 +102,13 @@ module.exports = async function (req, res) {
       return res.status(200).end();
     }
 
+    // Sanity check: do we actually have any clients configured?
+    if (!CLIENTS || Object.keys(CLIENTS).length === 0) {
+      return send(res, 500, {
+        error: "No clients configured on server (check CLIENT_* env vars)",
+      });
+    }
+
     // ===== CLIENT AUTH =====
     const clientId =
       req.headers["x-client-id"] ||
@@ -124,7 +125,6 @@ module.exports = async function (req, res) {
     }
 
     const client = CLIENTS[clientId];
-
     if (!client || !client.active || client.token !== clientToken) {
       return send(res, 403, { error: "Invalid or inactive client" });
     }
@@ -134,23 +134,31 @@ module.exports = async function (req, res) {
     if (!postcode) return send(res, 400, { error: "postcode is required" });
 
     const KEY = process.env.TWFY_API_KEY;
-    if (!KEY) return send(res, 500, { error: "API key not configured" });
+    if (!KEY) {
+      return send(res, 500, { error: "API key not configured (TWFY_API_KEY)" });
+    }
 
     // 1) Primary lookup — getMP by postcode
-    const mpUrl = `https://www.theyworkforyou.com/api/getMP?postcode=${encodeURIComponent(
-      postcode
-    )}&output=js&key=${encodeURIComponent(KEY)}`;
-    const r = await fetch(mpUrl);
-    if (!r.ok) return send(res, r.status, { error: `TWFY ${r.status}` });
-    const mp = await r.json();
+    const mpUrl =
+      `https://www.theyworkforyou.com/api/getMP` +
+      `?postcode=${encodeURIComponent(postcode)}` +
+      `&output=js&key=${encodeURIComponent(KEY)}`;
 
+    const r = await fetch(mpUrl);
+    if (!r.ok) {
+      return send(res, r.status, { error: `TWFY ${r.status}` });
+    }
+
+    const mp = await r.json();
     let { name, party, email, constituency, person_id } = mp || {};
 
     // 2) Fallback A — getPerson if MP data was incomplete
     if ((name == null || email == null) && person_id) {
-      const personUrl = `https://www.theyworkforyou.com/api/getPerson?id=${encodeURIComponent(
-        person_id
-      )}&output=js&key=${encodeURIComponent(KEY)}`;
+      const personUrl =
+        `https://www.theyworkforyou.com/api/getPerson` +
+        `?id=${encodeURIComponent(person_id)}` +
+        `&output=js&key=${encodeURIComponent(KEY)}`;
+
       const pr = await fetch(personUrl);
       if (pr.ok) {
         const personRaw = await pr.json();
@@ -164,9 +172,11 @@ module.exports = async function (req, res) {
 
     // 3) Fallback B — getMPs by constituency if still missing
     if (name == null && constituency) {
-      const mpsUrl = `https://www.theyworkforyou.com/api/getMPs?output=js&key=${encodeURIComponent(
-        KEY
-      )}&constituency=${encodeURIComponent(constituency)}`;
+      const mpsUrl =
+        `https://www.theyworkforyou.com/api/getMPs` +
+        `?output=js&key=${encodeURIComponent(KEY)}` +
+        `&constituency=${encodeURIComponent(constituency)}`;
+
       const mr = await fetch(mpsUrl);
       if (mr.ok) {
         const listRaw = await mr.json(); // often an array
@@ -182,17 +192,18 @@ module.exports = async function (req, res) {
     try {
       const emails = await loadEmails();
       if (constituency) {
-        const byCon = emails.byCon[constituency.toLowerCase()];
-        if (byCon && String(byCon).trim()) email = byCon;
-        if (byCon === null) email = null;
+        const override = emails.byCon[constituency.toLowerCase()];
+        if (override && String(override).trim()) email = override;
+        if (override === null) email = null; // explicit "no email" override
       }
       if (!email && name) {
-        const byName = emails.byName[name.toLowerCase()];
-        if (byName && String(byName).trim()) email = byName;
-        if (byName === null) email = null;
+        const override = emails.byName[name.toLowerCase()];
+        if (override && String(override).trim()) email = override;
+        if (override === null) email = null;
       }
     } catch (e) {
       console.warn("emails.json load failed:", e.message);
+      // don't crash if emails.json is missing/broken
     }
 
     // 5) Contact page URL
@@ -209,9 +220,8 @@ module.exports = async function (req, res) {
       person_id: person_id || null,
       contact_url,
     });
-
   } catch (e) {
-    console.error("mp.js crashed:", e);
+    console.error("mp.js error:", e);
     return send(res, 500, { error: e.message || "server error" });
   }
 };
