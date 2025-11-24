@@ -1,4 +1,16 @@
-// api/mp.js — CommonJS + robust fallbacks + curated email override
+// api/mp.js — CommonJS + robust fallbacks + curated email override + CLIENT AUTH
+
+// ----- Client allow-list (per-client ID + token + on/off switch) -----
+const CLIENTS = {
+  "client_1": {
+    token: "client1_2473981238514b15b59889f0c16163f1",
+    active: true
+  },
+  "client_2": {
+    token: "client2_3aa211db5a4048ffa1bd6521e984b719",
+    active: true
+  }
+};
 
 // ----- Your curated email list (RAW GitHub URL) -----
 const EMAIL_SOURCE_URL = "https://raw.githubusercontent.com/rebecca-netizen/email-mp-proxy/main/api/data/emails.json";
@@ -35,7 +47,7 @@ async function loadEmails() {
 function setCORS(res) {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Methods", "GET, OPTIONS");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type, X-Client-Id, X-Client-Token");
 }
 function send(res, status, body) {
   setCORS(res);
@@ -70,6 +82,27 @@ module.exports = async function (req, res) {
       return res.status(200).end();
     }
 
+    // ===== NEW SECTION: CLIENT AUTH =====
+    const clientId =
+      req.headers["x-client-id"] ||
+      req.query.client_id ||
+      null;
+
+    const clientToken =
+      req.headers["x-client-token"] ||
+      req.query.token ||
+      null;
+
+    if (!clientId || !clientToken) {
+      return send(res, 401, { error: "Missing client credentials" });
+    }
+
+    const client = CLIENTS[clientId];
+    if (!client || !client.active || client.token !== clientToken) {
+      return send(res, 403, { error: "Invalid or inactive client" });
+    }
+    // ===== END CLIENT AUTH =====
+
     const { postcode } = req.query || {};
     if (!postcode) return send(res, 400, { error: "postcode is required" });
 
@@ -84,7 +117,7 @@ module.exports = async function (req, res) {
 
     let { name, party, email, constituency, person_id } = mp || {};
 
-    // 2) Fallback A — if name/email missing but we have person_id → getPerson
+    // 2) Fallback A — getPerson if MP data was incomplete
     if ((name == null || email == null) && person_id) {
       const personUrl = `https://www.theyworkforyou.com/api/getPerson?id=${encodeURIComponent(person_id)}&output=js&key=${encodeURIComponent(KEY)}`;
       const pr = await fetch(personUrl);
@@ -98,7 +131,7 @@ module.exports = async function (req, res) {
       }
     }
 
-    // 3) Fallback B — still no name? try getMPs by constituency
+    // 3) Fallback B — getMPs by constituency if still missing
     if (name == null && constituency) {
       const mpsUrl = `https://www.theyworkforyou.com/api/getMPs?output=js&key=${encodeURIComponent(KEY)}&constituency=${encodeURIComponent(constituency)}`;
       const mr = await fetch(mpsUrl);
@@ -112,13 +145,13 @@ module.exports = async function (req, res) {
       }
     }
 
-    // 4) Override email from your curated list (highest priority)
+    // 4) Override email from curated list
     try {
       const emails = await loadEmails();
       if (constituency) {
         const byCon = emails.byCon[constituency.toLowerCase()];
         if (byCon && String(byCon).trim()) email = byCon;
-        if (byCon === null) email = null; // explicit null in your list = force no email
+        if (byCon === null) email = null;
       }
       if (!email && name) {
         const byName = emails.byName[name.toLowerCase()];
