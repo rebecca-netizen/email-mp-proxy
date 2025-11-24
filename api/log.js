@@ -1,70 +1,63 @@
-// api/log.js — log events (e.g., copy_message) without redirect, with per-client auth
+// api/log.js — copy logging to webhook (NO auth errors, CORS-friendly)
 
-const WEBHOOK = process.env.LOG_WEBHOOK_URL || ""; // same webhook you used for /api/track
+const WEBHOOK = process.env.LOG_WEBHOOK_URL || ""; // optional
 
-// Shared with mp.js (you can extract to a helper file later if you like)
-const CLIENTS = {
-  client1: process.env.CLIENT1_TOKEN || "",
-  client2: process.env.CLIENT2_TOKEN || "",
-};
-
-function isAuthorised(client_id, client_token) {
-  if (!client_id || !client_token) return false;
-  const expected = CLIENTS[client_id];
-  if (!expected) return false;
-  return expected === client_token;
+function setCORS(res) {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
 }
 
 module.exports = async function (req, res) {
   try {
-    const isPost = (req.method || "GET").toUpperCase() === "POST";
-    let data = {};
-
-    if (isPost && req.body) {
-      data = typeof req.body === "string" ? JSON.parse(req.body || "{}") : req.body;
-    } else {
-      data = req.query || {};
+    if (req.method === "OPTIONS") {
+      setCORS(res);
+      res.statusCode = 200;
+      return res.end();
     }
 
-    const client_id = (data.client_id || "").toString();
-    const client_token = (data.client_token || "").toString();
-
-    if (!isAuthorised(client_id, client_token)) {
-      res.statusCode = 403;
-      return res.end("unauthorised client");
+    if (req.method !== "POST") {
+      setCORS(res);
+      res.statusCode = 405;
+      return res.end("Method not allowed");
     }
 
-    // Normalise fields
-    const payload = {
-      ts: new Date().toISOString(),
-      event: data.event || "copy_message", // default
-      email: data.email || "",             // may be blank for copy events
-      subject: data.subject || "",
-      bodyLength: (data.body && typeof data.body === "string") ? data.body.length : (data.bodyLength || ""),
-      mp: data.mp || "",
-      constituency: data.constituency || "",
-      postcode: data.postcode || "",
-      page: data.page || "",
-      ua: req.headers["user-agent"] || "",
-      ip: req.headers["x-forwarded-for"] || req.socket?.remoteAddress || ""
-    };
+    const chunks = [];
+    for await (const chunk of req) {
+      chunks.push(chunk);
+    }
+    const raw = Buffer.concat(chunks).toString("utf8") || "{}";
+
+    let data;
+    try {
+      data = JSON.parse(raw);
+    } catch {
+      data = { raw };
+    }
 
     if (WEBHOOK) {
       try {
         await fetch(WEBHOOK, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload)
+          body: JSON.stringify({
+            type: "copy_message",
+            ts: new Date().toISOString(),
+            ...data,
+          }),
         });
-      } catch (e) {
-        console.warn("Log webhook failed:", e.message);
+      } catch (err) {
+        console.error("WEBHOOK error in /api/log:", err);
       }
     }
 
-    res.statusCode = 204; // no content
+    setCORS(res);
+    res.statusCode = 204;
     return res.end();
   } catch (e) {
+    console.error("Error in /api/log:", e);
+    setCORS(res);
     res.statusCode = 500;
-    res.end("Log error");
+    return res.end("Server error");
   }
 };
