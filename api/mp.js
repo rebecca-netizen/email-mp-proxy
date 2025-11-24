@@ -1,30 +1,36 @@
-// api/mp.js — CommonJS + curated email override + CLIENT AUTH via env vars
+// api/mp.js — CommonJS + robust fallbacks + curated email override + CLIENT AUTH via ENV
 
-// ----- Load client allow-list from environment variables -----
-function loadClients() {
-  const map = {};
+// ----- Build client allow-list from environment variables -----
+function buildClientsFromEnv() {
+  const result = {};
 
   const c1Id = process.env.CLIENT_1_ID;
   const c1Token = process.env.CLIENT_1_TOKEN;
   if (c1Id && c1Token) {
-    map[c1Id] = { token: c1Token, active: true };
+    result[c1Id] = {
+      token: c1Token,
+      active: true,
+    };
   }
 
   const c2Id = process.env.CLIENT_2_ID;
   const c2Token = process.env.CLIENT_2_TOKEN;
   if (c2Id && c2Token) {
-    map[c2Id] = { token: c2Token, active: true };
+    result[c2Id] = {
+      token: c2Token,
+      active: true,
+    };
   }
 
-  return map;
+  return result;
 }
 
-const CLIENTS = loadClients();
+const CLIENTS = buildClientsFromEnv();
 
 // ----- Your curated email list (RAW GitHub URL) -----
 const EMAIL_SOURCE_URL =
   "https://raw.githubusercontent.com/rebecca-netizen/email-mp-proxy/main/api/data/emails.json";
-// Make sure this URL loads JSON in your browser (no 404)
+// Make sure the URL above loads JSON in your browser (no 404)
 
 // ----- Lightweight in-memory cache for the email list -----
 let EMAILS_CACHE = null;
@@ -33,25 +39,19 @@ let EMAILS_CACHE_AT = 0;
 async function loadEmails() {
   const now = Date.now();
   // refresh every 10 minutes
-  if (EMAILS_CACHE && now - EMAILS_CACHE_AT < 10 * 60 * 1000) {
-    return EMAILS_CACHE;
-  }
+  if (EMAILS_CACHE && now - EMAILS_CACHE_AT < 10 * 60 * 1000) return EMAILS_CACHE;
 
   const r = await fetch(EMAIL_SOURCE_URL, { cache: "no-store" });
   if (!r.ok) throw new Error(`Failed to load emails.json (${r.status})`);
   const list = await r.json();
 
+  // Build lookups (case-insensitive)
   const byCon = Object.create(null);
   const byName = Object.create(null);
-
   for (const row of list) {
     if (!row) continue;
-    if (row.constituency) {
-      byCon[row.constituency.toLowerCase()] = row.email ?? null;
-    }
-    if (row.mp_name) {
-      byName[row.mp_name.toLowerCase()] = row.email ?? null;
-    }
+    if (row.constituency) byCon[row.constituency.toLowerCase()] = row.email ?? null;
+    if (row.mp_name) byName[row.mp_name.toLowerCase()] = row.email ?? null;
   }
 
   EMAILS_CACHE = { byCon, byName };
@@ -71,12 +71,14 @@ function setCORS(res) {
 
 function send(res, status, body) {
   setCORS(res);
-  res.status(status).json(body);
+  res.statusCode = status;
+  res.setHeader("Content-Type", "application/json; charset=utf-8");
+  res.end(JSON.stringify(body));
 }
 
 // Normalize a TWFY person/MP object or single-item array to a consistent shape
 function normalizePerson(raw) {
-  const p = Array.isArray(raw) ? (raw[0] || {}) : raw || {};
+  const p = Array.isArray(raw) ? raw[0] || {} : raw || {};
   const name =
     p.name ||
     p.full_name ||
@@ -99,26 +101,13 @@ module.exports = async function (req, res) {
     // CORS preflight
     if (req.method === "OPTIONS") {
       setCORS(res);
-      return res.status(200).end();
+      res.statusCode = 200;
+      return res.end();
     }
 
-    // Sanity check: do we actually have any clients configured?
-    if (!CLIENTS || Object.keys(CLIENTS).length === 0) {
-      return send(res, 500, {
-        error: "No clients configured on server (check CLIENT_* env vars)",
-      });
-    }
-
-    // ===== CLIENT AUTH =====
-    const clientId =
-      req.headers["x-client-id"] ||
-      req.query.client_id ||
-      null;
-
-    const clientToken =
-      req.headers["x-client-token"] ||
-      req.query.token ||
-      null;
+    // ===== CLIENT AUTH via env-driven CLIENTS map =====
+    const clientId = req.headers["x-client-id"] || req.query.client_id || null;
+    const clientToken = req.headers["x-client-token"] || req.query.token || null;
 
     if (!clientId || !clientToken) {
       return send(res, 401, { error: "Missing client credentials" });
@@ -134,31 +123,23 @@ module.exports = async function (req, res) {
     if (!postcode) return send(res, 400, { error: "postcode is required" });
 
     const KEY = process.env.TWFY_API_KEY;
-    if (!KEY) {
-      return send(res, 500, { error: "API key not configured (TWFY_API_KEY)" });
-    }
+    if (!KEY) return send(res, 500, { error: "API key not configured" });
 
     // 1) Primary lookup — getMP by postcode
-    const mpUrl =
-      `https://www.theyworkforyou.com/api/getMP` +
-      `?postcode=${encodeURIComponent(postcode)}` +
-      `&output=js&key=${encodeURIComponent(KEY)}`;
-
+    const mpUrl = `https://www.theyworkforyou.com/api/getMP?postcode=${encodeURIComponent(
+      postcode
+    )}&output=js&key=${encodeURIComponent(KEY)}`;
     const r = await fetch(mpUrl);
-    if (!r.ok) {
-      return send(res, r.status, { error: `TWFY ${r.status}` });
-    }
-
+    if (!r.ok) return send(res, r.status, { error: `TWFY ${r.status}` });
     const mp = await r.json();
+
     let { name, party, email, constituency, person_id } = mp || {};
 
     // 2) Fallback A — getPerson if MP data was incomplete
     if ((name == null || email == null) && person_id) {
-      const personUrl =
-        `https://www.theyworkforyou.com/api/getPerson` +
-        `?id=${encodeURIComponent(person_id)}` +
-        `&output=js&key=${encodeURIComponent(KEY)}`;
-
+      const personUrl = `https://www.theyworkforyou.com/api/getPerson?id=${encodeURIComponent(
+        person_id
+      )}&output=js&key=${encodeURIComponent(KEY)}`;
       const pr = await fetch(personUrl);
       if (pr.ok) {
         const personRaw = await pr.json();
@@ -172,11 +153,9 @@ module.exports = async function (req, res) {
 
     // 3) Fallback B — getMPs by constituency if still missing
     if (name == null && constituency) {
-      const mpsUrl =
-        `https://www.theyworkforyou.com/api/getMPs` +
-        `?output=js&key=${encodeURIComponent(KEY)}` +
-        `&constituency=${encodeURIComponent(constituency)}`;
-
+      const mpsUrl = `https://www.theyworkforyou.com/api/getMPs?output=js&key=${encodeURIComponent(
+        KEY
+      )}&constituency=${encodeURIComponent(constituency)}`;
       const mr = await fetch(mpsUrl);
       if (mr.ok) {
         const listRaw = await mr.json(); // often an array
@@ -192,18 +171,17 @@ module.exports = async function (req, res) {
     try {
       const emails = await loadEmails();
       if (constituency) {
-        const override = emails.byCon[constituency.toLowerCase()];
-        if (override && String(override).trim()) email = override;
-        if (override === null) email = null; // explicit "no email" override
+        const byCon = emails.byCon[constituency.toLowerCase()];
+        if (byCon && String(byCon).trim()) email = byCon;
+        if (byCon === null) email = null;
       }
       if (!email && name) {
-        const override = emails.byName[name.toLowerCase()];
-        if (override && String(override).trim()) email = override;
-        if (override === null) email = null;
+        const byName = emails.byName[name.toLowerCase()];
+        if (byName && String(byName).trim()) email = byName;
+        if (byName === null) email = null;
       }
     } catch (e) {
       console.warn("emails.json load failed:", e.message);
-      // don't crash if emails.json is missing/broken
     }
 
     // 5) Contact page URL
@@ -221,7 +199,7 @@ module.exports = async function (req, res) {
       contact_url,
     });
   } catch (e) {
-    console.error("mp.js error:", e);
+    console.error("mp handler error:", e);
     return send(res, 500, { error: e.message || "server error" });
   }
 };
