@@ -1,0 +1,12 @@
+{
+  "name": "email-mp-proxy",
+  "version": "1.0.0",
+  "description": "Email Your MP Vercel proxy using TWFY lookup and SendGrid mailer.",
+  "main": "api/send-mp-email.js",
+  "scripts": {
+    "start": "node api/send-mp-email.js"
+  },
+  "dependencies": {
+    "@sendgrid/mail": "^8.1.0"
+  }
+}
