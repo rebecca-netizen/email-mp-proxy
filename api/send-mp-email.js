@@ -1,18 +1,38 @@
 // api/send-mp-email.js
-// Simplified: no client allow-list, just sends the email + logs it
+// Send MP emails via SendGrid, with CORS and optional logging
 
 const sgMail = require("@sendgrid/mail");
 
-const WEBHOOK = process.env.LOG_WEBHOOK_URL || "";
 const SENDGRID_API_KEY = process.env.SENDGRID_API_KEY || "";
 const FROM_EMAIL = process.env.FROM_EMAIL || "";
+const WEBHOOK = process.env.LOG_WEBHOOK_URL || "";
 
 // Configure SendGrid once
 if (SENDGRID_API_KEY) {
   sgMail.setApiKey(SENDGRID_API_KEY);
+} else {
+  console.warn("SENDGRID_API_KEY is not set; send-mp-email will fail.");
+}
+
+function setCors(res) {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader(
+    "Access-Control-Allow-Headers",
+    "Content-Type, X-Requested-With"
+  );
+  res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
 }
 
 module.exports = async function (req, res) {
+  // Always set CORS headers
+  setCors(res);
+
+  // Handle preflight
+  if (req.method === "OPTIONS") {
+    res.statusCode = 200;
+    return res.end();
+  }
+
   if (req.method !== "POST") {
     res.statusCode = 405;
     return res.end("Method not allowed");
@@ -25,19 +45,18 @@ module.exports = async function (req, res) {
 
   try {
     const {
-      // routing fields
-      to,          // MP email
+      // required for sending
+      to,
       subject,
       body,
-
-      // metadata for logging only
-      userName,
       userEmail,
+
+      // optional metadata for logging
+      userName,
       mpName,
       constituency,
       postcode,
       page,
-      clientId,     // optional: just logged for your info
     } = req.body || {};
 
     // Basic validation
@@ -46,18 +65,18 @@ module.exports = async function (req, res) {
       return res.end("Missing required fields");
     }
 
-    // Build and send email via SendGrid
     const msg = {
       to,
-      from: FROM_EMAIL,     // your verified sender
+      from: FROM_EMAIL,   // your verified SendGrid sender
       subject,
       text: body,
-      replyTo: userEmail,   // MP replies go straight to the constituent
+      replyTo: userEmail, // MP replies go straight to the constituent
     };
 
+    // Send via SendGrid
     await sgMail.send(msg);
 
-    // Optional logging to webhook (for client to see exact final text)
+    // Optional: log full email + metadata to your webhook
     if (WEBHOOK) {
       try {
         await fetch(WEBHOOK, {
@@ -65,16 +84,15 @@ module.exports = async function (req, res) {
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             type: "mp-email-sent",
-            clientId,
-            page,
-            userName,
-            userEmail,
-            mpName,
-            mpEmail: to,
-            constituency,
-            postcode,
+            to,
             subject,
             body,
+            userEmail,
+            userName: userName || "",
+            mpName: mpName || "",
+            constituency: constituency || "",
+            postcode: postcode || "",
+            page: page || "",
             ua: req.headers["user-agent"] || "",
             ip:
               req.headers["x-forwarded-for"] ||
@@ -84,7 +102,7 @@ module.exports = async function (req, res) {
           }),
         });
       } catch (err) {
-        console.error("Webhook log failed", err);
+        console.error("send-mp-email: webhook log failed", err);
       }
     }
 
@@ -93,7 +111,7 @@ module.exports = async function (req, res) {
     res.end(JSON.stringify({ ok: true }));
   } catch (err) {
     console.error("send-mp-email error", err);
-    res.statusCode = 500;
+    res.statusCode = 502;
     res.end("Error sending email");
   }
 };
