@@ -1,25 +1,15 @@
 // api/send-mp-email.js
-// Server-side MP email sender using SendGrid + client allow-list
+// Simplified: no client allow-list, just sends the email + logs it
 
 const sgMail = require("@sendgrid/mail");
 
 const WEBHOOK = process.env.LOG_WEBHOOK_URL || "";
-const CLIENTS_JSON = process.env.CLIENTS_JSON || "{}";
 const SENDGRID_API_KEY = process.env.SENDGRID_API_KEY || "";
 const FROM_EMAIL = process.env.FROM_EMAIL || "";
 
 // Configure SendGrid once
 if (SENDGRID_API_KEY) {
   sgMail.setApiKey(SENDGRID_API_KEY);
-}
-
-function getClients() {
-  try {
-    return JSON.parse(CLIENTS_JSON);
-  } catch (e) {
-    console.error("Invalid CLIENTS_JSON", e);
-    return {};
-  }
 }
 
 module.exports = async function (req, res) {
@@ -35,44 +25,28 @@ module.exports = async function (req, res) {
 
   try {
     const {
-      clientId,
-      clientToken,
-
       // routing fields
       to,          // MP email
       subject,
       body,
 
-      // metadata for logging
+      // metadata for logging only
       userName,
       userEmail,
       mpName,
       constituency,
       postcode,
       page,
+      clientId,     // optional: just logged for your info
     } = req.body || {};
 
-    // 1) Client auth
-    if (!clientId || !clientToken) {
-      res.statusCode = 403;
-      return res.end("Missing client credentials");
-    }
-
-    const CLIENTS = getClients();
-    const client = CLIENTS[clientId];
-
-    if (!client || client.token !== clientToken) {
-      res.statusCode = 403;
-      return res.end("Unauthorised client");
-    }
-
-    // 2) Basic validation
+    // Basic validation
     if (!to || !subject || !body || !userEmail) {
       res.statusCode = 400;
       return res.end("Missing required fields");
     }
 
-    // 3) Build and send email via SendGrid
+    // Build and send email via SendGrid
     const msg = {
       to,
       from: FROM_EMAIL,     // your verified sender
@@ -83,7 +57,7 @@ module.exports = async function (req, res) {
 
     await sgMail.send(msg);
 
-    // 4) Optional logging to webhook (for client to see exact final text)
+    // Optional logging to webhook (for client to see exact final text)
     if (WEBHOOK) {
       try {
         await fetch(WEBHOOK, {
@@ -114,7 +88,6 @@ module.exports = async function (req, res) {
       }
     }
 
-    // 5) Success response
     res.statusCode = 200;
     res.setHeader("Content-Type", "application/json");
     res.end(JSON.stringify({ ok: true }));
