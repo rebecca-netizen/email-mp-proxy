@@ -48,7 +48,7 @@ module.exports = async function (req, res) {
 
     // Build and send email via SendGrid
     const msg = {
-      to: "beccyryan@me.com",
+      to,
       from: FROM_EMAIL,     // your verified sender
       subject,
       text: body,
