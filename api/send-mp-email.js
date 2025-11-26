@@ -1,26 +1,31 @@
 // api/send-mp-email.js
-// Send MP emails via SendGrid + log full body, with CORS support
+// Server-side MP email sender using SendGrid + webhook logging + CORS
 
 const sgMail = require("@sendgrid/mail");
 
 const SENDGRID_API_KEY = process.env.SENDGRID_API_KEY || "";
 const FROM_EMAIL = process.env.FROM_EMAIL || "";
-const LOG_WEBHOOK_URL = process.env.LOG_WEBHOOK_URL || ""; // optional: Zapier/Notion/etc
-const ALLOWED_ORIGIN = process.env.ALLOWED_ORIGIN || "*";  // can later lock to your domains
+const WEBHOOK = process.env.LOG_WEBHOOK_URL || "";
 
+// Configure SendGrid once
 if (SENDGRID_API_KEY) {
   sgMail.setApiKey(SENDGRID_API_KEY);
+} else {
+  console.warn("SENDGRID_API_KEY is not set – send-mp-email will fail to send mail.");
+}
+
+function setCors(res) {
+  // If you want to lock this down, replace * with your site origin
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
 }
 
 module.exports = async function (req, res) {
-  // ---- CORS headers ----
-  res.setHeader("Access-Control-Allow-Origin", ALLOWED_ORIGIN);
-  res.setHeader("Vary", "Origin");
-  res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+  setCors(res);
 
+  // Handle CORS preflight
   if (req.method === "OPTIONS") {
-    // Preflight
     res.statusCode = 200;
     return res.end();
   }
@@ -30,69 +35,90 @@ module.exports = async function (req, res) {
     return res.end("Method not allowed");
   }
 
-  if (!SENDGRID_API_KEY || !FROM_EMAIL) {
-    res.statusCode = 500;
-    return res.end("Email service not configured");
-  }
-
   try {
     const {
+      // Routing
       to,          // MP email
       subject,
       body,
-      userEmail,   // constituent email
-      userName,    // constituent name (optional)
+
+      // User + MP metadata
+      userName,
+      userEmail,
       mpName,
       constituency,
       postcode,
       page,
+
+      // Optional: passed through from front end, but NOT validated here
+      clientId,
+      clientToken,
     } = req.body || {};
 
+    if (!FROM_EMAIL) {
+      res.statusCode = 500;
+      return res.end("Email service not configured (FROM_EMAIL missing)");
+    }
+
+    // Basic validation
     if (!to || !subject || !body || !userEmail) {
       res.statusCode = 400;
       return res.end("Missing required fields");
     }
 
+    if (!SENDGRID_API_KEY) {
+      res.statusCode = 500;
+      return res.end("Email service not configured (API key missing)");
+    }
+
+    // Build and send email via SendGrid
     const msg = {
       to,
-      from: FROM_EMAIL,   // e.g. mailer@emailyourmp.org.uk
+      from: FROM_EMAIL,    // your verified sender (mailer@emailyourmp.org.uk)
       subject,
       text: body,
-      replyTo: userEmail, // replies go straight to constituent
+      replyTo: userEmail,  // MP replies go to the constituent
     };
 
     await sgMail.send(msg);
 
-    // ---- Log final email (including body) to your webhook ----
-    if (LOG_WEBHOOK_URL) {
+    // Webhook logging – THIS is where you’ll see the body
+    if (WEBHOOK) {
       try {
-        await fetch(LOG_WEBHOOK_URL, {
+        await fetch(WEBHOOK, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             type: "mp-email-sent",
-            to,
+            clientId: clientId || null,
+            clientToken: clientToken || null,
+            page: page || null,
+
+            userName: userName || null,
+            userEmail: userEmail || null,
+
+            mpName: mpName || null,
+            mpEmail: to,
+            constituency: constituency || null,
+            postcode: postcode || null,
+
             subject,
-            body,           // full final text
-            userEmail,
-            userName,
-            mpName,
-            constituency,
-            postcode,
-            page,
-            ts: new Date().toISOString(),
+            body, // 👈 full final email text
+
             ua: req.headers["user-agent"] || "",
             ip:
               req.headers["x-forwarded-for"] ||
               req.socket?.remoteAddress ||
               "",
+            ts: new Date().toISOString(),
           }),
         });
       } catch (err) {
-        console.error("Failed to log to webhook", err);
+        console.error("Webhook log failed", err);
       }
     }
 
+    // Success response for the front end
     res.statusCode = 200;
     res.setHeader("Content-Type", "application/json");
     res.end(JSON.stringify({ ok: true }));
