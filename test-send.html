@@ -1,0 +1,59 @@
+<!doctype html>
+<html>
+  <body>
+    <h1>Test send-mp-email</h1>
+    <form id="f">
+      <div>
+        <label>Your email (will receive the test):</label>
+        <input name="userEmail" type="email" required />
+      </div>
+      <div>
+        <label>Your name:</label>
+        <input name="userName" required />
+      </div>
+      <button type="submit">Send test email</button>
+    </form>
+    <pre id="out"></pre>
+
+    <script>
+      const CLIENT_ID = "YOUR_TEST_CLIENT_ID";
+      const CLIENT_TOKEN = "YOUR_TEST_CLIENT_TOKEN";
+
+      document.getElementById("f").addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const data = new FormData(e.target);
+        const userEmail = data.get("userEmail");
+        const userName = data.get("userName") || "Test User";
+
+        const payload = {
+          clientId: CLIENT_ID,
+          clientToken: CLIENT_TOKEN,
+          to: userEmail, // send the email to yourself for now
+          subject: "Test MP email via SendGrid",
+          body: "This is a test email sent via /api/send-mp-email.",
+          userName,
+          userEmail,
+          mpName: "Test MP",
+          constituency: "Test Constituency",
+          postcode: "SW1A 1AA",
+          page: "test-send.html",
+        };
+
+        const out = document.getElementById("out");
+        out.textContent = "Sending…";
+
+        try {
+          const res = await fetch("/api/send-mp-email", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload),
+          });
+          const text = await res.text();
+          out.textContent = `Status: ${res.status}\n\nResponse:\n${text}`;
+        } catch (err) {
+          out.textContent = "Error: " + err.message;
+        }
+      });
+    </script>
+  </body>
+</html>
