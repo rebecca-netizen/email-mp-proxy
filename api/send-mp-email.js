@@ -53,6 +53,9 @@ module.exports = async function (req, res) {
       // Optional: passed through from front end, but NOT validated here
       clientId,
       clientToken,
+
+      // NEW: consent flag from front end ("yes"/"no")
+      consent,
     } = req.body || {};
 
     if (!FROM_EMAIL) {
@@ -104,6 +107,9 @@ module.exports = async function (req, res) {
 
             subject,
             body, // 👈 full final email text
+
+            // NEW: consent flag ("yes"/"no" from front end, or null)
+            consent: consent || null,
 
             ua: req.headers["user-agent"] || "",
             ip:
