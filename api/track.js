@@ -14,6 +14,11 @@ module.exports = async function (req, res) {
     const postcode     = q.postcode || "";
     const page         = q.page || "";
 
+    // User's own email (for logging only – NOT required for the redirect to work)
+    // Accept either ?user_email= or ?userEmail= from the front end
+    const userEmail =
+      (q.user_email || q.userEmail || "").trim();
+
     // These are just metadata now – **no auth check**
     const clientId    = q.client_id || "";
     const clientToken = q.client_token || "";
@@ -44,7 +49,8 @@ module.exports = async function (req, res) {
             ts: new Date().toISOString(),
             client_id: clientId || null,
             client_token: clientToken || null,
-            email,
+            email,          // MP's email
+            user_email: userEmail || null, // NEW: constituent's email (for reporting)
             subject,
             body,
             mp,
