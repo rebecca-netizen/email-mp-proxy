@@ -54,8 +54,11 @@ module.exports = async function (req, res) {
       clientId,
       clientToken,
 
-      // NEW: consent flag from front end ("yes"/"no")
+      // Campaign-level consent flag from front end ("yes"/"no")
       consent,
+
+      // NEW: specific consent for Andrew Griffith MP ("yes"/"no")
+      consent_ag,
     } = req.body || {};
 
     if (!FROM_EMAIL) {
@@ -106,10 +109,13 @@ module.exports = async function (req, res) {
             postcode: postcode || null,
 
             subject,
-            body, // 👈 full final email text
+            body, // full final email text
 
-            // NEW: consent flag ("yes"/"no" from front end, or null)
+            // Campaign-level consent ("yes"/"no" from front end, or null)
             consent: consent || null,
+
+            // NEW: Andrew Griffith–specific consent ("yes"/"no" from front end, or null)
+            consent_ag: consent_ag || null,
 
             ua: req.headers["user-agent"] || "",
             ip:
