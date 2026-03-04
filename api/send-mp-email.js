@@ -80,10 +80,10 @@ module.exports = async function (req, res) {
     // Build and send email via SendGrid
     const msg = {
       to,
-      from: FROM_EMAIL,    // your verified sender (mailer@emailyourmp.org.uk)
+      from: { email: FROM_EMAIL, name: userName },
       subject,
       text: body,
-      replyTo: userEmail,  // MP replies go to the constituent
+      replyTo: { email: userEmail, name: userName },
     };
 
     await sgMail.send(msg);
