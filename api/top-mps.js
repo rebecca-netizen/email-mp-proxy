@@ -129,10 +129,10 @@ export default async function handler(req, res) {
     }
 
     const result = Object.values(counts).map(item => {
-    const match = mpLookup[item.email] || {};
+  const match = mpLookup[item.email] || {};
 
-    return {
-    mp: match.name || item.mp || "",
+  return {
+    mp: match.mp_name || match.name || item.mp || "",
     constituency: match.constituency || "",
     party: match.party || "",
     count: item.count
