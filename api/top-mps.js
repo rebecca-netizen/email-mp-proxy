@@ -6,6 +6,34 @@ function setCors(res) {
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
 }
 
+// Proper CSV parser (handles commas inside quotes)
+function parseCSV(text) {
+  const rows = [];
+  let current = '';
+  let insideQuotes = false;
+  let row = [];
+
+  for (let i = 0; i < text.length; i++) {
+    const char = text[i];
+
+    if (char === '"') {
+      insideQuotes = !insideQuotes;
+    } else if (char === ',' && !insideQuotes) {
+      row.push(current);
+      current = '';
+    } else if (char === '\n' && !insideQuotes) {
+      row.push(current);
+      rows.push(row);
+      row = [];
+      current = '';
+    } else {
+      current += char;
+    }
+  }
+
+  return rows;
+}
+
 module.exports = async function (req, res) {
   setCors(res);
 
@@ -20,24 +48,23 @@ module.exports = async function (req, res) {
     const response = await fetch(SHEET_CSV_URL);
     const text = await response.text();
 
-    const rows = text.split("\n").slice(1);
+    const rows = parseCSV(text);
+
+    const headers = rows[0];
+    const data = rows.slice(1);
 
     const mpCounts = {};
 
-    rows.forEach(row => {
-      if (!row) return;
+    data.forEach(row => {
+      if (!row || row.length < 8) return;
 
-      const lower = row.toLowerCase();
+      const rowString = row.join(" ").toLowerCase();
 
-      if (subject && !lower.includes(subject.toLowerCase())) return;
-      if (!row.includes("@")) return;
+      if (subject && !rowString.includes(subject.toLowerCase())) return;
 
-      // crude extraction (works with your structure)
-      const parts = row.split(",");
-
-      const mpName = parts[6] || "Unknown";
-      const constituency = parts[7] || "";
-      const party = parts[8] || "";
+      const mpName = row[6] || "Unknown";
+      const constituency = row[7] || "";
+      const party = row[8] || "";
 
       const key = mpName + "|" + constituency + "|" + party;
 
