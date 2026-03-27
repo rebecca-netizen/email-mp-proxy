@@ -129,15 +129,15 @@ export default async function handler(req, res) {
     }
 
     const result = Object.values(counts).map(item => {
-      const match = mpLookup[item.email] || {};
+    const match = mpLookup[item.email] || {};
 
-      return {
-        mp: match.name || item.mp,
-        constituency: match.constituency || "",
-        party: match.party || "",
-        count: item.count
-      };
-    });
+    return {
+    mp: match.Name || match.name || item.mp || "",
+    constituency: match.Constituency || match.constituency || "",
+    party: match.Party || match.party || "",
+    count: item.count
+  };
+});
 
     return res.json(result.sort((a, b) => b.count - a.count).slice(0, 20));
 
