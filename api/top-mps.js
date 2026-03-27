@@ -62,9 +62,12 @@ module.exports = async function (req, res) {
 
       if (subject && !rowString.includes(subject.toLowerCase())) return;
 
-      const mpName = row[6] || "Unknown";
-      const constituency = row[7] || "";
-      const party = row[8] || "";
+      const mpIndex = headers.indexOf("MP");
+      const constituencyIndex = headers.indexOf("Constituency");
+
+      const mpName = row[mpIndex] || "Unknown";
+      const constituency = row[constituencyIndex] || "";
+      const party = "";
 
       const key = mpName + "|" + constituency + "|" + party;
 
