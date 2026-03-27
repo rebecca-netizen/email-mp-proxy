@@ -59,7 +59,10 @@ module.exports = async function (req, res) {
       const fullRow = row.join(" ");
 
       // Filter by subject (keeps your campaign-specific counts)
-      if (subject && !fullRow.toLowerCase().includes(subject.toLowerCase())) return;
+      if (subject) {
+      const subjectField = row[4] || ""; // Subject column
+      if (!subjectField.toLowerCase().includes(subject.toLowerCase())) return;
+      }
 
       // Extract MP name using pattern "Name (MP)"
       const match = fullRow.match(/([A-Za-z\s.'-]+)\s*\(MP\)/);
