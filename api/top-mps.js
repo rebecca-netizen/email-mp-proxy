@@ -1,6 +1,4 @@
 const SHEET_CSV_URL = process.env.SHEET_CSV_URL || "";
-
-// Your actual GitHub raw JSON (corrected)
 const MP_JSON_URL = "https://raw.githubusercontent.com/rebecca-netizen/email-mp-proxy/main/api/data/emails.json";
 
 function setCors(res) {
@@ -9,7 +7,6 @@ function setCors(res) {
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
 }
 
-// Robust CSV parser
 function parseCSV(text) {
   const rows = [];
   let row = [];
@@ -47,7 +44,6 @@ function parseCSV(text) {
   return rows;
 }
 
-// Find column by name (case insensitive)
 function findColumn(headers, options) {
   const lower = headers.map(h => h.toLowerCase());
   return options
@@ -63,26 +59,18 @@ export default async function handler(req, res) {
   }
 
   try {
-    if (!SHEET_CSV_URL) {
-      return res.status(500).json({ error: "Missing SHEET_CSV_URL" });
-    }
-
     const subjectFilter = (req.query.subject || "").toLowerCase();
 
-    // Fetch both sources
     const [csvRes, mpRes] = await Promise.all([
       fetch(SHEET_CSV_URL),
       fetch(MP_JSON_URL)
     ]);
 
     const csvText = await csvRes.text();
-    const mpList = await mpRes.json();
+    const mpRaw = await mpRes.json();
 
     const rows = parseCSV(csvText);
-
-    if (!rows.length) {
-      return res.json([]);
-    }
+    if (!rows.length) return res.json([]);
 
     const headers = rows[0];
 
@@ -91,12 +79,10 @@ export default async function handler(req, res) {
     const subjectCol = findColumn(headers, ["subject"]);
 
     if (mpCol === undefined || emailCol === undefined) {
-      return res.status(500).json({
-        error: "Required columns not found (need MP and Email)"
-      });
+      return res.status(500).json({ error: "Missing MP or Email column" });
     }
 
-    // STEP 1: count emails per MP (by email = stable key)
+    // STEP 1: count emails
     const counts = {};
 
     for (let i = 1; i < rows.length; i++) {
@@ -119,15 +105,23 @@ export default async function handler(req, res) {
       counts[email].count++;
     }
 
-    // STEP 2: build lookup from GitHub MP list (by email)
+    // STEP 2: normalise GitHub data (handles object OR array)
     const mpLookup = {};
-    mpList.forEach(mp => {
-      if (mp.email) {
-        mpLookup[mp.email.toLowerCase()] = mp;
-      }
-    });
 
-    // STEP 3: merge data
+    if (Array.isArray(mpRaw)) {
+      mpRaw.forEach(mp => {
+        if (mp.email) {
+          mpLookup[mp.email.toLowerCase()] = mp;
+        }
+      });
+    } else {
+      // object map case (THIS is likely your structure)
+      Object.entries(mpRaw).forEach(([email, mp]) => {
+        mpLookup[email.toLowerCase()] = mp;
+      });
+    }
+
+    // STEP 3: merge
     const result = Object.values(counts).map(item => {
       const match = mpLookup[item.email] || {};
 
@@ -139,7 +133,6 @@ export default async function handler(req, res) {
       };
     });
 
-    // STEP 4: sort + limit
     const sorted = result
       .sort((a, b) => b.count - a.count)
       .slice(0, 20);
