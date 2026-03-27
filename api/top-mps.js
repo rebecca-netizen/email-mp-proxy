@@ -1,6 +1,5 @@
 const SHEET_CSV_URL = process.env.SHEET_CSV_URL || "";
 
-// Add parties for top MPs here (extend as needed)
 const PARTY_LOOKUP = {
   "Lauren Edwards": "Labour",
   "Rachel Blake": "Labour",
@@ -14,7 +13,6 @@ function setCors(res) {
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
 }
 
-// CSV parser (handles commas inside quotes)
 function parseCSV(text) {
   const rows = [];
   let current = '';
@@ -57,20 +55,27 @@ module.exports = async function (req, res) {
     const text = await response.text();
 
     const rows = parseCSV(text);
+
+    const headers = rows[0].map(h => h.trim().toLowerCase());
     const data = rows.slice(1);
+
+    // 🎯 Find correct columns dynamically
+    const subjectIndex = headers.findIndex(h => h.includes("subject"));
+    const mpIndex = headers.findIndex(h => h === "mp");
+    const constituencyIndex = headers.findIndex(h => h.includes("constitu"));
 
     const mpCounts = {};
 
     data.forEach(row => {
-      if (!row || row.length < 8) return;
+      if (!row) return;
 
-      const subjectField = (row[4] || "").toLowerCase();
+      const subjectField = (row[subjectIndex] || "").toLowerCase();
 
-      // Reliable filter (use "licence" in frontend)
+      // robust filter
       if (subject && !subjectField.includes(subject.toLowerCase())) return;
 
-      const mpName = (row[6] || "").trim();
-      const constituency = (row[7] || "").trim();
+      const mpName = (row[mpIndex] || "").trim();
+      const constituency = (row[constituencyIndex] || "").trim();
 
       if (!mpName) return;
 
