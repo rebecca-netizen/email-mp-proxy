@@ -62,8 +62,8 @@ module.exports = async function (req, res) {
 
       if (subject && !rowString.includes(subject.toLowerCase())) return;
 
-      const mpIndex = headers.indexOf("MP");
-      const constituencyIndex = headers.indexOf("Constituency");
+      const mpIndex = headers.findIndex(h => h.toLowerCase().includes("mp"));
+      const constituencyIndex = headers.findIndex(h => h.toLowerCase().includes("constitu"));
 
       const mpName = row[mpIndex] || "Unknown";
       const constituency = row[constituencyIndex] || "";
