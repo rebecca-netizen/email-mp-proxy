@@ -3,8 +3,6 @@ const MP_JSON_URL = "https://raw.githubusercontent.com/rebecca-netizen/email-mp-
 
 function setCors(res) {
   res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader("Access-Control-Allow-Methods", "GET, OPTIONS");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
 }
 
 function parseCSV(text) {
@@ -44,45 +42,70 @@ function parseCSV(text) {
   return rows;
 }
 
-function findColumn(headers, options) {
-  const lower = headers.map(h => h.toLowerCase());
-  return options
-    .map(opt => lower.indexOf(opt.toLowerCase()))
-    .find(i => i !== -1);
+function findColumn(headers, name) {
+  return headers.findIndex(h => h.toLowerCase().includes(name));
 }
 
 export default async function handler(req, res) {
   setCors(res);
 
-  if (req.method === "OPTIONS") {
-    return res.status(200).end();
-  }
-
   try {
+    if (!SHEET_CSV_URL) {
+      return res.status(500).json({ error: "Missing SHEET_CSV_URL env var" });
+    }
+
     const subjectFilter = (req.query.subject || "").toLowerCase();
 
-    const [csvRes, mpRes] = await Promise.all([
-      fetch(SHEET_CSV_URL),
-      fetch(MP_JSON_URL)
-    ]);
+    // FETCH CSV
+    const csvRes = await fetch(SHEET_CSV_URL);
+    if (!csvRes.ok) {
+      return res.status(500).json({
+        error: "CSV fetch failed",
+        status: csvRes.status
+      });
+    }
 
     const csvText = await csvRes.text();
-    const mpRaw = await mpRes.json();
-
     const rows = parseCSV(csvText);
-    if (!rows.length) return res.json([]);
+
+    if (!rows.length) {
+      return res.json({ error: "CSV empty" });
+    }
 
     const headers = rows[0];
 
-    const mpCol = findColumn(headers, ["mp"]);
-    const emailCol = findColumn(headers, ["email"]);
-    const subjectCol = findColumn(headers, ["subject"]);
+    // DEBUG: return headers if columns not found
+    const mpCol = findColumn(headers, "mp");
+    const emailCol = findColumn(headers, "email");
+    const subjectCol = findColumn(headers, "subject");
 
-    if (mpCol === undefined || emailCol === undefined) {
-      return res.status(500).json({ error: "Missing MP or Email column" });
+    if (mpCol === -1 || emailCol === -1) {
+      return res.json({
+        error: "Column mismatch",
+        headers: headers
+      });
     }
 
-    // STEP 1: count emails
+    // FETCH MP JSON
+    const mpRes = await fetch(MP_JSON_URL);
+    const mpRaw = await mpRes.json();
+
+    // NORMALISE MP DATA
+    const mpLookup = {};
+
+    if (Array.isArray(mpRaw)) {
+      mpRaw.forEach(mp => {
+        if (mp.email) {
+          mpLookup[mp.email.toLowerCase()] = mp;
+        }
+      });
+    } else {
+      Object.entries(mpRaw).forEach(([email, mp]) => {
+        mpLookup[email.toLowerCase()] = mp;
+      });
+    }
+
+    // COUNT
     const counts = {};
 
     for (let i = 1; i < rows.length; i++) {
@@ -105,41 +128,22 @@ export default async function handler(req, res) {
       counts[email].count++;
     }
 
-    // STEP 2: normalise GitHub data (handles object OR array)
-    const mpLookup = {};
-
-    if (Array.isArray(mpRaw)) {
-      mpRaw.forEach(mp => {
-        if (mp.email) {
-          mpLookup[mp.email.toLowerCase()] = mp;
-        }
-      });
-    } else {
-      // object map case (THIS is likely your structure)
-      Object.entries(mpRaw).forEach(([email, mp]) => {
-        mpLookup[email.toLowerCase()] = mp;
-      });
-    }
-
-    // STEP 3: merge
     const result = Object.values(counts).map(item => {
       const match = mpLookup[item.email] || {};
 
       return {
-        mp: match.name || item.mp || "",
+        mp: match.name || item.mp,
         constituency: match.constituency || "",
         party: match.party || "",
         count: item.count
       };
     });
 
-    const sorted = result
-      .sort((a, b) => b.count - a.count)
-      .slice(0, 20);
-
-    res.json(sorted);
+    return res.json(result.sort((a, b) => b.count - a.count).slice(0, 20));
 
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    return res.status(500).json({
+      error: err.message
+    });
   }
 }
