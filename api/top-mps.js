@@ -139,7 +139,7 @@ export default async function handler(req, res) {
   };
 });
 
-    return res.json(result.sort((a, b) => b.count - a.count).slice(0, 20));
+    return res.json(result.sort((a, b) => b.count - a.count).slice(0, 10));
 
   } catch (err) {
     return res.status(500).json({
