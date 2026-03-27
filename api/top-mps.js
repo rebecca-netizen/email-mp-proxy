@@ -6,7 +6,7 @@ function setCors(res) {
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
 }
 
-// Proper CSV parser (handles commas inside quotes)
+// CSV parser (handles commas inside quotes)
 function parseCSV(text) {
   const rows = [];
   let current = '';
@@ -49,31 +49,30 @@ module.exports = async function (req, res) {
     const text = await response.text();
 
     const rows = parseCSV(text);
-
-    const headers = rows[0];
     const data = rows.slice(1);
 
     const mpCounts = {};
 
     data.forEach(row => {
-      if (!row || row.length < 8) return;
+      if (!row) return;
 
-      const rowString = row.join(" ").toLowerCase();
+      const fullRow = row.join(" ");
 
-      if (subject && !rowString.includes(subject.toLowerCase())) return;
+      // Filter by subject (keeps your campaign-specific counts)
+      if (subject && !fullRow.toLowerCase().includes(subject.toLowerCase())) return;
 
-      const mpIndex = headers.findIndex(h => h.trim().toLowerCase() === "mp");
-      const constituencyIndex = headers.findIndex(h => h.trim().toLowerCase() === "constituency");
+      // Extract MP name using pattern "Name (MP)"
+      const match = fullRow.match(/([A-Za-z\s.'-]+)\s*\(MP\)/);
 
-      // fallback (if exact match fails)
-      const mpIndexSafe = mpIndex !== -1 ? mpIndex : headers.findIndex(h => h.toLowerCase().includes("mp "));
-      const constituencyIndexSafe = constituencyIndex !== -1 ? constituencyIndex : headers.findIndex(h => h.toLowerCase().includes("constitu"));
+      if (!match) return;
 
-      const mpName = row[mpIndexSafe] || "Unknown";
-      const constituency = row[constituencyIndexSafe] || "";
-      const party = "";
+      const mpName = match[1].trim();
 
-      const key = mpName + "|" + constituency + "|" + party;
+      // Optional: extract constituency if present
+      const constituencyMatch = fullRow.match(/([A-Za-z\s.'-]+)\s+MP\s+for\s+([A-Za-z\s.'-]+)/i);
+      const constituency = constituencyMatch ? constituencyMatch[2].trim() : "";
+
+      const key = mpName + "|" + constituency;
 
       if (!mpCounts[key]) mpCounts[key] = 0;
       mpCounts[key]++;
@@ -81,8 +80,8 @@ module.exports = async function (req, res) {
 
     const sorted = Object.entries(mpCounts)
       .map(([key, count]) => {
-        const [name, constituency, party] = key.split("|");
-        return { name, constituency, party, count };
+        const [name, constituency] = key.split("|");
+        return { name, constituency, party: "", count };
       })
       .sort((a, b) => b.count - a.count)
       .slice(0, 10);
