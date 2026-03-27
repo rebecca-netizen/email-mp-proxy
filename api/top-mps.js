@@ -132,9 +132,9 @@ export default async function handler(req, res) {
     const match = mpLookup[item.email] || {};
 
     return {
-    mp: match.Name || match.name || item.mp || "",
-    constituency: match.Constituency || match.constituency || "",
-    party: match.Party || match.party || "",
+    mp: match.name || item.mp || "",
+    constituency: match.constituency || "",
+    party: match.party || "",
     count: item.count
   };
 });
