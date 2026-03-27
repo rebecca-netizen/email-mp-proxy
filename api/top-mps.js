@@ -1,5 +1,13 @@
 const SHEET_CSV_URL = process.env.SHEET_CSV_URL || "";
 
+// Add parties for top MPs here (extend as needed)
+const PARTY_LOOKUP = {
+  "Lauren Edwards": "Labour",
+  "Rachel Blake": "Labour",
+  "Zoe Franklin": "Liberal Democrat",
+  "Julian Smith": "Conservative"
+};
+
 function setCors(res) {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Methods", "GET, OPTIONS");
@@ -54,26 +62,17 @@ module.exports = async function (req, res) {
     const mpCounts = {};
 
     data.forEach(row => {
-      if (!row) return;
+      if (!row || row.length < 8) return;
 
-      const fullRow = row.join(" ");
+      const subjectField = (row[4] || "").toLowerCase();
 
-      // Filter by subject (keeps your campaign-specific counts)
-      if (subject) {
-      const subjectField = row[4] || ""; // Subject column
-      if (!subjectField.toLowerCase().includes(subject.toLowerCase())) return;
-      }
+      // Reliable filter (use "licence" in frontend)
+      if (subject && !subjectField.includes(subject.toLowerCase())) return;
 
-      // Extract MP name using pattern "Name (MP)"
-      const match = fullRow.match(/([A-Za-z\s.'-]+)\s*\(MP\)/);
+      const mpName = (row[6] || "").trim();
+      const constituency = (row[7] || "").trim();
 
-      if (!match) return;
-
-      const mpName = match[1].trim();
-
-      // Optional: extract constituency if present
-      const constituencyMatch = fullRow.match(/([A-Za-z\s.'-]+)\s+MP\s+for\s+([A-Za-z\s.'-]+)/i);
-      const constituency = constituencyMatch ? constituencyMatch[2].trim() : "";
+      if (!mpName) return;
 
       const key = mpName + "|" + constituency;
 
@@ -84,7 +83,13 @@ module.exports = async function (req, res) {
     const sorted = Object.entries(mpCounts)
       .map(([key, count]) => {
         const [name, constituency] = key.split("|");
-        return { name, constituency, party: "", count };
+
+        return {
+          name,
+          constituency,
+          party: PARTY_LOOKUP[name] || "",
+          count
+        };
       })
       .sort((a, b) => b.count - a.count)
       .slice(0, 10);
