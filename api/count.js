@@ -31,15 +31,13 @@ module.exports = async function (req, res) {
     let count = 0;
 
     rows.forEach(row => {
-      const cols = row.split(",");
+      if (!row) return;
 
-      const email = cols[2];
-      const rowSubject = cols[4];
-
-      if (!email || !email.includes("@")) return;
+      // MUCH SAFER: just check the whole row string
+      if (!row.includes("@")) return;
 
       if (subject) {
-        if (rowSubject && rowSubject.includes(subject)) {
+        if (row.includes(subject)) {
           count++;
         }
       } else {
@@ -55,11 +53,5 @@ module.exports = async function (req, res) {
     console.error("count error", err);
     res.statusCode = 500;
     res.end(JSON.stringify({ error: "Failed to fetch count" }));
-  }
-};    res.status(200).json({ count });
-
-  } catch (err) {
-    console.error("count error", err);
-    res.status(500).json({ error: "Failed to fetch count" });
   }
 };
