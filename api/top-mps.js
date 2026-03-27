@@ -62,11 +62,15 @@ module.exports = async function (req, res) {
 
       if (subject && !rowString.includes(subject.toLowerCase())) return;
 
-      const mpIndex = headers.findIndex(h => h.toLowerCase().includes("mp"));
-      const constituencyIndex = headers.findIndex(h => h.toLowerCase().includes("constitu"));
+      const mpIndex = headers.findIndex(h => h.trim().toLowerCase() === "mp");
+      const constituencyIndex = headers.findIndex(h => h.trim().toLowerCase() === "constituency");
 
-      const mpName = row[mpIndex] || "Unknown";
-      const constituency = row[constituencyIndex] || "";
+      // fallback (if exact match fails)
+      const mpIndexSafe = mpIndex !== -1 ? mpIndex : headers.findIndex(h => h.toLowerCase().includes("mp "));
+      const constituencyIndexSafe = constituencyIndex !== -1 ? constituencyIndex : headers.findIndex(h => h.toLowerCase().includes("constitu"));
+
+      const mpName = row[mpIndexSafe] || "Unknown";
+      const constituency = row[constituencyIndexSafe] || "";
       const party = "";
 
       const key = mpName + "|" + constituency + "|" + party;
