@@ -75,9 +75,9 @@ export default async function handler(req, res) {
     const headers = rows[0];
 
     // DEBUG: return headers if columns not found
-    const mpCol = findColumn(headers, "mp");
-    const emailCol = findColumn(headers, "email");
-    const subjectCol = findColumn(headers, "subject");
+    const mpCol = headers.findIndex(h => h.trim().toLowerCase() === "mp");
+    const emailCol = headers.findIndex(h => h.trim().toLowerCase().includes("email"));
+    const subjectCol = headers.findIndex(h => h.trim().toLowerCase() === "subject");
 
     if (mpCol === -1 || emailCol === -1) {
       return res.json({
