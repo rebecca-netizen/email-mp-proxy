@@ -1,11 +1,7 @@
 const SHEET_CSV_URL = process.env.SHEET_CSV_URL || "";
 
-const PARTY_LOOKUP = {
-  "Lauren Edwards": "Labour",
-  "Rachel Blake": "Labour",
-  "Zoe Franklin": "Liberal Democrat",
-  "Julian Smith": "Conservative"
-};
+// Your actual GitHub raw JSON (corrected)
+const MP_JSON_URL = "https://raw.githubusercontent.com/rebecca-netizen/email-mp-proxy/main/api/data/emails.json";
 
 function setCors(res) {
   res.setHeader("Access-Control-Allow-Origin", "*");
@@ -13,99 +9,144 @@ function setCors(res) {
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
 }
 
+// Robust CSV parser
 function parseCSV(text) {
   const rows = [];
-  let current = '';
-  let insideQuotes = false;
   let row = [];
+  let current = '';
+  let inQuotes = false;
 
   for (let i = 0; i < text.length; i++) {
     const char = text[i];
 
-    if (char === '"') {
-      insideQuotes = !insideQuotes;
-    } else if (char === ',' && !insideQuotes) {
+    if (char === '"' && text[i + 1] === '"') {
+      current += '"';
+      i++;
+    } else if (char === '"') {
+      inQuotes = !inQuotes;
+    } else if (char === ',' && !inQuotes) {
       row.push(current);
       current = '';
-    } else if (char === '\n' && !insideQuotes) {
-      row.push(current);
-      rows.push(row);
-      row = [];
-      current = '';
+    } else if ((char === '\n' || char === '\r') && !inQuotes) {
+      if (current || row.length) {
+        row.push(current);
+        rows.push(row);
+        row = [];
+        current = '';
+      }
     } else {
       current += char;
     }
   }
 
+  if (current || row.length) {
+    row.push(current);
+    rows.push(row);
+  }
+
   return rows;
 }
 
-module.exports = async function (req, res) {
+// Find column by name (case insensitive)
+function findColumn(headers, options) {
+  const lower = headers.map(h => h.toLowerCase());
+  return options
+    .map(opt => lower.indexOf(opt.toLowerCase()))
+    .find(i => i !== -1);
+}
+
+export default async function handler(req, res) {
   setCors(res);
 
   if (req.method === "OPTIONS") {
-    res.statusCode = 200;
-    return res.end();
+    return res.status(200).end();
   }
 
   try {
-    const { subject } = req.query;
+    if (!SHEET_CSV_URL) {
+      return res.status(500).json({ error: "Missing SHEET_CSV_URL" });
+    }
 
-    const response = await fetch(SHEET_CSV_URL);
-    const text = await response.text();
+    const subjectFilter = (req.query.subject || "").toLowerCase();
 
-    const rows = parseCSV(text);
+    // Fetch both sources
+    const [csvRes, mpRes] = await Promise.all([
+      fetch(SHEET_CSV_URL),
+      fetch(MP_JSON_URL)
+    ]);
 
-    const headers = rows[0].map(h => h.trim().toLowerCase());
-    const data = rows.slice(1);
+    const csvText = await csvRes.text();
+    const mpList = await mpRes.json();
 
-    // 🎯 Find correct columns dynamically
-    const subjectIndex = headers.findIndex(h => h.includes("subject"));
-    const mpIndex = headers.findIndex(h => h === "mp");
-    const constituencyIndex = headers.findIndex(h => h.includes("constitu"));
+    const rows = parseCSV(csvText);
 
-    const mpCounts = {};
+    if (!rows.length) {
+      return res.json([]);
+    }
 
-    data.forEach(row => {
-      if (!row) return;
+    const headers = rows[0];
 
-      const subjectField = (row[subjectIndex] || "").toLowerCase();
+    const mpCol = findColumn(headers, ["mp"]);
+    const emailCol = findColumn(headers, ["email"]);
+    const subjectCol = findColumn(headers, ["subject"]);
 
-      // robust filter
-      if (subject && !subjectField.includes(subject.toLowerCase())) return;
+    if (mpCol === undefined || emailCol === undefined) {
+      return res.status(500).json({
+        error: "Required columns not found (need MP and Email)"
+      });
+    }
 
-      const mpName = (row[mpIndex] || "").trim();
-      const constituency = (row[constituencyIndex] || "").trim();
+    // STEP 1: count emails per MP (by email = stable key)
+    const counts = {};
 
-      if (!mpName) return;
+    for (let i = 1; i < rows.length; i++) {
+      const row = rows[i];
 
-      const key = mpName + "|" + constituency;
+      const subject = (row[subjectCol] || "").toLowerCase();
+      if (subjectFilter && !subject.includes(subjectFilter)) continue;
 
-      if (!mpCounts[key]) mpCounts[key] = 0;
-      mpCounts[key]++;
+      const email = (row[emailCol] || "").toLowerCase();
+      if (!email) continue;
+
+      if (!counts[email]) {
+        counts[email] = {
+          email,
+          mp: row[mpCol],
+          count: 0
+        };
+      }
+
+      counts[email].count++;
+    }
+
+    // STEP 2: build lookup from GitHub MP list (by email)
+    const mpLookup = {};
+    mpList.forEach(mp => {
+      if (mp.email) {
+        mpLookup[mp.email.toLowerCase()] = mp;
+      }
     });
 
-    const sorted = Object.entries(mpCounts)
-      .map(([key, count]) => {
-        const [name, constituency] = key.split("|");
+    // STEP 3: merge data
+    const result = Object.values(counts).map(item => {
+      const match = mpLookup[item.email] || {};
 
-        return {
-          name,
-          constituency,
-          party: PARTY_LOOKUP[name] || "",
-          count
-        };
-      })
+      return {
+        mp: match.name || item.mp || "",
+        constituency: match.constituency || "",
+        party: match.party || "",
+        count: item.count
+      };
+    });
+
+    // STEP 4: sort + limit
+    const sorted = result
       .sort((a, b) => b.count - a.count)
-      .slice(0, 10);
+      .slice(0, 20);
 
-    res.statusCode = 200;
-    res.setHeader("Content-Type", "application/json");
-    res.end(JSON.stringify({ data: sorted }));
+    res.json(sorted);
 
   } catch (err) {
-    console.error(err);
-    res.statusCode = 500;
-    res.end(JSON.stringify({ error: "Failed" }));
+    res.status(500).json({ error: err.message });
   }
-};
+}
