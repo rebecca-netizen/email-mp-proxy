@@ -15,6 +15,7 @@
 //   MP_LOOKUP_URL
 //   MP_INTELLIGENCE_URL
 
+import 'dotenv/config';
 import { createClient } from "@supabase/supabase-js";
 
 const SUPABASE_URL = process.env.SUPABASE_URL;
