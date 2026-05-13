@@ -19,7 +19,7 @@ jobs:
           node-version: 24
 
       - name: Install dependencies
-        run: npm install
+        run: npm install @supabase/supabase-js dotenv
 
       - name: Run action sync
         run: node scripts/sync-google-sheet-actions.mjs
