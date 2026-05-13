@@ -1,0 +1,31 @@
+name: Sync Email Your MP Actions
+
+on:
+  schedule:
+    - cron: "*/15 * * * *"
+  workflow_dispatch:
+
+jobs:
+  sync-actions:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repo
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run action sync
+        run: node scripts/sync-google-sheet-actions.mjs
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          GOOGLE_APPS_SCRIPT_EXPORT_URL: ${{ secrets.GOOGLE_APPS_SCRIPT_EXPORT_URL }}
+          GOOGLE_APPS_SCRIPT_EXPORT_TOKEN: ${{ secrets.GOOGLE_APPS_SCRIPT_EXPORT_TOKEN }}
+          IMPORT_CUTOFF_DATE: "2026-02-24"
