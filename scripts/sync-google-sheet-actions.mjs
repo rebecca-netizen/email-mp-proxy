@@ -1,61 +1,53 @@
 // scripts/sync-google-sheet-actions.mjs
-// Email Your MP / Campaign Intelligence Platform
-// Purpose: Import canonical Google Sheet action rows into Supabase, enrich with MP directory + election intelligence, and preserve raw data.
-//
-// Source:
-// - Google Sheet: Clicks tab
-// - Canonical rows: Event = 'mp-email-sent'
-// - Cut-off: Timestamp >= 2026-02-24
-//
-// Required environment variables:
-//   SUPABASE_URL
-//   SUPABASE_SERVICE_ROLE_KEY
-//   GOOGLE_SERVICE_ACCOUNT_EMAIL
-//   GOOGLE_PRIVATE_KEY
-//   GOOGLE_SHEET_ID
-//   GOOGLE_SHEET_NAME
-//
-// Optional environment variables:
-//   IMPORT_CUTOFF_DATE=2026-02-24
-//
-// Install dependencies:
-//   npm install @supabase/supabase-js googleapis dotenv
-//
-// Run locally:
-//   node scripts/sync-google-sheet-actions.mjs
+// Imports Email Your MP actions from Google Apps Script export endpoint into Supabase
 
 import 'dotenv/config';
 import crypto from 'node:crypto';
-import { google } from 'googleapis';
 import { createClient } from '@supabase/supabase-js';
 
 const SUPABASE_URL = process.env.SUPABASE_URL;
 const SUPABASE_SERVICE_ROLE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
-const GOOGLE_SERVICE_ACCOUNT_EMAIL = process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL;
-const GOOGLE_PRIVATE_KEY = process.env.GOOGLE_PRIVATE_KEY?.replace(/\\n/g, '\n');
-const GOOGLE_SHEET_ID = process.env.GOOGLE_SHEET_ID;
-const GOOGLE_SHEET_NAME = process.env.GOOGLE_SHEET_NAME || 'Clicks';
+const GOOGLE_APPS_SCRIPT_EXPORT_URL =
+  process.env.GOOGLE_APPS_SCRIPT_EXPORT_URL;
 
-const IMPORT_CUTOFF_DATE = process.env.IMPORT_CUTOFF_DATE || '2026-02-24';
-const IMPORT_CUTOFF = new Date(`${IMPORT_CUTOFF_DATE}T00:00:00.000Z`);
+const GOOGLE_APPS_SCRIPT_EXPORT_TOKEN =
+  process.env.GOOGLE_APPS_SCRIPT_EXPORT_TOKEN;
+
+const IMPORT_CUTOFF_DATE =
+  process.env.IMPORT_CUTOFF_DATE || '2026-02-24';
+
+const IMPORT_CUTOFF = new Date(
+  `${IMPORT_CUTOFF_DATE}T00:00:00.000Z`
+);
 
 if (!SUPABASE_URL || !SUPABASE_SERVICE_ROLE_KEY) {
-  console.error('Missing SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY.');
+  console.error(
+    'Missing SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY.'
+  );
   process.exit(1);
 }
 
-if (!GOOGLE_SERVICE_ACCOUNT_EMAIL || !GOOGLE_PRIVATE_KEY || !GOOGLE_SHEET_ID) {
-  console.error('Missing Google Sheets environment variables. Required: GOOGLE_SERVICE_ACCOUNT_EMAIL, GOOGLE_PRIVATE_KEY, GOOGLE_SHEET_ID.');
+if (
+  !GOOGLE_APPS_SCRIPT_EXPORT_URL ||
+  !GOOGLE_APPS_SCRIPT_EXPORT_TOKEN
+) {
+  console.error(
+    'Missing GOOGLE_APPS_SCRIPT_EXPORT_URL or GOOGLE_APPS_SCRIPT_EXPORT_TOKEN.'
+  );
   process.exit(1);
 }
 
-const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, {
-  auth: {
-    persistSession: false,
-    autoRefreshToken: false,
-  },
-});
+const supabase = createClient(
+  SUPABASE_URL,
+  SUPABASE_SERVICE_ROLE_KEY,
+  {
+    auth: {
+      persistSession: false,
+      autoRefreshToken: false,
+    },
+  }
+);
 
 function cleanString(value) {
   if (value === null || value === undefined) return null;
@@ -74,86 +66,56 @@ function normaliseKey(value) {
 
 function parseBooleanish(value) {
   const cleaned = cleanString(value)?.toLowerCase();
+
   if (!cleaned) return null;
-  if (['true', 'yes', 'y', '1', 'consented', 'agree', 'agreed'].includes(cleaned)) return 'true';
-  if (['false', 'no', 'n', '0', 'declined'].includes(cleaned)) return 'false';
-  return cleanString(value);
-}
 
-function parseSheetTimestamp(value) {
-  const raw = cleanString(value);
-  if (!raw) return null;
-
-  // Google Sheets often returns ISO-ish or locale strings depending on formatting.
-  const direct = new Date(raw);
-  if (!Number.isNaN(direct.getTime())) return direct;
-
-  // UK-style fallback: DD/MM/YYYY HH:mm:ss or DD/MM/YYYY HH:mm
-  const match = raw.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})(?:\s+(\d{1,2}):(\d{2})(?::(\d{2}))?)?$/);
-  if (match) {
-    const [, dd, mm, yyyy, hh = '0', min = '0', ss = '0'] = match;
-    const iso = `${yyyy}-${mm.padStart(2, '0')}-${dd.padStart(2, '0')}T${hh.padStart(2, '0')}:${min}:${ss.padStart(2, '0')}.000Z`;
-    const parsed = new Date(iso);
-    if (!Number.isNaN(parsed.getTime())) return parsed;
+  if (
+    ['true', 'yes', 'y', '1', 'consented'].includes(cleaned)
+  ) {
+    return 'true';
   }
 
-  return null;
+  if (
+    ['false', 'no', 'n', '0', 'declined'].includes(cleaned)
+  ) {
+    return 'false';
+  }
+
+  return cleaned;
 }
 
 function makeHash(parts) {
   return crypto
     .createHash('sha256')
-    .update(parts.map((part) => cleanString(part) || '').join('|'))
+    .update(parts.join('|'))
     .digest('hex');
 }
 
-function mapHeaders(headers) {
-  const map = new Map();
-  headers.forEach((header, index) => {
-    const key = cleanString(header);
-    if (key) map.set(key, index);
-  });
-  return map;
-}
+async function fetchRows() {
+  const url =
+    `${GOOGLE_APPS_SCRIPT_EXPORT_URL}` +
+    `?action=export-clicks` +
+    `&token=${encodeURIComponent(
+      GOOGLE_APPS_SCRIPT_EXPORT_TOKEN
+    )}`;
 
-function getCell(row, headerMap, header) {
-  const index = headerMap.get(header);
-  if (index === undefined) return null;
-  return cleanString(row[index]);
-}
+  const response = await fetch(url);
 
-function rowToObject(row, headerMap) {
-  const obj = {};
-  for (const [header, index] of headerMap.entries()) {
-    obj[header] = row[index] ?? null;
-  }
-  return obj;
-}
-
-function inferCampaignId(action, campaignRules) {
-  const candidates = [];
-
-  for (const rule of campaignRules) {
-    if (!rule.active) continue;
-
-    const fieldValue = normaliseKey(action[rule.match_field]);
-    const matchValue = normaliseKey(rule.match_value);
-
-    if (!fieldValue || !matchValue) continue;
-
-    let matched = false;
-    if (rule.match_type === 'equals') matched = fieldValue === matchValue;
-    if (rule.match_type === 'contains') matched = fieldValue.includes(matchValue);
-    if (rule.match_type === 'starts_with') matched = fieldValue.startsWith(matchValue);
-
-    if (matched) {
-      candidates.push(rule);
-    }
+  if (!response.ok) {
+    throw new Error(
+      `Export endpoint failed: ${response.status}`
+    );
   }
 
-  if (!candidates.length) return null;
-  candidates.sort((a, b) => (a.priority ?? 100) - (b.priority ?? 100));
-  return candidates[0].campaign_id;
+  const json = await response.json();
+
+  if (!json.ok) {
+    throw new Error(
+      json.error || 'Unknown export endpoint error'
+    );
+  }
+
+  return json.rows || [];
 }
 
 async function createIngestionRun() {
@@ -162,243 +124,183 @@ async function createIngestionRun() {
     .insert({
       source_system: 'google_sheet_clicks',
       status: 'running',
-      notes: `Google Sheet action import from ${GOOGLE_SHEET_NAME}; cutoff ${IMPORT_CUTOFF_DATE}`,
     })
     .select('id')
     .single();
 
   if (error) throw error;
+
   return data.id;
 }
 
 async function finishIngestionRun(id, payload) {
-  const { error } = await supabase
+  await supabase
     .from('ingestion_runs')
     .update({
       finished_at: new Date().toISOString(),
       ...payload,
     })
     .eq('id', id);
-
-  if (error) console.error('Failed to update ingestion run:', error.message);
-}
-
-async function readGoogleSheetRows() {
-  const auth = new google.auth.JWT({
-    email: GOOGLE_SERVICE_ACCOUNT_EMAIL,
-    key: GOOGLE_PRIVATE_KEY,
-    scopes: ['https://www.googleapis.com/auth/spreadsheets.readonly'],
-  });
-
-  const sheets = google.sheets({ version: 'v4', auth });
-
-  const response = await sheets.spreadsheets.values.get({
-    spreadsheetId: GOOGLE_SHEET_ID,
-    range: `${GOOGLE_SHEET_NAME}!A:Z`,
-    valueRenderOption: 'FORMATTED_VALUE',
-  });
-
-  return response.data.values || [];
 }
 
 async function loadCampaignRules() {
   const { data, error } = await supabase
     .from('campaign_matching_rules')
-    .select('campaign_id, match_field, match_type, match_value, priority, active')
-    .eq('active', true)
-    .order('priority', { ascending: true });
+    .select('*')
+    .eq('active', true);
 
   if (error) throw error;
+
   return data || [];
 }
 
-async function findMpDirectoryByEmail(mpEmail) {
-  if (!mpEmail) return null;
+function inferCampaignId(action, rules) {
+  for (const rule of rules) {
+    const fieldValue =
+      normaliseKey(action[rule.match_field]) || '';
 
-  const { data, error } = await supabase
-    .from('mp_directory')
-    .select('id, mp_email, mp_name, party, constituency')
-    .eq('mp_email_normalised', mpEmail.toLowerCase())
-    .maybeSingle();
+    const matchValue =
+      normaliseKey(rule.match_value) || '';
 
-  if (error) throw error;
-  return data || null;
+    let matched = false;
+
+    if (rule.match_type === 'equals') {
+      matched = fieldValue === matchValue;
+    }
+
+    if (rule.match_type === 'contains') {
+      matched = fieldValue.includes(matchValue);
+    }
+
+    if (rule.match_type === 'starts_with') {
+      matched = fieldValue.startsWith(matchValue);
+    }
+
+    if (matched) {
+      return rule.campaign_id;
+    }
+  }
+
+  return null;
 }
 
-async function findMpIntelligenceByConstituency(constituency) {
-  if (!constituency) return null;
-
-  const { data, error } = await supabase
-    .from('mp_intelligence')
-    .select('id, constituency, mp_name, party, majority, majority_pct, region, nation, marginality_band')
-    .eq('constituency', constituency)
-    .eq('election_year', 2024)
-    .maybeSingle();
-
-  if (error) throw error;
-  return data || null;
-}
-
-async function upsertSupporter({ email, timestamp, postcode, constituency, consent, agConsent }) {
+async function upsertSupporter({
+  email,
+  timestamp,
+  postcode,
+  constituency,
+  consent,
+  agConsent,
+}) {
   const supporterEmail = cleanEmail(email);
+
   if (!supporterEmail) return null;
 
-  const payload = {
-    email: supporterEmail,
-    first_seen_at: timestamp,
-    last_seen_at: timestamp,
-    latest_postcode: postcode,
-    latest_constituency: constituency,
-    consent_status: parseBooleanish(consent),
-    ag_consent_status: parseBooleanish(agConsent),
-  };
-
-  const { data: existing, error: existingError } = await supabase
+  const { data: existing } = await supabase
     .from('supporters')
-    .select('id, first_seen_at, last_seen_at')
+    .select('id')
     .eq('email_normalised', supporterEmail)
     .maybeSingle();
 
-  if (existingError) throw existingError;
-
   if (existing) {
-    const existingFirst = existing.first_seen_at ? new Date(existing.first_seen_at) : null;
-    const newTimestamp = timestamp ? new Date(timestamp) : null;
+    await supabase
+      .from('supporters')
+      .update({
+        last_seen_at: timestamp,
+        latest_postcode: postcode,
+        latest_constituency: constituency,
+        consent_status: parseBooleanish(consent),
+        ag_consent_status: parseBooleanish(agConsent),
+      })
+      .eq('id', existing.id);
 
-    const updatePayload = {
+    return existing.id;
+  }
+
+  const { data, error } = await supabase
+    .from('supporters')
+    .insert({
+      email: supporterEmail,
+      first_seen_at: timestamp,
       last_seen_at: timestamp,
       latest_postcode: postcode,
       latest_constituency: constituency,
       consent_status: parseBooleanish(consent),
       ag_consent_status: parseBooleanish(agConsent),
-    };
-
-    if (newTimestamp && (!existingFirst || newTimestamp < existingFirst)) {
-      updatePayload.first_seen_at = timestamp;
-    }
-
-    const { data, error } = await supabase
-      .from('supporters')
-      .update(updatePayload)
-      .eq('id', existing.id)
-      .select('id')
-      .single();
-
-    if (error) throw error;
-    return data.id;
-  }
-
-  const { data, error } = await supabase
-    .from('supporters')
-    .insert(payload)
+    })
     .select('id')
     .single();
 
   if (error) throw error;
+
   return data.id;
 }
 
-async function insertAction(action) {
-  const { error } = await supabase
-    .from('mp_email_actions')
-    .insert(action);
-
-  if (error) {
-    // Duplicate row hashes are expected on repeated syncs.
-    if (error.code === '23505') {
-      return { inserted: false, duplicate: true };
-    }
-    throw error;
-  }
-
-  return { inserted: true, duplicate: false };
-}
-
 async function main() {
-  const startedAt = new Date();
   const ingestionRunId = await createIngestionRun();
 
-  let rowsSeen = 0;
-  let rowsImported = 0;
-  let rowsSkipped = 0;
-  let rowsFailed = 0;
-  const skipReasons = new Map();
-
-  function skip(reason) {
-    rowsSkipped += 1;
-    skipReasons.set(reason, (skipReasons.get(reason) || 0) + 1);
-  }
+  let imported = 0;
+  let skipped = 0;
+  let failed = 0;
 
   try {
-    console.log(`Google Sheet action sync started at ${startedAt.toISOString()}`);
-    console.log(`Reading sheet ${GOOGLE_SHEET_ID} / tab ${GOOGLE_SHEET_NAME}`);
+    console.log(
+      'Google Sheet Apps Script sync started...'
+    );
 
-    const values = await readGoogleSheetRows();
-    if (values.length < 2) throw new Error('Sheet has no data rows.');
+    const rows = await fetchRows();
 
-    const headers = values[0];
-    const headerMap = mapHeaders(headers);
-    const dataRows = values.slice(1);
+    console.log(`Rows returned: ${rows.length}`);
+
     const campaignRules = await loadCampaignRules();
 
-    console.log(`Rows found excluding header: ${dataRows.length}`);
-    console.log(`Campaign matching rules loaded: ${campaignRules.length}`);
-
-    for (let i = 0; i < dataRows.length; i += 1) {
-      const row = dataRows[i];
-      const sourceRowNumber = i + 2;
-      rowsSeen += 1;
-
+    for (const row of rows) {
       try {
-        const timestampRaw = getCell(row, headerMap, 'Timestamp');
-        const timestamp = parseSheetTimestamp(timestampRaw);
-        const event = getCell(row, headerMap, 'Event');
-        const mpEmail = cleanEmail(getCell(row, headerMap, 'Email'));
-        const supporterEmail = cleanEmail(getCell(row, headerMap, 'UserEmail'));
-        const subject = getCell(row, headerMap, 'Subject');
-        const body = getCell(row, headerMap, 'Body');
-        const rawMpName = getCell(row, headerMap, 'MP');
-        const rawConstituency = getCell(row, headerMap, 'Constituency');
-        const rawPostcode = getCell(row, headerMap, 'Postcode');
-        const page = getCell(row, headerMap, 'Page');
-        const userAgent = getCell(row, headerMap, 'UserAgent');
-        const ipAddress = getCell(row, headerMap, 'IP');
-        const consent = getCell(row, headerMap, 'Consent');
-        const agConsent = getCell(row, headerMap, 'AG_Consent');
-
-        if (!timestamp) {
-          skip('invalid_or_missing_timestamp');
-          continue;
-        }
+        const timestamp = new Date(row.Timestamp);
 
         if (timestamp < IMPORT_CUTOFF) {
-          skip('before_cutoff');
+          skipped += 1;
           continue;
         }
+
+        const event = cleanString(row.Event);
 
         if (event !== 'mp-email-sent') {
-          skip('not_mp_email_sent');
+          skipped += 1;
           continue;
         }
 
-        if (!mpEmail || !supporterEmail || !subject || !body) {
-          skip('missing_required_fields');
+        const supporterEmail = cleanEmail(row.UserEmail);
+
+        if (!supporterEmail) {
+          skipped += 1;
           continue;
         }
 
-        const mpDirectory = await findMpDirectoryByEmail(mpEmail);
-        const constituencyForLookup = mpDirectory?.constituency || rawConstituency || null;
-        const mpIntelligence = await findMpIntelligenceByConstituency(constituencyForLookup);
+        const sourceHash = makeHash([
+          row.Timestamp || '',
+          row.Email || '',
+          supporterEmail,
+          row.Subject || '',
+          row.Body || '',
+        ]);
 
-        const enrichedConstituency = mpDirectory?.constituency || mpIntelligence?.constituency || rawConstituency || null;
-        const enrichedMpName = mpDirectory?.mp_name || mpIntelligence?.mp_name || rawMpName || null;
-        const enrichedParty = mpDirectory?.party || mpIntelligence?.party || null;
+        const { data: existing } = await supabase
+          .from('mp_email_actions')
+          .select('id')
+          .eq('source_row_hash', sourceHash)
+          .maybeSingle();
+
+        if (existing) {
+          skipped += 1;
+          continue;
+        }
 
         const campaignId = inferCampaignId(
           {
-            subject,
-            page,
-            body,
+            subject: row.Subject,
+            body: row.Body,
+            page: row.Page,
           },
           campaignRules
         );
@@ -406,101 +308,72 @@ async function main() {
         const supporterId = await upsertSupporter({
           email: supporterEmail,
           timestamp: timestamp.toISOString(),
-          postcode: rawPostcode,
-          constituency: enrichedConstituency,
-          consent,
-          agConsent,
+          postcode: row.Postcode,
+          constituency: row.Constituency,
+          consent: row.Consent,
+          agConsent: row.AG_Consent,
         });
 
-        const sourceRowHash = makeHash([
-          timestamp.toISOString(),
-          event,
-          mpEmail,
-          supporterEmail,
-          subject,
-          body,
-          sourceRowNumber,
-        ]);
+        const { error } = await supabase
+          .from('mp_email_actions')
+          .insert({
+            source_system: 'google_sheet_clicks',
+            source_timestamp: timestamp.toISOString(),
+            source_row_hash: sourceHash,
 
-        const action = {
-          source_system: 'google_sheet_clicks',
-          source_sheet_name: GOOGLE_SHEET_NAME,
-          source_row_number: sourceRowNumber,
-          source_row_hash: sourceRowHash,
-          source_timestamp: timestamp.toISOString(),
+            supporter_id: supporterId,
+            campaign_id: campaignId,
 
-          campaign_id: campaignId,
-          supporter_id: supporterId,
-          mp_directory_id: mpDirectory?.id || null,
-          mp_intelligence_id: mpIntelligence?.id || null,
+            event: row.Event,
+            supporter_email: supporterEmail,
+            mp_email: cleanEmail(row.Email),
 
-          event,
-          supporter_email: supporterEmail,
-          mp_email: mpEmail,
-          subject,
-          body,
-          page,
-          user_agent: userAgent,
-          ip_address: ipAddress,
-          consent,
-          ag_consent: agConsent,
+            subject: row.Subject,
+            body: row.Body,
 
-          raw_mp_name: rawMpName,
-          raw_constituency: rawConstituency,
-          raw_postcode: rawPostcode,
+            page: row.Page,
+            user_agent: row.UserAgent,
+            ip_address: row.IP,
 
-          enriched_mp_name: enrichedMpName,
-          enriched_party: enrichedParty,
-          enriched_constituency: enrichedConstituency,
-          enriched_postcode: rawPostcode,
-          enriched_majority: mpIntelligence?.majority || null,
-          enriched_majority_pct: mpIntelligence?.majority_pct || null,
-          enriched_region: mpIntelligence?.region || null,
-          enriched_nation: mpIntelligence?.nation || null,
-          enriched_marginality_band: mpIntelligence?.marginality_band || null,
+            consent: row.Consent,
+            ag_consent: row.AG_Consent,
 
-          raw_row_json: rowToObject(row, headerMap),
-        };
+            raw_mp_name: row.MP,
+            raw_constituency: row.Constituency,
+            raw_postcode: row.Postcode,
 
-        const result = await insertAction(action);
-        if (result.inserted) rowsImported += 1;
-        else if (result.duplicate) skip('duplicate_source_row_hash');
-      } catch (rowError) {
-        rowsFailed += 1;
-        console.error(`Row ${sourceRowNumber} failed:`, rowError.message);
+            raw_row_json: row,
+          });
+
+        if (error) {
+          throw error;
+        }
+
+        imported += 1;
+      } catch (err) {
+        failed += 1;
+        console.error(err.message);
       }
     }
 
-    const summary = {
-      rows_seen: rowsSeen,
-      rows_imported: rowsImported,
-      rows_skipped: rowsSkipped,
-      rows_failed: rowsFailed,
-      skip_reasons: Object.fromEntries(skipReasons.entries()),
-    };
-
-    console.log('Google Sheet action sync complete.');
-    console.log(summary);
+    console.log(
+      `Complete. Imported: ${imported}, skipped: ${skipped}, failed: ${failed}`
+    );
 
     await finishIngestionRun(ingestionRunId, {
       status: 'complete',
-      rows_seen: rowsSeen,
-      rows_imported: rowsImported,
-      rows_skipped: rowsSkipped,
-      rows_failed: rowsFailed,
-      error_summary: rowsFailed ? `${rowsFailed} rows failed` : null,
-      notes: JSON.stringify(summary),
+      rows_imported: imported,
+      rows_skipped: skipped,
+      rows_failed: failed,
     });
-  } catch (error) {
-    console.error('Google Sheet action sync failed:', error);
+  } catch (err) {
+    console.error(err);
+
     await finishIngestionRun(ingestionRunId, {
       status: 'failed',
-      rows_seen: rowsSeen,
-      rows_imported: rowsImported,
-      rows_skipped: rowsSkipped,
-      rows_failed: rowsFailed,
-      error_summary: error.message,
+      error_summary: err.message,
     });
+
     process.exit(1);
   }
 }
