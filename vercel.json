@@ -1,0 +1,7 @@
+{
+  "functions": {
+    "api/mp.js": {
+      "includeFiles": "{lib/postcodes/**,api/data/emails.json}"
+    }
+  }
+}

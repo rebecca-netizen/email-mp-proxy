@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "recordWidth": 9,
+  "recordCount": 1788792,
+  "constituencyCount": 649,
+  "policy": "In Use? = Yes only; exact full postcode lookup",
+  "sourceLabel": "2024 source filenames; source date unverified",
+  "sourceSha256": "3ff7066b96f9bb3eb1fa3582e694f615f1c7a56f19b2cba57fa2ed58ad5c5546",
+  "dataSha256": "227837a8cc1c0c0f888b2da6c25cf2a76c12a33950c2599647c17a7dd5ec83a1",
+  "namesSha256": "67d90e633b681f098c94ebe7c03b23ec5554a9718c849a870ef5be44a28ab90c",
+  "dataBytes": 16099128,
+  "gzipBytes": 4075177,
+  "counts": {
+    "rows": 2687697,
+    "No": 898848,
+    "Yes": 1788792,
+    "Unknown": 57
+  },
+  "missingConstituencyFiles": [
+    "Aberafan Maesteg"
+  ],
+  "constituenciesWithoutActiveRecords": [
+    "Birmingham Ladywood"
+  ],
+  "reviewedFilenameAliases": {
+    "Montgomeryshire and Glyndw╠ér": "Montgomeryshire and Glyndŵr",
+    "Ynys Mo╠én": "Ynys Môn"
+  }
+}
