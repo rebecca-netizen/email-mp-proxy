@@ -1,5 +1,33 @@
 // api/mp.js — CommonJS + robust fallbacks + curated email override + CLIENT AUTH via ENV
 
+const { lookup: emergencyLookup } = require('../lib/postcode-fallback');
+
+// Bound upstream waits, including response-body reads. No upstream URL/error logging.
+async function readJSON(url, timeoutMs = 3000) {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), timeoutMs);
+  try {
+    const r = await fetch(url, { cache: 'no-store', signal: controller.signal });
+    return { ok: r.ok, status: r.status, body: r.ok ? await r.json() : null };
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
+function emergencyResponse(postcode, res) {
+  try {
+    const mp = emergencyLookup(postcode);
+    if (mp) {
+      console.info('MP lookup: emergency success');
+      return send(res, 200, mp);
+    }
+    console.warn('MP lookup: emergency unavailable');
+  } catch (_) {
+    console.warn('MP lookup: emergency data error');
+  }
+  return send(res, 503, { error: "We couldn't look up your MP just now. Please try again shortly." });
+}
+
 // ----- Build client allow-list from environment variables -----
 function buildClientsFromEnv() {
   const result = {};
@@ -41,9 +69,9 @@ async function loadEmails() {
   // refresh every 10 minutes
   if (EMAILS_CACHE && now - EMAILS_CACHE_AT < 10 * 60 * 1000) return EMAILS_CACHE;
 
-  const r = await fetch(EMAIL_SOURCE_URL, { cache: "no-store" });
+  const r = await readJSON(EMAIL_SOURCE_URL, 2000);
   if (!r.ok) throw new Error(`Failed to load emails.json (${r.status})`);
-  const list = await r.json();
+  const list = r.body;
 
   // Build lookups (case-insensitive)
   const byCon = Object.create(null);
@@ -129,20 +157,26 @@ module.exports = async function (req, res) {
     const mpUrl = `https://www.theyworkforyou.com/api/getMP?postcode=${encodeURIComponent(
       postcode
     )}&output=js&key=${encodeURIComponent(KEY)}`;
-    const r = await fetch(mpUrl);
-    if (!r.ok) return send(res, r.status, { error: `TWFY ${r.status}` });
-    const mp = await r.json();
-
-    let { name, party, email, constituency, person_id } = mp || {};
+    let r;
+    try {
+      r = await readJSON(mpUrl);
+    } catch (_) {
+      return emergencyResponse(postcode, res);
+    }
+    if (!r.ok) {
+      if (r.status >= 500 || r.status === 429) return emergencyResponse(postcode, res);
+      return send(res, r.status, { error: `TWFY ${r.status}` });
+    }
+    let { name, party, email, constituency, person_id } = normalizePerson(r.body);
 
     // 2) Fallback A — getPerson if MP data was incomplete
     if ((name == null || email == null) && person_id) {
       const personUrl = `https://www.theyworkforyou.com/api/getPerson?id=${encodeURIComponent(
         person_id
       )}&output=js&key=${encodeURIComponent(KEY)}`;
-      const pr = await fetch(personUrl);
+      const pr = await readJSON(personUrl).catch(() => ({ ok: false }));
       if (pr.ok) {
-        const personRaw = await pr.json();
+        const personRaw = pr.body;
         const p = normalizePerson(personRaw);
         if (name == null && p.name) name = p.name;
         if (email == null && p.email) email = p.email;
@@ -156,9 +190,9 @@ module.exports = async function (req, res) {
       const mpsUrl = `https://www.theyworkforyou.com/api/getMPs?output=js&key=${encodeURIComponent(
         KEY
       )}&constituency=${encodeURIComponent(constituency)}`;
-      const mr = await fetch(mpsUrl);
+      const mr = await readJSON(mpsUrl).catch(() => ({ ok: false }));
       if (mr.ok) {
-        const listRaw = await mr.json(); // often an array
+        const listRaw = mr.body; // often an array
         const p = normalizePerson(listRaw);
         if (!name && p.name) name = p.name;
         if (!party && p.party) party = p.party;
@@ -166,6 +200,8 @@ module.exports = async function (req, res) {
         if (!person_id && p.person_id) person_id = p.person_id;
       }
     }
+
+    if (!name || !constituency) return emergencyResponse(postcode, res);
 
     // 4) Override email from curated list
     try {
@@ -181,7 +217,7 @@ module.exports = async function (req, res) {
         if (byName === null) email = null;
       }
     } catch (e) {
-      console.warn("emails.json load failed:", e.message);
+      console.warn("MP lookup: curated email refresh failed");
     }
 
     // 5) Contact page URL
@@ -199,7 +235,7 @@ module.exports = async function (req, res) {
       contact_url,
     });
   } catch (e) {
-    console.error("mp handler error:", e);
-    return send(res, 500, { error: e.message || "server error" });
+    console.error("MP lookup: handler error");
+    return send(res, 500, { error: "server error" });
   }
 };
